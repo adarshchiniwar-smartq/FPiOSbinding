@@ -69,6 +69,7 @@ namespace FPiOSBindingLib {
     // For more information, see https://aka.ms/ios-binding
     //
     [BaseType(typeof(NSObject))]
+    //
     interface DotnetNewBinding
     {
         // -(void)onLaneOpenedWithDevice:(id<iFCCCardReaderDevice> _Nonnull)device;
