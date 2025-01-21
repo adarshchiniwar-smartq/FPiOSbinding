@@ -1,0 +1,2617 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target arm64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FPPOICore
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import CommonCrypto
+import FPLoggerKit
+@_exported import FPPOICore
+import Foundation
+import Network
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public struct MsrTrackDataFormatter {
+  public static func parseRawTrack1(_ input: Swift.String) -> Swift.String?
+  public static func parseRawTrack2(_ input: Swift.String) -> Swift.String?
+  public static func parseAsciiTrack1(_ track1: Swift.String) throws -> FPPOICore.TrackData
+  public static func parseAsciiTrack2(_ track2: Swift.String) throws -> FPPOICore.TrackData
+  public static func parseAsciiTrack2Body(_ track2: Swift.String) throws -> FPPOICore.TrackData
+  public static func parseHexTrackData(_ input: Swift.String) -> Swift.String?
+}
+@_hasMissingDesignatedInitializers final public class StringUtil {
+  public static let LINE_SEPARATOR: Swift.String
+  public static func repeatChar(b: Swift.Character, size: Swift.Int) -> Swift.String
+  public static func leftPad(str: Swift.String, size: Swift.Int, padChar: Swift.Character) -> Swift.String
+  public static func takeLast(str: Swift.String, amount: Swift.Int) throws -> Swift.String
+  public static func join(list: [any Swift.CustomStringConvertible]) -> Swift.String
+  public static func join(list: [any Swift.CustomStringConvertible], delimiter: Swift.Character?) -> Swift.String
+  public static func isNullOrEmpty(_ str: Swift.String?) -> Swift.Bool
+  public static func isNullOrWhiteSpace(_ str: Swift.String?) -> Swift.Bool
+  public static func isNullOrWhiteSpace(_ str: Swift.Substring?) -> Swift.Bool
+  @objc deinit
+}
+public protocol AidSelectionDelegate : AnyObject {
+  func getAidSelection(aidList: [FPPOICore.Aid]) -> FPPOICore.Aid?
+}
+public class BufferedEventListener : FPPOICore.PoiEventListener {
+  public init()
+  public func removeEventListener()
+  public func setEventListener(listener: (any FPPOICore.PoiEventListener)?, clearPending: Swift.Bool)
+  public func onEvent(_ event: FPPOICore.PoiEvent)
+  @objc deinit
+}
+open class Aid : Swift.CustomStringConvertible, Swift.Equatable {
+  final public let aid: Swift.String
+  final public let applicationLabel: Swift.String?
+  public init(aid: Swift.String, applicationLabel: Swift.String? = nil)
+  public var description: Swift.String {
+    get
+  }
+  public static func == (lhs: FPPOICore.Aid, rhs: FPPOICore.Aid) -> Swift.Bool
+  @objc deinit
+}
+public protocol MacCalculator {
+  func getTransactionRequestMacBlock(bb: FPPOICore.InteracData) throws -> [Swift.UInt8]
+  func getTransactionResponseMacBlock(bb: FPPOICore.InteracData) throws -> [Swift.UInt8]
+  func getKeyLoadResponseMacBlock(bb: FPPOICore.InteracData) throws -> [Swift.UInt8]
+}
+public enum Placement : Swift.String, Swift.CustomStringConvertible {
+  case right
+  case left
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol CurrencyFormat {
+  var groupSeparator: Swift.String { get }
+  var decimalSeparator: Swift.String { get }
+  var placement: FPPOICore.Placement { get }
+  var hasSpaceBetween: Swift.Bool { get }
+  var groupingSize: Swift.Int { get }
+}
+public protocol CurrencyInfo {
+  var isoCode: Swift.String { get }
+  var asciiSymbol: Swift.String { get }
+  var utf8Symbol: Swift.String { get }
+  var afterDecimalDigits: Swift.Int { get }
+}
+public protocol CurrencySetting : FPPOICore.CurrencyFormat, FPPOICore.CurrencyInfo, Swift.CustomStringConvertible {
+}
+extension FPPOICore.CurrencySetting {
+  public var description: Swift.String {
+    get
+  }
+}
+final public class PromptForTipRequest : FPPOICore.PoiLabelModifier {
+  final public let tip1: Swift.Int
+  final public let tip2: Swift.Int
+  final public let tip3: Swift.Int
+  final public let baseAmount: Foundation.Decimal
+  public init(tip1: Swift.Int, tip2: Swift.Int, tip3: Swift.Int, baseAmount: Foundation.Decimal, labels: FPPOICore.PoiLabelCollection? = nil)
+  final public func setLabels(labels: FPPOICore.PoiLabelCollection?)
+  final public func getLabels() -> FPPOICore.PoiLabelCollection?
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ChaseControlData : FPPOICore.ControlData {
+  public var pnsMidTid: Swift.String?
+  public var keyIndex: Swift.String?
+  public var hostTransRefNum: Swift.String?
+  public var traceNumber: Swift.String?
+  public var newKeysNeeded: Swift.Bool
+  public static func parse(s: Swift.String) -> FPPOICore.ChaseControlData
+  public static func createKeyReqControlData(deviceSerialNumber: Swift.String) -> Swift.String
+  public static func createTransReqControlData(keyIndex: Swift.String, deviceSerialNumber: Swift.String) -> Swift.String
+  @objc deinit
+}
+public struct PoiConstants {
+  public static let FAILED_SWIPE_ATTEMPTS_BEFORE_FALLBACK: Swift.Int
+  public static let FAILED_CHIP_ATTEMPTS_BEFORE_FALLBACK: Swift.Int
+  public static let ENTRY_MODE_MSR: Swift.String
+  public static let ENTRY_MODE_MANUAL: Swift.String
+  public static let ENTRY_MODE_EMV_CONTACT: Swift.String
+  public static let ENTRY_MODE_EMV_CLESS: Swift.String
+  public static let ENTRY_MODE_RFID: Swift.String
+}
+public enum ContactlessPriorityFlag : Swift.CustomStringConvertible {
+  case DEFAULT
+  case PREFER_DEBIT
+  case PREFER_CREDIT
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: FPPOICore.ContactlessPriorityFlag, b: FPPOICore.ContactlessPriorityFlag) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class MessageQueue {
+  @objc deinit
+}
+public enum FormFactor : Swift.CustomStringConvertible {
+  case UNKNOWN
+  case CARD
+  case DEVICE
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: FPPOICore.FormFactor, b: FPPOICore.FormFactor) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol ControlData {
+  var traceNumber: Swift.String? { get }
+  var newKeysNeeded: Swift.Bool { get }
+}
+public class EmvContactData {
+  final public let terminalAidConfigs: [FPPOICore.TerminalBaseConfig]
+  final public let terminalCpaKeyConfigs: [FPPOICore.TerminalBaseConfig]
+  final public let terminalGeneralConfig: FPPOICore.TerminalBaseConfig
+  public init(terminalAidConfigs: [FPPOICore.TerminalBaseConfig], terminalCpaKeyConfigs: [FPPOICore.TerminalBaseConfig], terminalGeneralConfig: FPPOICore.TerminalBaseConfig)
+  @objc deinit
+}
+open class PoiLabelCollection {
+  public static let empty: FPPOICore.PoiLabelCollection
+  public init(map: [Swift.String : FPPOICore.PoiLabel])
+  public static func fromMap(labelMap: [Swift.String : Swift.String]) -> FPPOICore.PoiLabelCollection
+  public static func fromTuples(tuples: [(Swift.String, Swift.String?)]) -> FPPOICore.PoiLabelCollection
+  public static func fromValues(labels: FPPOICore.PoiLabel...) -> FPPOICore.PoiLabelCollection
+  public func get(_ key: Swift.String) -> FPPOICore.PoiLabel?
+  public func getAll() -> [FPPOICore.PoiLabel]
+  public var isEmpty: Swift.Bool {
+    get
+  }
+  @objc deinit
+}
+public enum PoiEventType : Swift.Int, Swift.CustomStringConvertible {
+  case informational
+  case fileProgress
+  case paymentStart
+  case authorize
+  case followUp
+  case requestComplete
+  case requestFailed
+  case display
+  case keyExchange
+  case lookupDCCRates
+  case fileWriteComplete
+  case readConfigComplete
+  case setConfigComplete
+  case deviceInfoComplete
+  case deviceFilesInfo
+  case resetEmvConfigsComplete
+  case unknown
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension Foundation.Decimal {
+  public static let one: Foundation.Decimal
+  public func multiply(_ by: Foundation.Decimal, roundingMode: Foundation.Decimal.RoundingMode = .plain) -> Foundation.Decimal
+  public func setScale(_ scale: Swift.Int, roundingMode: Foundation.Decimal.RoundingMode = .plain) -> Foundation.Decimal
+}
+public enum CardEncryptionMode : Swift.CustomStringConvertible {
+  case ONGUARD
+  case NONE
+  case UNKNOWN
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: FPPOICore.CardEncryptionMode, b: FPPOICore.CardEncryptionMode) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class KnownCurrencySymbol {
+  @objc deinit
+}
+public protocol BasicCardData {
+  var cardHolderName: Swift.String? { get }
+  var entryMode: Swift.String { get }
+  var msrType: Swift.String { get }
+  var bin: Swift.String? { get }
+  var maskedTrack1: Swift.String? { get }
+  var maskedTrack2: Swift.String? { get }
+  var cardType: FPPOICore.PoiCardType? { get }
+  var isEncrypted: Swift.Bool { get }
+  var rawCardData: (any FPPOICore.RawCardData)? { get }
+  var expiryDate: Swift.String? { get }
+  var isInterac: Swift.Bool { get }
+}
+public enum PoiCardType : Swift.String, Swift.CustomStringConvertible {
+  case CREDIT
+  case DEBIT
+  case GIFT_CARD
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol BluetoothDeviceProperties : FPPOICore.PoiDeviceProperties {
+  var deviceIdentifier: Swift.String { get }
+  var heartbeatDelayMillis: Swift.Int { get }
+}
+@_hasMissingDesignatedInitializers public class InformationalPoiEvent : FPPOICore.PoiEvent {
+  final public let message: Swift.String
+  public init(_ message: Swift.String)
+  override public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public struct KeyData : Swift.Equatable {
+  public var mac: Swift.String?
+  public var macKey: Swift.String?
+  public var pinKey: Swift.String?
+  public var fieldKey: Swift.String?
+  public init(mac: Swift.String?, macKey: Swift.String?, pinKey: Swift.String?, fieldKey: Swift.String?)
+  public static func == (a: FPPOICore.KeyData, b: FPPOICore.KeyData) -> Swift.Bool
+}
+public protocol DccRatesData {
+  var processorResponseCode: Swift.String { get }
+  var reasonCode: Swift.Int { get }
+  var isSupported: Swift.Bool { get }
+  var margin: Swift.String { get }
+  var rate: Swift.String { get }
+  var rateTimeStamp: Swift.String { get }
+  var foreignAmount: Swift.String { get }
+  var foreignCurrency: Swift.String { get }
+  var foreignCurrencyAlpha: Swift.String { get }
+  var foreignCurrencyScale: Swift.String { get }
+  var hostData: Swift.String { get }
+  var rateSource: Swift.String { get }
+  var rateLifeTime: Swift.String { get }
+  var promptData: FPPOICore.DccRatesPromptData? { get }
+}
+public struct FirstDataCanadaMacCalculator : FPPOICore.MacCalculator {
+  public func getTransactionRequestMacBlock(bb: FPPOICore.InteracData) throws -> [Swift.UInt8]
+  public func getTransactionResponseMacBlock(bb: FPPOICore.InteracData) throws -> [Swift.UInt8]
+  public func getKeyLoadResponseMacBlock(bb: FPPOICore.InteracData) throws -> [Swift.UInt8]
+}
+public class FirstDataControlData : FPPOICore.ControlData, Swift.Equatable {
+  public var traceNumber: Swift.String? {
+    get
+  }
+  public var newKeysNeeded: Swift.Bool {
+    get
+  }
+  public var keyCheck: Swift.String? {
+    get
+  }
+  public var tidSuffix: Swift.String? {
+    get
+  }
+  public init(traceNumber: Swift.String? = nil, newKeysNeeded: Swift.Bool = false, keyCheck: Swift.String? = nil, tidSuffix: Swift.String? = nil)
+  public static func == (lhs: FPPOICore.FirstDataControlData, rhs: FPPOICore.FirstDataControlData) -> Swift.Bool
+  public static func parse(_ s: Swift.String) -> FPPOICore.FirstDataControlData
+  public static func createKeyReqControlData(deviceSerialNumber: Swift.String) -> Swift.String
+  public static func createTransReqControlData(keyIndex: Swift.String, deviceSerialNumber: Swift.String) -> Swift.String
+  @objc deinit
+}
+extension Foundation.Date {
+  public var utc: Swift.String {
+    get
+  }
+  public var freewayDateFormat: Swift.String {
+    get
+  }
+  public func getSimpleTime(timeZone: Foundation.TimeZone? = TimeZone.current) -> Swift.String
+  public func getDateMonthDayYear(timeZone: Foundation.TimeZone? = TimeZone.current) -> Swift.String
+  public func getDateYearMonthDay(timeZone: Foundation.TimeZone? = TimeZone.current) -> Swift.String
+}
+extension Swift.Int {
+  public var hex: Swift.String {
+    get
+  }
+}
+public struct EmvConfigTag {
+  public static let publicKeyIndex: Swift.Int
+  public static let contactPublicKeySection: Swift.Int
+  public static let contactDefaultDDOL: Swift.Int
+  public static let contactDefaultTDOL: Swift.Int
+  public static let contactMaxTargetPercentage: Swift.Int
+  public static let contactTargetPercentage: Swift.Int
+  public static let contactTACDefault: Swift.Int
+  public static let contactTACDenial: Swift.Int
+  public static let contactTACOnline: Swift.Int
+  public static let contactThresholdValue: Swift.Int
+  public static let contactApplicationSelectionIndicator: Swift.Int
+  public static let contactApplicationName: Swift.Int
+  public static let contactPublicKeyChecksum: Swift.Int
+  public static let contactPublicKeyExponent: Swift.Int
+  public static let contactPublicKeyValue: Swift.Int
+  public static let separator: Swift.Int
+  public static let terminalSettingsSuperSection: Swift.Int
+  public static let terminalSettingsSubSection: Swift.Int
+  public static let mainSection: Swift.Int
+  public static let aidSection: Swift.Int
+  public static let publicKeySection: Swift.Int
+  public static let internalSection: Swift.Int
+  public static let terminalSettingsSection: Swift.Int
+  public static let terminalCapabilitiesSection: Swift.Int
+  public static let additionalContactlessSection: Swift.Int
+  public static let asciiCountrySection: Swift.Int
+  public static let applicationIdentifier: Swift.Int
+  public static let emvApplicationVersion: Swift.Int
+  public static let terminalFloorLimit: Swift.Int
+  public static let terminalRiskManagementData: Swift.Int
+  public static let terminalCapabilities: Swift.Int
+  public static let transactionCategoryCode: Swift.Int
+  public static let terminalTransactionQualifier: Swift.Int
+  public static let clessUniqueCapabilities: Swift.Int
+  public static let amexEnhancedTerminalCapabilities: Swift.Int
+  public static let schemeLabel: Swift.Int
+  public static let disableCVN17: Swift.Int
+  public static let doNotModify: Swift.Int
+  public static let avnForExpressPay: Swift.Int
+  public static let supportedLanguages: Swift.Int
+  public static let defaultUDOLInPayPass: Swift.Int
+  public static let mStripeProfileAllowed: Swift.Int
+  public static let payPassTerminalCapabilitiesCVM: Swift.Int
+  public static let payPassTerminalCapabilitiesNoCVM: Swift.Int
+  public static let mStripeTerminalAVNList: Swift.Int
+  public static let mChipTerminalAVNList: Swift.Int
+  public static let mStripeDoNotForceMagStripe: Swift.Int
+  public static let clessLimitForCards: Swift.Int
+  public static let clessLimitForMobileDevices: Swift.Int
+  public static let kernelConfiguration: Swift.Int
+  public static let inputCapability: Swift.Int
+  public static let securityCapability: Swift.Int
+  public static let mChipTerminalCapabilitiesCVM: Swift.Int
+  public static let mChipTerminalCapabilitiesNoCVM: Swift.Int
+  public static let magStripeTerminalCapabilitiesCVM: Swift.Int
+  public static let magStripeTerminalCapabilitiesNoCVM: Swift.Int
+  public static let defaultHoldTime: Swift.Int
+  public static let timeOutValue: Swift.Int
+  public static let maxNumberTornTxnLogRecords: Swift.Int
+  public static let maxLifetimeTornTxnLogRecords: Swift.Int
+  public static let holdTimeValue: Swift.Int
+  public static let clessDefaultTDOL: Swift.Int
+  public static let clessTacDefault: Swift.Int
+  public static let clessTacDenial: Swift.Int
+  public static let clessTacOnline: Swift.Int
+  public static let ppseOptions: Swift.Int
+  public static let clessKernel: Swift.Int
+  public static let clessTransactionLimit: Swift.Int
+  public static let clessCvmRequiredLimit: Swift.Int
+  public static let clessFloorLimit: Swift.Int
+  public static let supportedCAPKLimit: Swift.Int
+  public static let merchantforceOnline: Swift.Int
+  public static let expressPayUnpredictableNumber: Swift.Int
+  public static let onlineEMVRemovalTimeout: Swift.Int
+  public static let null: Swift.Int
+  public static let clessPublicKeyIndex: Swift.Int
+  public static let clessPublicKeyChecksum: Swift.Int
+  public static let clessPublicKeyExponent: Swift.Int
+  public static let clessPublicKeyValue: Swift.Int
+  public static let terminalCurrencyCode: Swift.Int
+  public static let terminalExponent: Swift.Int
+  public static let acquirerIdentifier: Swift.Int
+  public static let merchantCategoryCode: Swift.Int
+  public static let merchantIdentifier: Swift.Int
+  public static let terminalCountryCode: Swift.Int
+  public static let terminalIdentification: Swift.Int
+  public static let terminalType: Swift.Int
+  public static let posEntryMode: Swift.Int
+  public static let additionalTerminalCapabilities: Swift.Int
+  public static let merchantNameAndLocation: Swift.Int
+  public static let contactlessNoCardTimeout: Swift.Int
+  public static let contactlessDetectionTimeout: Swift.Int
+  public static let contactlessDetectionGlobalTimeout: Swift.Int
+  public static let contactlessNumberOfCardsToDetect: Swift.Int
+  public static let supportFDDAVersions: Swift.Int
+  public static let defaultDrlEntry: Swift.Int
+  public static let specificDrlSets: Swift.Int
+  public static let singleDrlSet: Swift.Int
+}
+public struct ChipTagDeserializer {
+  public static func deserializeTags(base64EncodedTags: Swift.String) throws -> [FPPOICore.ChipTag]
+  public static func deserializeEmvTlvTags(emvTlvData: Swift.String) throws -> [FPPOICore.ChipTag]
+}
+@_hasMissingDesignatedInitializers open class PoiEvent : Swift.CustomStringConvertible {
+  public var poiEventType: FPPOICore.PoiEventType {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public struct Pair {
+  public init(_ key: Swift.Int, _ value: Swift.Int)
+}
+public class InteracData {
+  public var keyData: FPPOICore.KeyData?
+  public var hostControlData: Swift.String?
+  public var hostControlDataResponse: Swift.String?
+  public var approvalCode: Swift.String?
+  public var approvedAmount: Foundation.Decimal
+  public var keysChanged: Swift.Bool
+  public var newKeysPending: Swift.Bool
+  public var finalPaymentAmount: Foundation.Decimal?
+  public var interacSequenceNumber: Swift.String?
+  public var interacMode: Swift.Bool
+  public var encryptedPan: [Swift.UInt8]?
+  public var panLength: Swift.Int
+  public var paymentMode: FPPOICore.PaymentTransactionType
+  public var cashBackTransaction: Swift.Bool
+  public var accountType: FPPOICore.AccountType
+  public var macBlock: Swift.String
+  public var verifiedResponse: Swift.Bool
+  public var controlData: (any FPPOICore.ControlData)?
+  public var authorizationStatus: FPPOICore.AuthorizationStatus?
+  public init(hostControlData: Swift.String? = nil, keyData: FPPOICore.KeyData? = nil)
+  public init(keyData: FPPOICore.KeyData? = nil, hostControlData: Swift.String? = nil, hostControlDataResponse: Swift.String? = nil, approvalCode: Swift.String? = nil, approvedAmount: Foundation.Decimal = 0.0, keysChanged: Swift.Bool = false, newKeysPending: Swift.Bool = false, finalPaymentAmount: Foundation.Decimal? = 0.0, interacSequenceNumber: Swift.String? = nil, interacMode: Swift.Bool = false, encryptedPan: [Swift.UInt8]? = nil, panLength: Swift.Int = -1, paymentMode: FPPOICore.PaymentTransactionType = .UNDEFINED, cashBackTransaction: Swift.Bool = false, accountType: FPPOICore.AccountType = .UNSPECIFIED, macBlock: Swift.String = "", verifiedResponse: Swift.Bool = false, controlData: (any FPPOICore.ControlData)? = nil, authorizationStatus: FPPOICore.AuthorizationStatus? = nil)
+  @objc deinit
+}
+public protocol PinData {
+  var pinBlock: Swift.String { get }
+  var pinKsn: Swift.String { get }
+}
+public enum FallbackMode : Swift.CustomStringConvertible {
+  case NoFallback
+  case BrandNotPresent
+  case Technical
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: FPPOICore.FallbackMode, b: FPPOICore.FallbackMode) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class FormsResponseMessage : Swift.CustomStringConvertible {
+  final public let success: Swift.Bool
+  final public let selectedButtons: [Swift.Character]?
+  final public let input: Swift.String?
+  public init(_ success: Swift.Bool, selectedButtons: [Swift.Character]? = nil, input: Swift.String? = nil)
+  public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public enum FormButtonType {
+  case STANDARD
+  case CHECKBOX
+  case RADIO
+  case NONE
+  public static func == (a: FPPOICore.FormButtonType, b: FPPOICore.FormButtonType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class ChipTagDebugger {
+  public static func getDebugString(tagMap: [Swift.Int : FPPOICore.ChipTag]?) throws -> Swift.String
+  public static func getDebugString(tagMap: [Swift.Int : FPPOICore.ChipTag]?, blacklist: [Swift.Int]?) throws -> Swift.String
+  @objc deinit
+}
+public protocol RawCardData {
+  var data: [Swift.UInt8]? { get }
+  var vasData: [FPPOICore.VasData]? { get }
+  var track1Data: Swift.String? { get }
+  var track2Data: Swift.String? { get }
+  var encryptionMode: FPPOICore.CardEncryptionMode { get }
+  var rawCardType: FPPOICore.RawCardType { get }
+  var cardHolderName: Swift.String? { get }
+  var expirationDate: Swift.String? { get }
+  var bin: Swift.String? { get }
+  var panLastFour: Swift.String? { get }
+  var entryMode: Swift.String { get }
+}
+extension FPPOICore.RawCardData {
+  public func getDataString() -> Swift.String?
+}
+public enum RawCardType : Swift.CustomStringConvertible {
+  case CARD
+  case VAS
+  case BOTH_CARD_AND_VAS
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: FPPOICore.RawCardType, b: FPPOICore.RawCardType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct FileWriteResponse {
+  public let filename: Swift.String
+  public let firmware: Swift.Bool
+  public init(filename: Swift.String, firmware: Swift.Bool)
+}
+public struct RangeUtil {
+  public static func validateValueInRange<T>(_ value: T, min: T? = nil, max: T? = nil) -> T where T : Swift.Comparable
+}
+public struct DccRatesPromptData : Swift.Equatable {
+  public let merchantLocalCurrencyAlpha: Swift.String
+  public let merchantLocalCurrencyCode: Swift.String
+  public let paragraph1: Swift.String
+  public let paragraph2: Swift.String
+  public init(merchantLocalCurrencyAlpha: Swift.String, merchantLocalCurrencyCode: Swift.String, paragraph1: Swift.String, paragraph2: Swift.String)
+  public static func == (a: FPPOICore.DccRatesPromptData, b: FPPOICore.DccRatesPromptData) -> Swift.Bool
+}
+public struct ImmutableByteBuffer {
+  public static func create(str: Swift.String, encoding: Swift.String.Encoding) -> FPPOICore.ImmutableByteBuffer
+  public static func create(str: Swift.String) -> FPPOICore.ImmutableByteBuffer
+  public static func create(bytes: [Swift.UInt8]) -> FPPOICore.ImmutableByteBuffer
+  public static func create(bytes: [Swift.UInt8], start: Swift.Int, len: Swift.Int) throws -> FPPOICore.ImmutableByteBuffer
+  public static func arraycopy(src: FPPOICore.ImmutableByteBuffer, srcPos: Swift.Int, dest: inout [Swift.UInt8], destPos: Swift.Int, length: Swift.Int) throws
+  public func parseAsciiInt(start: Swift.Int, length: Swift.Int) throws -> Swift.Int
+  public func parseAsciiHexInt(start: Swift.Int, length: Swift.Int) throws -> Swift.Int
+  public func indexOf(b: Swift.UInt8) -> Swift.Int
+  public func parseAsString(encoding: Swift.String.Encoding) throws -> Swift.String
+  public func parseAsString(start: Swift.Int, length: Swift.Int, encoding: Swift.String.Encoding) throws -> Swift.String
+  public func toArray() -> [Swift.UInt8]
+  public func size() -> Swift.Int
+  public func get(_ position: Swift.Int) throws -> Swift.UInt8
+  public func equalsBytes(other: [Swift.UInt8]) -> Swift.Bool
+  public func equals(buffer: FPPOICore.ImmutableByteBuffer) -> Swift.Bool
+  public func equals(other: Any) -> Swift.Bool
+  public func slice(start: Swift.Int) throws -> FPPOICore.ImmutableByteBuffer
+  public func slice(start: Swift.Int, len: Swift.Int) throws -> FPPOICore.ImmutableByteBuffer
+  public func sliceUntil(start: Swift.Int, b: Swift.UInt8) throws -> FPPOICore.ImmutableByteBuffer
+  public func sliceUntilOrRest(start: Swift.Int, b: Swift.UInt8) throws -> FPPOICore.ImmutableByteBuffer
+  public func toString(encoding: Swift.String.Encoding = .utf8) -> Swift.String
+}
+public enum PoiDeviceProgressMessage : Swift.CustomStringConvertible {
+  case WAITING_FOR_CARD
+  case SWIPE_DETECTED
+  case DEBIT_CREDIT_SELECTION
+  case CARD_INSERT_DETECTED
+  case TAP_DETECTED
+  case CARD_SHOULD_BE_REMOVED
+  case CHIP_CARD_REINSERT_REQUIRED
+  case SWIPE_MAG_CARD
+  case SWIPE_ERROR_TRY_AGAIN
+  case BAD_CONTACTLESS_READ
+  case SWIPE_ERROR_BAD_SWIPE_THRESHOLD_EXCEEDED
+  case INVALID_PIN
+  case CHIP_CARD_MUST_BE_INSERTED
+  case CONTACTLESS_APPLICATION_BLOCKED_PLEASE_INSERT
+  case CONTACTLESS_APPLICATION_BLOCKED
+  case CARD_REMOVED
+  case SERVER_COMMUNICATION_STARTED
+  case SERVER_COMMUNICATION_ENDED
+  case APPROVED
+  case DECLINED
+  case CANCELLED
+  case APPROVED_REMOVE_CARD
+  case DECLINED_REMOVE_CARD
+  case CANCELLED_REMOVE_CARD
+  case POS_DISPLAY
+  case WAITING_FOR_PIN_ENTRY
+  case PIN_ENTRY_COMPLETED
+  case SEE_PHONE_WAITING_FOR_CARD
+  case ENTER_TIP_AMOUNT
+  case MULTIPLECONTACTLESSCARDSDETECTED
+  case IDLE
+  public static func fromFailureErrorCode(errorCode: FPPOICore.ErrorCode) -> FPPOICore.PoiDeviceProgressMessage
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: FPPOICore.PoiDeviceProgressMessage, b: FPPOICore.PoiDeviceProgressMessage) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class FileWritePoiEvent : FPPOICore.PoiEvent {
+  final public let filename: Swift.String
+  final public let percentDone: Swift.Double
+  final public let message: Swift.String?
+  public init(filename: Swift.String, percentDone: Swift.Double, message: Swift.String? = nil)
+  override public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public protocol UsbDeviceDelegate : AnyObject {
+  func onDeviceConnected(device: any FPPOICore.PoiDevice)
+  func onDeviceFailure(deviceName: Swift.String, errorMessage: Swift.String)
+  func onDeviceReady()
+}
+final public class SessionKeyManager {
+  public enum Status : Swift.CustomStringConvertible {
+    case INACTIVE
+    case WAITING_FOR_MAC_KEY_LOAD
+    case WAITING_FOR_MAC_VERIFY
+    case WAITING_FOR_PIN_KEY_LOAD
+    case WAITING_FOR_FIELD_KEY_LOAD
+    case WAITING_FOR_MAC_CALC_FOR_PERSIST
+    case WAITING_FOR_MAC_CALC_FOR_PERSIST_TRANS_RESPONSE
+    case WAITING_FOR_MAC_KEY_LOAD_TRANS_RESPONSE
+    case WAITING_FOR_FIELD_KEY_LOAD_TRANS_RESPONSE
+    case WAITING_FOR_PIN_KEY_LOAD_TRANS_RESPONSE
+    case WAITING_FOR_TRANS_RESPONSE_MAC_VERIFY
+    case WAITING_FOR_MAC_CURRENT_KEY_LOAD
+    case WAITING_FOR_PIN_CURRENT_KEY_LOAD
+    case WAITING_FOR_FIELD_CURRENT_KEY_LOAD
+    public var description: Swift.String {
+      get
+    }
+    public static func == (a: FPPOICore.SessionKeyManager.Status, b: FPPOICore.SessionKeyManager.Status) -> Swift.Bool
+    public func hash(into hasher: inout Swift.Hasher)
+    public var hashValue: Swift.Int {
+      get
+    }
+  }
+  public init(localStorageHelper: FPPOICore.LocalStorageHelper, hostSupport: any FPPOICore.HostSupport, deviceId: Swift.String, logger: any FPLoggerKit.Logger)
+  final public func setSessionKeyEventCallbacks(_ callbacks: any FPPOICore.SessionKeyDelegate)
+  final public func deviceInitialized() throws
+  final public func areKeysNeeded() -> Swift.Bool
+  final public func loadKeys(keyData: FPPOICore.HostResponseData?) throws
+  final public func clearKeys()
+  final public func continueLoadKeys(mac: Swift.String?) throws
+  final public func verifyTransactionResponseMac(hrd: FPPOICore.HostResponseData, bb: FPPOICore.InteracData) throws
+  @objc deinit
+}
+public enum PoiDeviceState {
+  case open
+  case closed
+  case busy
+  public static func == (a: FPPOICore.PoiDeviceState, b: FPPOICore.PoiDeviceState) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct CurrencyFormatter {
+  public static func formatAmount(amount: Foundation.NSDecimalNumber, currency: any FPPOICore.CurrencySetting, useUtf8Encoding: Swift.Bool) -> Swift.String?
+  public static func formatDecimalAmount(amount: Foundation.Decimal?, currencySetting: any FPPOICore.CurrencySetting, useUtf8Encoding: Swift.Bool) -> Swift.String?
+}
+@objc public class ByteArrayInputStream : Foundation.InputStream {
+  convenience public init(string: Swift.String)
+  @objc convenience override dynamic public init(data: Foundation.Data)
+  public init(bytes: [Swift.UInt8])
+  @objc override dynamic public func read(_ buffer: Swift.UnsafeMutablePointer<Swift.UInt8>, maxLength len: Swift.Int) -> Swift.Int
+  @objc override dynamic public func getBuffer(_ buffer: Swift.UnsafeMutablePointer<Swift.UnsafeMutablePointer<Swift.UInt8>?>, length len: Swift.UnsafeMutablePointer<Swift.Int>) -> Swift.Bool
+  @objc override dynamic public var hasBytesAvailable: Swift.Bool {
+    @objc get
+  }
+  @objc deinit
+}
+extension FPPOICore.ByteArrayInputStream : FPPOICore.ByteInputStream {
+  public var bytesRead: Swift.Int {
+    get
+  }
+  public var hasMore: Swift.Bool {
+    get
+  }
+  public func readBlock(_ blockSize: Swift.Int) -> [Swift.UInt8]
+  public func readByte() -> Swift.UInt8?
+}
+public struct EmvClessDataUtil {
+  public static func buildForUK(terminalAidConfigs: [FPPOICore.TerminalBaseConfig], terminalCpaKeyConfigs: [FPPOICore.TerminalBaseConfig], terminalGeneralConfig: FPPOICore.TerminalBaseConfig) throws -> FPPOICore.EmvUkClessData
+  public static func build(terminalAidConfigs: [FPPOICore.TerminalBaseConfig], terminalCpaKeyConfigs: [FPPOICore.TerminalBaseConfig], terminalGeneralConfig: FPPOICore.TerminalBaseConfig) throws -> FPPOICore.EmvClessData
+}
+public struct DccSelectionData {
+  public let status: FPPOICore.DccSelectionStatus?
+  public let rates: (any FPPOICore.DccRatesData)?
+  public init(status: FPPOICore.DccSelectionStatus?, rates: (any FPPOICore.DccRatesData)?)
+  public func addToPaymentDataIfNeeded(paymentData: inout FPPOICore.PaymentData)
+  public var userOptedIn: Swift.Bool {
+    get
+  }
+}
+extension FPPOICore.DccSelectionData : Swift.Equatable {
+  public static func == (lhs: FPPOICore.DccSelectionData, rhs: FPPOICore.DccSelectionData) -> Swift.Bool
+}
+public enum DccSelectionStatus : Swift.Equatable {
+  case DECLINED
+  case NOT_ELIGIBLE
+  case ACCEPTED
+  case CANCELLED
+  case ERROR
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: FPPOICore.DccSelectionStatus, b: FPPOICore.DccSelectionStatus) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class IpHelper {
+  public static func connectToDevice(host: Swift.String, port: Swift.UInt32) -> FPPOICore.IpChannel?
+  public static func checkConnection(host: Swift.String, port: Swift.UInt16, completion: @escaping (Swift.Bool, (any Swift.Error)?) -> ()) throws
+  @objc deinit
+}
+public protocol PoiDeviceProperties {
+  var name: Swift.String { get }
+  var connectionType: FPPOICore.PoiDeviceConnectionType { get }
+  var driverName: Swift.String { get }
+  var driverVersion: Swift.String { get }
+  var firmwareVersion: Swift.String { get }
+  var manufacturerName: Swift.String { get }
+  var productName: Swift.String { get }
+  var serialNumber: Swift.String { get }
+  var serialNumber2: Swift.String { get }
+  func getDefaultLabel(labelIndex: Swift.Int) -> Swift.String?
+  var extraDeviceData: (any FPPOICore.PoiDeviceData)? { get }
+  var additionalConfigurations: [FPPOICore.Configuration]? { get }
+  var profileId: Swift.String? { get }
+}
+public protocol PoiEventListener : AnyObject {
+  func onEvent(_ event: FPPOICore.PoiEvent)
+}
+@objc public class EmvClessXmlParser : ObjectiveC.NSObject {
+  public init(xmlData: Foundation.Data, logger: any FPLoggerKit.Logger)
+  @objc deinit
+}
+extension FPPOICore.EmvClessXmlParser {
+  public func loadAndParseXml(withSuccess successBlock: @escaping FPPOICore.SuccessBlock, failureBlock: @escaping FPPOICore.FailureBlock)
+}
+extension FPPOICore.EmvClessXmlParser : Foundation.XMLParserDelegate {
+  @objc dynamic public func parserDidStartDocument(_ parser: Foundation.XMLParser)
+  @objc dynamic public func parserDidEndDocument(_ parser: Foundation.XMLParser)
+  @objc dynamic public func parser(_ parser: Foundation.XMLParser, didStartElement elementName: Swift.String, namespaceURI: Swift.String?, qualifiedName qName: Swift.String?, attributes attributeDict: [Swift.String : Swift.String] = [:])
+  @objc dynamic public func parser(_ parser: Foundation.XMLParser, didEndElement elementName: Swift.String, namespaceURI: Swift.String?, qualifiedName qName: Swift.String?)
+  @objc dynamic public func parser(_ parser: Foundation.XMLParser, foundCharacters string: Swift.String)
+  @objc dynamic public func parser(_ parser: Foundation.XMLParser, parseErrorOccurred parseError: any Swift.Error)
+}
+public protocol AidSelectionDriver {
+  func registerAidSelectionDelegate(_ delegate: any FPPOICore.AidSelectionDelegate)
+}
+final public class ByteScanner {
+  public init(buffer: FPPOICore.ImmutableByteBuffer, encoding: Swift.String.Encoding)
+  final public func hasReadAll() -> Swift.Bool
+  final public func skipBytes(length: Swift.Int)
+  final public func readString(length: Swift.Int) throws -> Swift.String
+  final public func readRestAsString() throws -> Swift.String
+  final public func readUntilByte(_ b: Swift.UInt8) throws -> FPPOICore.ImmutableByteBuffer
+  final public func readUntilByteOrRest(_ b: Swift.UInt8) throws -> FPPOICore.ImmutableByteBuffer
+  final public func readRestAsBuffer() throws -> FPPOICore.ImmutableByteBuffer
+  final public func readByte() throws -> Swift.UInt8
+  final public func readBytes(len: Swift.Int) throws -> FPPOICore.ImmutableByteBuffer
+  final public func readShort(length: Swift.Int) throws -> Swift.UInt16
+  final public func readInt(length: Swift.Int) throws -> Swift.Int
+  final public func reset()
+  @objc deinit
+}
+public class ChasePaymentechCanadaHostSupport : FPPOICore.HostSupport {
+  public init(deviceProperties: any FPPOICore.PoiDeviceProperties, localStorageHelper: FPPOICore.LocalStorageHelper, logger: any FPLoggerKit.Logger)
+  public func beforeKeyExchange(state: FPPOICore.InteracData)
+  public func beforeAuthorize(state: FPPOICore.InteracData) throws
+  public func afterBadAuthResponse(bb: FPPOICore.InteracData, result: FPPOICore.HostResponseData) throws -> FPPOICore.HostSupportAction
+  public func afterAuthorize(bb: FPPOICore.InteracData, result: FPPOICore.HostResponseData) throws -> FPPOICore.HostSupportAction
+  public func afterKeyLoad(state: FPPOICore.InteracData, result: FPPOICore.HostResponseData, keyExchange: Swift.Bool) throws
+  public func interacSequenceNumber() -> Swift.String?
+  public func isFollowupRequired(state: FPPOICore.InteracData) -> Swift.Bool
+  public func getMacCalculator() -> (any FPPOICore.MacCalculator)?
+  public func areKeysChanged(responseData: FPPOICore.HostResponseData) -> Swift.Bool
+  public func getMacTerminalId() -> Swift.String?
+  public func onBeforeMacCalculation(bb: FPPOICore.InteracData)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class PersistedKeyMacData {
+  final public let keyString: Swift.String
+  final public let macBlock: [Swift.UInt8]
+  @objc deinit
+}
+public protocol PoiDeviceDriver {
+  var stateMachine: FPPOICore.DeviceStateMachine { get }
+  var state: FPPOICore.PoiDeviceState { get }
+  func attachEventListener(listener: (any FPPOICore.PoiEventListener)?, clearPending: Swift.Bool)
+  func attachProgressListener(listener: (any FPPOICore.PoiDeviceProgressListener)?)
+  func removeEventListener()
+  func setDeviceDelegate(delegate: (any FPPOICore.PoiDeviceDelegate)?)
+  var underlyingDevice: any FPPOICore.PoiDevice { get }
+  func setLogger(logger: any FPLoggerKit.Logger)
+  func loadKeys(keyData: FPPOICore.HostResponseData?) throws
+  func setLocalFilesDirectory(filesDirectoryPath: Swift.String)
+  func setEmvConfigs(emvContact: Swift.String, emvCless: Swift.String) throws
+  func openLane(skipConfiguration: Swift.Bool)
+  func closeLane()
+  func rebootDevice()
+  func pollDevice(options: FPPOICore.PollDeviceOptions?)
+  func deviceRemoved()
+  func readDeviceInfo()
+  func cancel()
+  func cardRead(options: FPPOICore.CardReadOptions) throws
+  func beginPayment(options: FPPOICore.PaymentOptions) throws
+  func continuePayment(data: FPPOICore.ModifiedPaymentData) throws
+  func authorize(data: FPPOICore.HostResponseData) throws
+  func config(request: FPPOICore.ConfigWriteRequest) throws
+  func readConfig(request: FPPOICore.ConfigReadRequest) throws
+  func writeFile(fileWriteRequest: FPPOICore.FileWriteRequest) throws
+  func promptForTip(tipRequest: FPPOICore.PromptForTipRequest) throws
+  func promptDcc(dccRates: any FPPOICore.DccRatesData) throws
+  func displayForm(request: FPPOICore.FormDisplayRequest) throws
+  func lineDisplayRequest(request: FPPOICore.LineDisplayRequest) throws
+  func getPoiDeviceFiles(request: FPPOICore.PoiDeviceFilesRequest) throws
+  func updateFirmware(fileUrl: Swift.String) throws
+  func setEmvLocale(emvLocale: FPPOICore.EmvLocale)
+  func resetEmvConfigs(includeContact: Swift.Bool, includeCless: Swift.Bool) throws
+}
+extension FPPOICore.PoiDeviceDriver {
+  public var isOpen: Swift.Bool {
+    get
+  }
+  public func updateFirmware(fileUrl: Swift.String) throws
+  public func shutdown()
+  public func resetEmvConfigs(includeContact: Swift.Bool, includeCless: Swift.Bool) throws
+}
+@_hasMissingDesignatedInitializers public class PaymentStartedEvent : FPPOICore.PoiEvent {
+  final public let basicCardData: any FPPOICore.BasicCardData
+  public init(_ basicCardData: any FPPOICore.BasicCardData)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class CardDataCompletePoiEvent : FPPOICore.PoiEvent {
+  final public let rawCardData: any FPPOICore.RawCardData
+  public init(_ rawCardData: any FPPOICore.RawCardData)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class PaymentCompletePoiEvent : FPPOICore.PoiEvent {
+  final public let finalPaymentResult: FPPOICore.FinalPaymentResult
+  public init(_ finalPaymentResult: FPPOICore.FinalPaymentResult)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class FileWriteCompletePoiEvent : FPPOICore.PoiEvent {
+  final public let response: FPPOICore.FileWriteResponse
+  public init(response: FPPOICore.FileWriteResponse)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ReadConfigCompletePoiEvent : FPPOICore.PoiEvent {
+  final public let data: FPPOICore.ConfigReadResult
+  public init(_ data: FPPOICore.ConfigReadResult)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class SetConfigCompletePoiEvent : FPPOICore.PoiEvent {
+  final public let data: Swift.AnyObject?
+  public init(_ data: Swift.AnyObject?)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DirectMessageCompletePoiEvent : FPPOICore.PoiEvent {
+  final public let data: Swift.AnyObject
+  public init(_ data: Swift.AnyObject)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class TipCompletePoiEvent : FPPOICore.PoiEvent {
+  final public let tipAmount: Foundation.Decimal
+  public init(_ tipAmount: Foundation.Decimal)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DeviceInfoCompletePoiEvent : FPPOICore.PoiEvent {
+  public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class PollCompletePoiEvent : FPPOICore.PoiEvent {
+  final public let message: Swift.String
+  public init(_ message: Swift.String)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class PosFlowPoiEvent : FPPOICore.PoiEvent {
+  public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class BarcodeDataPoiEvent : FPPOICore.PoiEvent {
+  public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DeviceFilesInfoPoiEvent : FPPOICore.PoiEvent {
+  public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class SigCapCompletePoiEvent : FPPOICore.PoiEvent {
+  public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class DeviceFilesInfoCompletePoiEvent : FPPOICore.PoiEvent {
+  final public let data: FPPOICore.PoiDeviceFilesData
+  public init(data: FPPOICore.PoiDeviceFilesData)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ResetCompletePoiEvent : FPPOICore.PoiEvent {
+  final public let message: Swift.String
+  public init(_ message: Swift.String)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ResetEmvConfigCompletePoiEvent : FPPOICore.PoiEvent {
+  final public let contactXml: Swift.String?
+  final public let clessXml: Swift.String?
+  public init(contactXml: Swift.String?, clessXml: Swift.String?)
+  override public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public class EightBitEncodingStream {
+  final public let size: Swift.Int
+  public init(inStream: FPPOICore.ByteArrayInputStream, size: Swift.Int)
+  @objc deinit
+}
+extension FPPOICore.EightBitEncodingStream : FPPOICore.ByteInputStream {
+  public var bytesRead: Swift.Int {
+    get
+  }
+  public var hasMore: Swift.Bool {
+    get
+  }
+  public func readBlock(_ maxLength: Swift.Int = 1024) -> [Swift.UInt8]
+}
+public enum ErrorCode : Swift.Int, Swift.CaseIterable {
+  case OPERATION_TIMEOUT
+  case CHANNEL_BROKEN
+  case POS_FLOW_OVERRIDE
+  case LANE_ALREADY_OPENING
+  case POS_AID_SELECTION_NOT_SUPPORTED
+  case FILE_WRITE_ERROR
+  case INTERNAL_FAILURE
+  case INVALID_DATA
+  case ILLEGAL_STATE
+  case ILLEGAL_ARGUMENT
+  case AUTH_NOT_ALLOWED
+  case GENERIC_ERROR
+  case SIGNATURE_REQUEST
+  case LANE_TIMEOUT
+  case LIB_NO_RESPONSE
+  case NO_DEVICE_ATTACHED
+  case DEVICE_ERROR
+  case NETWORK_ERROR
+  case TOKEN_ERROR
+  case EMV_APPLICATION_BLOCKED
+  case CARD_BLOCKED
+  case CHIP_DECLINE
+  case BAD_CARD
+  case DEVICE_TIMEOUT
+  case BAD_REQUEST
+  case DRIVER_ERROR
+  case OFFLINE
+  case INVALID_PIN
+  case USER_CANCELLED
+  case CARD_REMOVED_PREMATURELY
+  case UNKNOWN_ERROR
+  case INTERNAL_ERROR
+  case ABORTED
+  case HOST_DECLINE
+  case VOICE_AUTH
+  case NOT_SUPPORTED
+  case DEVICE_BUSY
+  case BAD_MAC
+  case INTERNAL_CONNECTION_ERROR
+  case SOCKET_ERROR
+  case INVALID_DEVICE
+  public var id: Swift.Int {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public static func isCancellationErrorCode(_ code: FPPOICore.ErrorCode) -> Swift.Bool
+  public static func isRejectDecisionByDefault(_ code: FPPOICore.ErrorCode) -> Swift.Bool
+  public static func getDefaultDecision(code: FPPOICore.ErrorCode) -> Swift.String
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [FPPOICore.ErrorCode]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [FPPOICore.ErrorCode] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol PoiDeviceData {
+}
+public enum BluetoothDeviceConnectionStatus {
+  case CONNECTED
+  case FAILED
+  case ATTEMPTED
+  case INVALID
+  public static func == (a: FPPOICore.BluetoothDeviceConnectionStatus, b: FPPOICore.BluetoothDeviceConnectionStatus) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers public class EmvUkContactData : FPPOICore.EmvContactData {
+  override public init(terminalAidConfigs: [FPPOICore.TerminalBaseConfig], terminalCpaKeyConfigs: [FPPOICore.TerminalBaseConfig], terminalGeneralConfig: FPPOICore.TerminalBaseConfig)
+  @objc deinit
+}
+public class SimpleLocalStorage : FPPOICore.LocalStorage {
+  public init(filesDir: Swift.String)
+  public func getAllDeviceConfigSettings(device: Swift.String) throws -> [Swift.String : Swift.String]
+  public func getDeviceConfigSettings(device: Swift.String, settingKeys: [Swift.String]) throws -> [Swift.String : Swift.String]
+  public func storeDeviceConfigSettings(device: Swift.String, settings: [Swift.String : Swift.String]) throws
+  @objc deinit
+}
+extension Swift.String {
+  public func charAt(_ i: Swift.Int) -> Swift.Character
+  public func getBytes(encoding: Swift.String.Encoding) -> [Swift.UInt8]?
+  public func prefix(untilFirstOrEnd: Swift.Character) -> Swift.String
+  public func substring(start: Swift.Int, end: Swift.Int? = nil) throws -> Swift.Substring
+  public func split(regex: Swift.String) throws -> [Swift.String]
+  public func matches(_ regex: Foundation.NSRegularExpression) -> Swift.Bool
+  public var checksum: Swift.UInt8 {
+    get
+  }
+  public func replaceFirst(pattern: Swift.String, replacement: Swift.String) throws -> Swift.String
+  public func replaceFirst(of string: Swift.String, with replacement: Swift.String) -> Swift.String
+  public func removeSuffix(_ ch: Swift.Character) -> Swift.String
+  public var sanitized: Swift.String {
+    get
+  }
+  public var hex: Swift.String {
+    get
+  }
+}
+extension Swift.String {
+  public func leftPad(_ character: Swift.Character, toWidth minWidth: Swift.Int) -> Swift.String
+  public var formattedXml: Swift.String {
+    get
+  }
+}
+public enum GiftCardTransactionType {
+  case UNKNOWN
+  case ACTIVATE
+  case DEACTIVATE
+  case INQUIRY
+  case CASHOUT
+  public static func == (a: FPPOICore.GiftCardTransactionType, b: FPPOICore.GiftCardTransactionType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class EmvConfigHelper {
+  public static func getProprietaryAppIdExtensionFromAid(_ applicationId: Swift.String) throws -> Swift.String
+  public static func getRegisteredAppProviderIdFromAid(_ applicationId: Swift.String) throws -> Swift.String
+  public static func validateTerminalAidConfigKeys(_ terminalAidConfigs: [FPPOICore.TerminalBaseConfig], keysRequired: [Swift.Int], keysOptional: Swift.Set<Swift.Int>?) throws
+  public static func validateCpaKeyConfigKeys(_ terminalCpaKeyConfigs: [FPPOICore.TerminalBaseConfig], keysRequired: [Swift.Int]) throws
+  public static func validateGeneralConfigKeys(_ generalConfig: FPPOICore.TerminalBaseConfig?, requiredKeys: [Swift.Int]) throws
+  public static func formatKeyForOutputMessage(key: Swift.Int) -> Swift.String
+  public static func formTagLengthValueString(tag: Swift.Int, value: Swift.String?) -> Swift.String
+  public static func allCharactersSame(_ s: Swift.String) -> Swift.Bool
+  public static func sanitizeFloorLimitValue(maxSize: Swift.Int, key: Swift.Int, value: Swift.String?) throws -> Swift.String
+  @objc deinit
+}
+public class PoiLibLoggingModuleIdentity : FPLoggerKit.LoggerModuleIdentity {
+  public func loggingModules(levels: [Swift.String : FPLoggerKit.LogLevel], defaultLevel: FPLoggerKit.LogLevel) -> [any FPLoggerKit.LoggerModule]
+  public init()
+  @objc deinit
+}
+public protocol PoiDeviceProgressListener : AnyObject {
+  func onProgressMessage(_ message: FPPOICore.PoiDeviceProgressMessage)
+}
+@_inheritsConvenienceInitializers public class EmvUkClessData : FPPOICore.EmvClessData {
+  override public init(terminalAidConfigs: [FPPOICore.TerminalBaseConfig], terminalCpaKeyConfigs: [FPPOICore.TerminalBaseConfig], terminalGeneralConfig: FPPOICore.TerminalBaseConfig)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class CardHelper {
+  public static func hasChipCardServiceCode(serviceCode: Swift.String) -> Swift.Bool
+  public static func shouldFallForwardInterac(serviceCode: Swift.String, isCanadianDevice: Swift.Bool) -> Swift.Bool
+  public static func isInteracServiceCode(_ serviceCode: Swift.String) -> Swift.Bool
+  public static func isGiftCard(binMap: (any FPPOICore.BinMap)?, bin: Swift.String, panLength: Swift.UInt) -> Swift.Bool
+  public static func createMaskedPan(pan: Swift.String, mask: Swift.Character) -> Swift.String
+  public static func createMaskedPan(firstSix: Swift.String, lastFour: Swift.String, size: Swift.Int, mask: Swift.Character) -> Swift.String
+  public static func createMaskedPanGiftcard(pan: Swift.String) throws -> Swift.String
+  public static func getCardBrand(binMap: (any FPPOICore.BinMap)?, bin: Swift.String, panLength: Swift.Int) -> FPPOICore.CardBrand
+  @objc deinit
+}
+public enum OfflineApprovalRule : Swift.String {
+  case NONE
+  case UK
+  public var requiresChipApproval: Swift.Bool {
+    get
+  }
+  public static func fromString(value: Swift.String) -> FPPOICore.OfflineApprovalRule?
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public class TerminalBaseConfig {
+  public var dynamicReaderLimits: [FPPOICore.TerminalBaseConfig] {
+    get
+  }
+  public var count: Swift.Int {
+    get
+  }
+  public func getMap() -> [Swift.Int : Swift.String]
+  public func get(_ key: Swift.Int) -> Swift.String?
+  public func containsKey(_ key: Swift.Int) -> Swift.Bool
+  public func put(_ key: Swift.Int, _ value: Swift.String)
+  public func addDrl(_ drl: FPPOICore.TerminalBaseConfig)
+  public init(map: [Swift.Int : Swift.String])
+  public init()
+  @objc deinit
+}
+public class FirstDataCanadaHostSupport : FPPOICore.HostSupport {
+  public init(deviceProperties: any FPPOICore.PoiDeviceProperties, lsh: any FPPOICore.LocalStorageHelping, logger: any FPLoggerKit.Logger)
+  public func beforeKeyExchange(state: FPPOICore.InteracData)
+  public func beforeAuthorize(state: FPPOICore.InteracData) throws
+  public func afterBadAuthResponse(bb: FPPOICore.InteracData, result: FPPOICore.HostResponseData) throws -> FPPOICore.HostSupportAction
+  public func afterAuthorize(bb: FPPOICore.InteracData, result: FPPOICore.HostResponseData) throws -> FPPOICore.HostSupportAction
+  public func afterKeyLoad(state: FPPOICore.InteracData, result: FPPOICore.HostResponseData, keyExchange: Swift.Bool) throws
+  public func interacSequenceNumber() -> Swift.String?
+  public func isFollowupRequired(state: FPPOICore.InteracData) -> Swift.Bool
+  public func getMacCalculator() -> (any FPPOICore.MacCalculator)?
+  public func areKeysChanged(responseData: FPPOICore.HostResponseData) -> Swift.Bool
+  public func getMacTerminalId() -> Swift.String?
+  public func onBeforeMacCalculation(bb: FPPOICore.InteracData)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class NilUtil {
+  public static func nilCheck<T>(_ value: T?, customName: Swift.String) throws -> T
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class KeyExchangeEvent : FPPOICore.PoiEvent {
+  final public let interacData: FPPOICore.InteracData
+  public init(_ interacData: FPPOICore.InteracData)
+  @objc deinit
+}
+public enum AuthorizationStatus : Swift.CustomStringConvertible, Swift.CaseIterable {
+  case LOCAL_DECLINE
+  case LOCAL_APPROVAL
+  case ONLINE_DECLINE
+  case ONLINE_DECLINE_INVALID_PIN
+  case ONLINE_DECLINE_TRY_CONTACT
+  case ONLINE_DECLINE_ADDITIONAL_AUTH_REQUIRED
+  case ONLINE_APPROVAL
+  case OFFLINE_DECLINE
+  case OFFLINE_APPROVAL
+  case ONLINE_REFERRAL
+  public static func determineStatus(offline: Swift.Bool, freewayDecision: Swift.String, freewayReasonCode: Swift.String) -> FPPOICore.AuthorizationStatus
+  public func isApproved() -> Swift.Bool
+  public func isFromHost() -> Swift.Bool
+  public func isFromCommFail() -> Swift.Bool
+  public func requiresReferral() -> Swift.Bool
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: FPPOICore.AuthorizationStatus, b: FPPOICore.AuthorizationStatus) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public typealias AllCases = [FPPOICore.AuthorizationStatus]
+  public static var allCases: [FPPOICore.AuthorizationStatus] {
+    get
+  }
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class ChasePaymentechMacCalculator : FPPOICore.MacCalculator {
+  public init(hostSupport: FPPOICore.ChasePaymentechCanadaHostSupport)
+  public func getTransactionRequestMacBlock(bb: FPPOICore.InteracData) throws -> [Swift.UInt8]
+  public func getTransactionResponseMacBlock(bb: FPPOICore.InteracData) throws -> [Swift.UInt8]
+  public func getKeyLoadResponseMacBlock(bb: FPPOICore.InteracData) -> [Swift.UInt8]
+  @objc deinit
+}
+public enum Ascii {
+  public static let ESC: Swift.UInt8
+  public static let FS: Swift.UInt8
+  public static let GS: Swift.UInt8
+  public static let SPACE: Swift.UInt8
+  public static let BANG: Swift.UInt8
+  public static let PERCENT: Swift.UInt8
+  public static let ASTERISK: Swift.UInt8
+  public static let PERIOD: Swift.UInt8
+  public static let COLON: Swift.UInt8
+  public static let SEMICOLON: Swift.UInt8
+  public static let QUESTION_MARK: Swift.UInt8
+  public static let AT_SYMBOL: Swift.UInt8
+  public static let EQUALS: Swift.UInt8
+  public static let ZERO: Swift.UInt8
+  public static let ONE: Swift.UInt8
+  public static let TWO: Swift.UInt8
+  public static let THREE: Swift.UInt8
+  public static let FOUR: Swift.UInt8
+  public static let FIVE: Swift.UInt8
+  public static let SIX: Swift.UInt8
+  public static let SEVEN: Swift.UInt8
+  public static let EIGHT: Swift.UInt8
+  public static let NINE: Swift.UInt8
+  public static let A: Swift.UInt8
+  public static let B: Swift.UInt8
+  public static let C: Swift.UInt8
+  public static let D: Swift.UInt8
+  public static let E: Swift.UInt8
+  public static let F: Swift.UInt8
+  public static let G: Swift.UInt8
+  public static let H: Swift.UInt8
+  public static let I: Swift.UInt8
+  public static let J: Swift.UInt8
+  public static let K: Swift.UInt8
+  public static let L: Swift.UInt8
+  public static let M: Swift.UInt8
+  public static let N: Swift.UInt8
+  public static let O: Swift.UInt8
+  public static let P: Swift.UInt8
+  public static let Q: Swift.UInt8
+  public static let R: Swift.UInt8
+  public static let S: Swift.UInt8
+  public static let T: Swift.UInt8
+  public static let U: Swift.UInt8
+  public static let V: Swift.UInt8
+  public static let W: Swift.UInt8
+  public static let X: Swift.UInt8
+  public static let Y: Swift.UInt8
+  public static let Z: Swift.UInt8
+  public static let CARET: Swift.UInt8
+  public static let lowerA: Swift.UInt8
+  public static let lowerB: Swift.UInt8
+  public static let lowerC: Swift.UInt8
+  public static let lowerD: Swift.UInt8
+  public static let lowerE: Swift.UInt8
+  public static let lowerF: Swift.UInt8
+  public static let lowerG: Swift.UInt8
+  public static let lowerH: Swift.UInt8
+  public static let lowerI: Swift.UInt8
+  public static let lowerJ: Swift.UInt8
+  public static let lowerM: Swift.UInt8
+  public static let lowerX: Swift.UInt8
+  public static func writeIntToBytes(_ val: Swift.Int, paddingLength: Swift.Int) -> [Swift.UInt8]
+}
+public protocol PoiDeviceFeatures {
+  var supportsManualEntry: Swift.Bool { get }
+  var supportsBarcodeScanning: Swift.Bool { get }
+  var supportsVasReads: Swift.Bool { get }
+  var supportsLineItems: Swift.Bool { get }
+  var supportsPosAidSelection: Swift.Bool { get }
+  var supportsSignatureCapture: Swift.Bool { get }
+  var supportsEmvQuickChip: Swift.Bool { get }
+  var supportsClessQuickChip: Swift.Bool { get }
+  var supportsUtf8Encoding: Swift.Bool { get }
+}
+public class PollDeviceOptions {
+  final public let retryLimit: Swift.Int
+  final public let timeout: Swift.Int?
+  public init(retryLimit: Swift.Int, timeout: Swift.Int? = nil)
+  @objc deinit
+}
+extension Swift.Character {
+  public init(_ byte: Swift.UInt8)
+}
+public struct TrackData {
+  public let pan: Swift.String
+  public let name: Swift.String?
+  public let expiryDate: Swift.String
+  public let serviceCode: Swift.String
+  public let discretionaryData: Swift.String
+  public init(pan: Swift.String? = nil, name: Swift.String? = nil, expiryDate: Swift.String? = nil, serviceCode: Swift.String? = nil, discretionaryData: Swift.String? = nil)
+}
+public enum PoiLibFailureException : Swift.Error, Swift.CustomStringConvertible, Foundation.CustomNSError {
+  case illegalState(message: Swift.String, errorCode: Swift.Int = ErrorCode.ILLEGAL_STATE.rawValue)
+  case illegalArgument(message: Swift.String, errorCode: Swift.Int = ErrorCode.ILLEGAL_ARGUMENT.rawValue)
+  case operationTimeout(message: Swift.String, errorCode: Swift.Int = ErrorCode.OPERATION_TIMEOUT.rawValue)
+  case channelBroken(message: Swift.String, errorCode: Swift.Int = ErrorCode.CHANNEL_BROKEN.rawValue)
+  case posFlowOverride(message: Swift.String, errorCode: Swift.Int = ErrorCode.POS_FLOW_OVERRIDE.rawValue)
+  case laneAlreadyOpening(message: Swift.String, errorCode: Swift.Int = ErrorCode.LANE_ALREADY_OPENING.rawValue)
+  case posAidSelectionNotSupported(message: Swift.String, errorCode: Swift.Int = ErrorCode.POS_AID_SELECTION_NOT_SUPPORTED.rawValue)
+  case fileWriteError(message: Swift.String, errorCode: Swift.Int = ErrorCode.FILE_WRITE_ERROR.rawValue)
+  case authNotAllowed(message: Swift.String, errorCode: Swift.Int = ErrorCode.AUTH_NOT_ALLOWED.rawValue)
+  case genericError(message: Swift.String, errorCode: Swift.Int = ErrorCode.GENERIC_ERROR.rawValue)
+  case signatureRequest(message: Swift.String, errorCode: Swift.Int = ErrorCode.SIGNATURE_REQUEST.rawValue)
+  case laneTimeout(message: Swift.String, errorCode: Swift.Int = ErrorCode.LANE_TIMEOUT.rawValue)
+  case libNoResponse(message: Swift.String, errorCode: Swift.Int = ErrorCode.LIB_NO_RESPONSE.rawValue)
+  case noDeviceAttached(message: Swift.String, errorCode: Swift.Int = ErrorCode.NO_DEVICE_ATTACHED.rawValue)
+  case deviceError(message: Swift.String, errorCode: Swift.Int = ErrorCode.DEVICE_ERROR.rawValue)
+  case networkError(message: Swift.String, errorCode: Swift.Int = ErrorCode.NETWORK_ERROR.rawValue)
+  case tokenError(message: Swift.String, errorCode: Swift.Int = ErrorCode.TOKEN_ERROR.rawValue)
+  case emvApplicationBlocked(message: Swift.String, errorCode: Swift.Int = ErrorCode.EMV_APPLICATION_BLOCKED.rawValue)
+  case cardBlocked(message: Swift.String, errorCode: Swift.Int = ErrorCode.CARD_BLOCKED.rawValue)
+  case chipDecline(message: Swift.String, errorCode: Swift.Int = ErrorCode.CHIP_DECLINE.rawValue)
+  case badCard(message: Swift.String, errorCode: Swift.Int = ErrorCode.BAD_CARD.rawValue)
+  case deviceTimeout(message: Swift.String, errorCode: Swift.Int = ErrorCode.DEVICE_TIMEOUT.rawValue)
+  case badRequest(message: Swift.String, errorCode: Swift.Int = ErrorCode.BAD_REQUEST.rawValue)
+  case driverError(message: Swift.String, errorCode: Swift.Int = ErrorCode.DRIVER_ERROR.rawValue)
+  case base64Error(message: Swift.String, errorCode: Swift.Int = ErrorCode.DRIVER_ERROR.rawValue)
+  case offline(message: Swift.String, errorCode: Swift.Int = ErrorCode.OFFLINE.rawValue)
+  case invalidPin(message: Swift.String, errorCode: Swift.Int = ErrorCode.INVALID_PIN.rawValue)
+  case userCancelled(message: Swift.String, errorCode: Swift.Int = ErrorCode.USER_CANCELLED.rawValue)
+  case cardRemovedPrematurely(message: Swift.String, errorCode: Swift.Int = ErrorCode.CARD_REMOVED_PREMATURELY.rawValue)
+  case unknownError(message: Swift.String, errorCode: Swift.Int = ErrorCode.UNKNOWN_ERROR.rawValue)
+  case internalError(message: Swift.String, errorCode: Swift.Int = ErrorCode.INTERNAL_ERROR.rawValue)
+  case aborted(message: Swift.String, errorCode: Swift.Int = ErrorCode.ABORTED.rawValue)
+  case hostDecline(message: Swift.String, errorCode: Swift.Int = ErrorCode.HOST_DECLINE.rawValue)
+  case voiceAuth(message: Swift.String, errorCode: Swift.Int = ErrorCode.VOICE_AUTH.rawValue)
+  case notSupported(message: Swift.String, errorCode: Swift.Int = ErrorCode.NOT_SUPPORTED.rawValue)
+  case deviceBusy(message: Swift.String, errorCode: Swift.Int = ErrorCode.DEVICE_BUSY.rawValue)
+  case badMac(message: Swift.String, errorCode: Swift.Int = ErrorCode.BAD_MAC.rawValue)
+  case internalConnectionError(message: Swift.String, errorCode: Swift.Int = ErrorCode.INTERNAL_CONNECTION_ERROR.rawValue)
+  case socketError(message: Swift.String, errorCode: Swift.Int = ErrorCode.SOCKET_ERROR.rawValue)
+  case invalidDevice(message: Swift.String, errorCode: Swift.Int = ErrorCode.INVALID_DEVICE.rawValue)
+  public var errorCode: Swift.Int {
+    get
+  }
+  public var errorUserInfo: [Swift.String : Any] {
+    get
+  }
+  public static let errorDomain: Swift.String
+  public var message: Swift.String {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+}
+open class PoiLabel : Swift.Equatable {
+  final public let name: Swift.String
+  final public let value: Swift.String
+  public init(name: Swift.String, value: Swift.String)
+  public static func == (lhs: FPPOICore.PoiLabel, rhs: FPPOICore.PoiLabel) -> Swift.Bool
+  public static let TRANS_HEADER: Swift.String
+  public static let TRANS_LABEL1: Swift.String
+  public static let TRANS_LABEL2: Swift.String
+  public static let TRANS_LABEL3: Swift.String
+  public static let TRANS_LABEL4: Swift.String
+  public static let TRANS_VALUE1: Swift.String
+  public static let TRANS_VALUE2: Swift.String
+  public static let TRANS_VALUE3: Swift.String
+  public static let TRANS_VALUE4: Swift.String
+  public static let HEADER: Swift.String
+  public static let LABEL1: Swift.String
+  public static let LABEL2: Swift.String
+  public static let LABEL3: Swift.String
+  public static let LABEL4: Swift.String
+  public static let AMOUNT1: Swift.String
+  public static let AMOUNT2: Swift.String
+  public static let AMOUNT3: Swift.String
+  public static let AMOUNT4: Swift.String
+  public static let DCC_LOCAL_ALPHA: Swift.String
+  public static let DCC_FOREIGN_ALPHA: Swift.String
+  public static let DCC_FLAG_LOCAL: Swift.String
+  public static let DCC_FLAG_FOREIGN: Swift.String
+  public static let DCC_LOCAL_RATE: Swift.String
+  public static let DCC_FOREIGN_RATE_1: Swift.String
+  public static let DCC_FOREIGN_RATE_2: Swift.String
+  public static let DCC_FOREIGN_RATE_3: Swift.String
+  public static let DCC_PARAGRAPH_1: Swift.String
+  public static let DCC_PARAGRAPH_2: Swift.String
+  public static let TOTAL_LABEL_IDX: Swift.Int
+  public static let SUBTOTAL_LABEL_IDX: Swift.Int
+  public static let TIP_LABEL_IDX: Swift.Int
+  public static let ACTIVATE_LABEL_IDX: Swift.Int
+  public static let DEACTIVATE_LABEL_IDX: Swift.Int
+  public static let INQUIRY_LABEL_IDX: Swift.Int
+  public static let CASHOUT_LABEL_IDX: Swift.Int
+  public static let ALL_LABEL_NAMES: [Swift.String]
+  public static let ALL_LABEL_NAMES_DYNAMIC_POI: [Swift.String]
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class GenericDevice {
+  @objc deinit
+}
+public protocol BluetoothEventDelegate : AnyObject {
+  func onDevicesAvailable<T>(devices: [T])
+}
+public struct FinalPaymentResult {
+  public let data: FPPOICore.PaymentData?
+  public let hostResponseData: FPPOICore.HostResponseData?
+  public let interacData: FPPOICore.InteracData?
+  public let language: Swift.String
+  public init(data: FPPOICore.PaymentData?, hostResponseData: FPPOICore.HostResponseData?, interacData: FPPOICore.InteracData?, language: Swift.String)
+}
+public struct Configuration : Swift.CustomStringConvertible {
+  public let name: Swift.String
+  public let value: Swift.String
+  public init(_ name: Swift.String, _ value: Swift.String)
+  public var description: Swift.String {
+    get
+  }
+}
+public class KeyCardVasData : FPPOICore.VasData {
+  final public let keyCardType: FPPOICore.KeyCardType
+  public init(data: Swift.String?, keyCardType: FPPOICore.KeyCardType)
+  override public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public struct DeviceDetail : Swift.Codable, Swift.CustomStringConvertible {
+  public let serialNumber: Swift.String
+  public let modelNumber: Swift.String
+  public let manufacturer: Swift.String
+  public let connection: Swift.String
+  public let kifSerialNumber: Swift.String
+  public init(serialNumber: Swift.String, modelNumber: Swift.String, manufacturer: Swift.String, connection: Swift.String, kifSerialNumber: Swift.String)
+  public var description: Swift.String {
+    get
+  }
+  public func toJson() -> Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers final public class FormFactorHelper {
+  public static func getFormFactorCapabilities(chipData: FPPOICore.ChipTagHolder, brand: FPPOICore.CardBrand, isInserted: Swift.Bool) -> FPPOICore.FormFactorCapabilities
+  @objc deinit
+}
+public protocol LocalStorageHelping {
+  var logger: (any FPLoggerKit.Logger)? { get set }
+  func getLaneConfigSetting(device: Swift.String, settingKey: Swift.String) -> Swift.String?
+  func getLaneConfigSettings(device: Swift.String, settingKeys: [Swift.String]) -> [Swift.String : Swift.String]?
+  func getSingleConfigSetting(settingKey: Swift.String, results: [Swift.String : Swift.String]?) -> Swift.String?
+  func storeLaneConfigSetting(device: Swift.String, key: Swift.String, value: Swift.String)
+  func storeLaneConfigSettings(device: Swift.String, settings: [Swift.String : Swift.String])
+}
+public typealias Task = (() -> Swift.Void)
+public class TimedTask {
+  public init(dispatchQueue: Dispatch.DispatchQueue? = nil, initialDelay: Swift.Double = 0.0, repeatSeconds: Swift.Int = 0, task: @escaping FPPOICore.Task)
+  @objc deinit
+  public func resume()
+  public func suspend()
+  public func cancel()
+}
+public protocol PoiDeviceDelegate : AnyObject {
+  func onLaneOpened(device: any FPPOICore.PoiDevice)
+  func onLaneClosed(device: any FPPOICore.PoiDevice)
+  func deviceRemoved(device: any FPPOICore.PoiDevice)
+}
+public class ByteChunker {
+  public init(blockSize: Swift.Int, stream: any FPPOICore.ByteInputStream)
+  public func getNextChunk() -> FPPOICore.ImmutableByteBuffer
+  public var bytesRead: Swift.Int {
+    get
+  }
+  public var bufferSize: Swift.Int {
+    get
+  }
+  @objc deinit
+}
+public enum AccountType : Swift.String, Swift.CustomStringConvertible {
+  case CHECKING
+  case SAVINGS
+  case UNSPECIFIED
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class ConfigWriteRequest {
+  final public let key: Swift.String
+  public var inputValue: Swift.String? {
+    get
+  }
+  public init(key: Swift.String, inputValue: Swift.String)
+  public func setInputValue(inputValue: Swift.String?)
+  @objc deinit
+}
+public protocol HostSupport {
+  func beforeKeyExchange(state: FPPOICore.InteracData)
+  func beforeAuthorize(state: FPPOICore.InteracData) throws
+  func afterBadAuthResponse(bb: FPPOICore.InteracData, result: FPPOICore.HostResponseData) throws -> FPPOICore.HostSupportAction
+  func afterAuthorize(bb: FPPOICore.InteracData, result: FPPOICore.HostResponseData) throws -> FPPOICore.HostSupportAction
+  func afterKeyLoad(state: FPPOICore.InteracData, result: FPPOICore.HostResponseData, keyExchange: Swift.Bool) throws
+  func interacSequenceNumber() -> Swift.String?
+  func isFollowupRequired(state: FPPOICore.InteracData) -> Swift.Bool
+  func getMacCalculator() -> (any FPPOICore.MacCalculator)?
+  func areKeysChanged(responseData: FPPOICore.HostResponseData) -> Swift.Bool
+  func getMacTerminalId() -> Swift.String?
+  func onBeforeMacCalculation(bb: FPPOICore.InteracData)
+}
+public enum HostSupportAction {
+  case NONE
+  case RETRY_TRANSACTION
+  case REQUEST_KEYS
+  public static func == (a: FPPOICore.HostSupportAction, b: FPPOICore.HostSupportAction) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class DccRatesLookupEvent : FPPOICore.PoiEvent {
+  final public let bin: Swift.String
+  final public let amount: Foundation.Decimal
+  final public let cardType: FPPOICore.PoiCardType
+  final public let entryMode: Swift.String
+  final public let encryptedTrack2: Swift.String?
+  final public let cardCurrency: Swift.Int?
+  final public let noCvmFlagSet: Swift.Bool
+  public init(bin: Swift.String, amount: Foundation.Decimal, cardType: FPPOICore.PoiCardType, encryptedTrack2: Swift.String?, entryMode: Swift.String, cardCurrency: Swift.Int?, noCvmFlagSet: Swift.Bool)
+  @objc deinit
+}
+public enum EmvLocale : Swift.String, Swift.CustomStringConvertible, Swift.CaseIterable {
+  case USCA
+  case OTHER
+  public var requiresFollowup: Swift.Bool {
+    get
+  }
+  public static func fromString(value: Swift.String) -> FPPOICore.EmvLocale?
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias AllCases = [FPPOICore.EmvLocale]
+  public typealias RawValue = Swift.String
+  public static var allCases: [FPPOICore.EmvLocale] {
+    get
+  }
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class ByteUtil {
+  public static func copy(_ bytes: [Swift.UInt8]) -> [Swift.UInt8]
+  public static func copy(bytes: [Swift.UInt8], len: Swift.Int) -> [Swift.UInt8]
+  public static func repeatByte(_ b: Swift.UInt8, times: Swift.Int) -> [Swift.UInt8]
+  public static func toBase64(bytes: [Swift.UInt8]) -> Swift.String
+  public static func fromBase64(str: Swift.String) throws -> [Swift.UInt8]
+  @objc deinit
+}
+public protocol SessionKeyDelegate : AnyObject {
+  func calculateMac(_ data: [Swift.UInt8]) throws
+  func loadWorkingKey(keyType: FPPOICore.SessionKeyType, keyData: Swift.String) throws
+  func keyExchangeComplete() throws
+  func keyExchangeFailed(message: Swift.String) throws
+  func requestKeys() throws
+  func verifyComplete(success: Swift.Bool) throws
+}
+public struct HostResponseData {
+  public let decision: Swift.String
+  public let reasonCode: Swift.String
+  public let processorResponseCode: Swift.String
+  public let message: Swift.String
+  public let approvalCode: Swift.String
+  public let transactionDateTime: Foundation.Date
+  public let approvedAmount: Foundation.Decimal
+  public let chipData: [FPPOICore.ChipTag]?
+  public let suppressSignaturePrompt: Swift.Bool
+  public let displayLines: [Swift.String]
+  public let status: FPPOICore.AuthorizationStatus?
+  public let keyData: FPPOICore.KeyData?
+  public let hostControlData: Swift.String?
+  public let offlineApprovalRule: FPPOICore.OfflineApprovalRule?
+  public init(decision: Swift.String, reasonCode: Swift.String, processorResponseCode: Swift.String, message: Swift.String, approvalCode: Swift.String, transactionDateTime: Foundation.Date, approvedAmount: Foundation.Decimal, status: FPPOICore.AuthorizationStatus?, chipData: [FPPOICore.ChipTag]?, suppressSignaturePrompt: Swift.Bool = false, displayLines: [Swift.String] = [], keyData: FPPOICore.KeyData? = nil, hostControlData: Swift.String? = nil, offlineApprovalRule: FPPOICore.OfflineApprovalRule? = nil)
+  public func shouldReverseOnFailure() -> Swift.Bool
+}
+public struct DccUtil {
+  public static func getDccTags(_ data: any FPPOICore.DccRatesData) throws -> [FPPOICore.ChipTag]
+}
+@objc public class EmvContactXmlParser : ObjectiveC.NSObject {
+  public init(xmlData: Foundation.Data, logger: any FPLoggerKit.Logger)
+  @objc deinit
+}
+extension FPPOICore.EmvContactXmlParser {
+  public func loadAndParseXml(withSuccess successBlock: @escaping FPPOICore.SuccessBlock, failureBlock: @escaping FPPOICore.FailureBlock)
+}
+extension FPPOICore.EmvContactXmlParser : Foundation.XMLParserDelegate {
+  @objc dynamic public func parserDidStartDocument(_ parser: Foundation.XMLParser)
+  @objc dynamic public func parserDidEndDocument(_ parser: Foundation.XMLParser)
+  @objc dynamic public func parser(_ parser: Foundation.XMLParser, didStartElement elementName: Swift.String, namespaceURI: Swift.String?, qualifiedName qName: Swift.String?, attributes attributeDict: [Swift.String : Swift.String] = [:])
+  @objc dynamic public func parser(_ parser: Foundation.XMLParser, didEndElement elementName: Swift.String, namespaceURI: Swift.String?, qualifiedName qName: Swift.String?)
+  @objc dynamic public func parser(_ parser: Foundation.XMLParser, foundCharacters string: Swift.String)
+  @objc dynamic public func parser(_ parser: Foundation.XMLParser, parseErrorOccurred parseError: any Swift.Error)
+}
+@_hasMissingDesignatedInitializers final public class Hex {
+  public static func decode(hex: Swift.String, delim: Swift.Character) -> [Swift.UInt8]
+  public static func decode(hex: Swift.String) -> [Swift.UInt8]
+  public static func decodeAscii(hex: FPPOICore.ImmutableByteBuffer) throws -> [Swift.UInt8]
+  public static func encode(bytes: [Swift.UInt8], delim: Swift.String) -> Swift.String
+  public static func encode(bytes: [Swift.UInt8], offset: Swift.Int, len: Swift.Int, delim: Swift.String = "") -> Swift.String
+  public static func encode(bytes: [Swift.UInt8]) -> Swift.String
+  public static func encodeBCD(value: Swift.Int, totalDigits: Swift.Int) -> [Swift.UInt8]
+  public static func decodeBCD(bcd: [Swift.UInt8]) -> Swift.String
+  @objc deinit
+}
+public class VasData : Swift.CustomStringConvertible {
+  final public let data: Swift.String?
+  final public let type: FPPOICore.VasType
+  public init(merchantId: Swift.String, data: Swift.String?, type: FPPOICore.VasType)
+  public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public enum VasType : Swift.CustomStringConvertible {
+  case APPLE
+  case GOOGLE
+  case KEY_CARD
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: FPPOICore.VasType, b: FPPOICore.VasType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct KnownTagIds {
+  public static let FREEWAY_TAG_FILTER: (_ tag: FPPOICore.ChipTag) -> Swift.Bool
+  public static func shouldSendTagToFreeway(tagId: Swift.Int) -> Swift.Bool
+  public static let AcquirerIdentifier: Swift.Int
+  public static let AdditionalTerminalCapabilities: Swift.Int
+  public static let AmountAuthorisedBinary: Swift.Int
+  public static let AmountAuthorisedNumeric: Swift.Int
+  public static let AmountOtherBinary: Swift.Int
+  public static let AmountOtherNumeric: Swift.Int
+  public static let AmountReferenceCurrency: Swift.Int
+  public static let ApplicationCryptogram: Swift.Int
+  public static let ApplicationCurrencyCode: Swift.Int
+  public static let ApplicationCurrencyExponent: Swift.Int
+  public static let ApplicationDiscretionaryData: Swift.Int
+  public static let ApplicationEffectiveDate: Swift.Int
+  public static let ApplicationExpirationDate: Swift.Int
+  public static let ApplicationFileLocatorAFL: Swift.Int
+  public static let ApplicationIdentifierAIDcard: Swift.Int
+  public static let ApplicationIdentifierAIDterminal: Swift.Int
+  public static let ApplicationInterchangeProfile: Swift.Int
+  public static let ApplicationLabel: Swift.Int
+  public static let ApplicationPreferredName: Swift.Int
+  public static let ApplicationPrimaryAccountNumberPAN: Swift.Int
+  public static let ApplicationPrimaryAccountNumberPANSequenceNumber: Swift.Int
+  public static let ApplicationPriorityIndicator: Swift.Int
+  public static let ApplicationReferenceCurrency: Swift.Int
+  public static let ApplicationReferenceCurrencyExponent: Swift.Int
+  public static let ApplicationTemplate: Swift.Int
+  public static let ApplicationTransactionCounterATC: Swift.Int
+  public static let ApplicationUsageControl: Swift.Int
+  public static let ApplicationVersionNumber1: Swift.Int
+  public static let ApplicationVersionNumber2: Swift.Int
+  public static let AuthorisationCode: Swift.Int
+  public static let AuthorisationResponseCode: Swift.Int
+  public static let BankIdentifierCodeBIC: Swift.Int
+  public static let CardRiskManagementDataObjectList1CDOL1: Swift.Int
+  public static let CardRiskManagementDataObjectList2CDOL2: Swift.Int
+  public static let CardholderName: Swift.Int
+  public static let CardholderNameExtended: Swift.Int
+  public static let CardholderVerificationMethodCVMList: Swift.Int
+  public static let CardholderVerificationMethodCVMResults: Swift.Int
+  public static let CertificationAuthorityPublicKeyIndex1: Swift.Int
+  public static let CertificationAuthorityPublicKeyIndex2: Swift.Int
+  public static let CommandTemplate: Swift.Int
+  public static let ContactlessBrandData: Swift.Int
+  public static let ContactlessFormFactorIndicator: Swift.Int
+  public static let CustomerExclusiveData: Swift.Int
+  public static let CryptogramInformationData: Swift.Int
+  public static let DataAuthenticationCode: Swift.Int
+  public static let DedicatedFileDFName: Swift.Int
+  public static let DirectoryDefinitionFileDDFName: Swift.Int
+  public static let DirectoryDiscretionaryTemplate: Swift.Int
+  public static let DynamicDataAuthenticationDataObjectListDDOL: Swift.Int
+  public static let EMVProprietaryTemplate: Swift.Int
+  public static let FileControlInformationFCIIssuerDiscretionaryData: Swift.Int
+  public static let FileControlInformationFCIProprietaryTemplate: Swift.Int
+  public static let FileControlInformationFCITemplate: Swift.Int
+  public static let ICCDynamicNumber: Swift.Int
+  public static let IntegratedCircuitCardICCPINEnciphermentPublicKeyCertificate: Swift.Int
+  public static let IntegratedCircuitCardICCPINEnciphermentPublicKeyExponent: Swift.Int
+  public static let IntegratedCircuitCardICCPINEnciphermentPublicKeyRemainder: Swift.Int
+  public static let IntegratedCircuitCardICCPublicKeyCertificate: Swift.Int
+  public static let IntegratedCircuitCardICCPublicKeyExponent: Swift.Int
+  public static let IntegratedCircuitCardICCPublicKeyRemainder: Swift.Int
+  public static let InterfaceDeviceIFDSerialNumber: Swift.Int
+  public static let InternationalBankAccountNumberIBAN: Swift.Int
+  public static let IssuerActionCodeDefault: Swift.Int
+  public static let IssuerActionCodeDenial: Swift.Int
+  public static let IssuerActionCodeOnline: Swift.Int
+  public static let IssuerApplicationData: Swift.Int
+  public static let IssuerAuthenticationData: Swift.Int
+  public static let IssuerCodeTableIndex: Swift.Int
+  public static let IssuerCountryCode: Swift.Int
+  public static let IssuerCountryCodealpha2format: Swift.Int
+  public static let IssuerCountryCodealpha3format: Swift.Int
+  public static let IssuerIdentificationNumberIIN: Swift.Int
+  public static let IssuerPublicKeyCertificate: Swift.Int
+  public static let IssuerPublicKeyExponent: Swift.Int
+  public static let IssuerPublicKeyRemainder: Swift.Int
+  public static let IssuerScriptCommand: Swift.Int
+  public static let IssuerScriptIdentifier: Swift.Int
+  public static let IssuerScriptTemplate1: Swift.Int
+  public static let IssuerScriptTemplate2: Swift.Int
+  public static let IssuerURL: Swift.Int
+  public static let LanguagePreference: Swift.Int
+  public static let LastOnlineApplicationTransactionCounterATCRegister: Swift.Int
+  public static let LogEntry: Swift.Int
+  public static let LogFormat: Swift.Int
+  public static let LowerConsecutiveOfflineLimit: Swift.Int
+  public static let MerchantCategoryCode: Swift.Int
+  public static let MerchantIdentifier: Swift.Int
+  public static let MerchantNameandLocation: Swift.Int
+  public static let PersonalIdentificationNumberPINTryCounter: Swift.Int
+  public static let PointofServicePOSEntryMode: Swift.Int
+  public static let ProcessingOptionsDataObjectListPDOL: Swift.Int
+  public static let ResponseMessageTemplateFormat1: Swift.Int
+  public static let ResponseMessageTemplateFormat2: Swift.Int
+  public static let ServiceCode: Swift.Int
+  public static let ShortFileIdentifierSFI: Swift.Int
+  public static let SignedDynamicApplicationData: Swift.Int
+  public static let SignedStaticApplicationData: Swift.Int
+  public static let StaticDataAuthenticationTagList: Swift.Int
+  public static let TerminalCapabilities: Swift.Int
+  public static let TerminalCountryCode: Swift.Int
+  public static let TerminalFloorLimit: Swift.Int
+  public static let TerminalIdentification: Swift.Int
+  public static let TerminalRiskManagementData: Swift.Int
+  public static let TerminalTransactionQualifiers: Swift.Int
+  public static let TerminalType: Swift.Int
+  public static let TerminalVerificationResults: Swift.Int
+  public static let Track1DiscretionaryData: Swift.Int
+  public static let Track2DiscretionaryData: Swift.Int
+  public static let Track2EquivalentData: Swift.Int
+  public static let TransactionCertificateTCHashValue: Swift.Int
+  public static let TransactionCertificateDataObjectListTDOL: Swift.Int
+  public static let TransactionCurrencyCode: Swift.Int
+  public static let TransactionCurrencyExponent: Swift.Int
+  public static let TransactionDate: Swift.Int
+  public static let TransactionPersonalIdentificationNumberPINData: Swift.Int
+  public static let TransactionReferenceCurrencyCode: Swift.Int
+  public static let TransactionReferenceCurrencyExponent: Swift.Int
+  public static let TransactionSequenceCounter: Swift.Int
+  public static let TransactionStatusInformation: Swift.Int
+  public static let TransactionTime: Swift.Int
+  public static let TransactionType: Swift.Int
+  public static let UnpredictableNumber: Swift.Int
+  public static let UpperConsecutiveOfflineLimit: Swift.Int
+  public static let IssuerScriptResults: Swift.Int
+  public static let ApplicationSelectionFlag: Swift.Int
+  public static let CardTransactionQualifiers: Swift.Int
+  public static let ErrorResponseCode: Swift.Int
+  public static func getFreewayTagsTesting() -> [Swift.Int]
+  public static func getInternalOnlyTags() -> [Swift.Int]
+  public static func getDoNotLogTags() -> [Swift.Int]
+}
+public struct EmvContactDataUtil {
+  public static func build(terminalAidConfigs: [FPPOICore.TerminalBaseConfig], terminalCpaKeyConfigs: [FPPOICore.TerminalBaseConfig], terminalGeneralConfig: FPPOICore.TerminalBaseConfig) throws -> FPPOICore.EmvContactData
+  public static func buildForUk(terminalAidConfigs: [FPPOICore.TerminalBaseConfig], terminalCpaKeyConfigs: [FPPOICore.TerminalBaseConfig], terminalGeneralConfig: FPPOICore.TerminalBaseConfig) throws -> FPPOICore.EmvUkContactData
+}
+public protocol DeviceContext {
+  var requiresHostReversal: Swift.Bool { get }
+  func onDeviceRemoved()
+  func getInteracData() -> FPPOICore.InteracData?
+}
+public enum KeyCardType {
+  case UNKNOWN
+  case MIFARE_CLASSIC_1K
+  case MIFARE_ULTRALIGHT
+  case MIFARE_MINI
+  case MIFARE_CLASSIC_4K
+  case MIFARE_DESFIRE
+  public static func == (a: FPPOICore.KeyCardType, b: FPPOICore.KeyCardType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+final public class AtomicVar<A> {
+  public init(_ value: A)
+  final public var value: A {
+    get
+    set
+  }
+  @objc deinit
+}
+public class DeviceStateMachine {
+  public init(deviceContext: any FPPOICore.DeviceContext, channel: any FPPOICore.PoiEventListener, defaultState: FPPOICore.DeviceState)
+  public func setLogger(logger: any FPLoggerKit.Logger)
+  public func addDeviceMessage(deviceMessage: FPPOICore.DeviceMessage)
+  public func addPosMessage(posMessage: any FPPOICore.PosRequestMessage)
+  public func updateDeviceState(newState: FPPOICore.DeviceState)
+  public func deviceState() -> FPPOICore.DeviceState?
+  public func stop()
+  public func run()
+  public func isStateMachineRunning() -> Swift.Bool
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class AuthRequestEvent : FPPOICore.PoiEvent {
+  final public let paymentData: FPPOICore.PaymentData
+  public init(_ paymentData: FPPOICore.PaymentData)
+  @objc deinit
+}
+public protocol ByteInputStream {
+  var bytesRead: Swift.Int { get }
+  var hasMore: Swift.Bool { get }
+  func readBlock(_ blockSize: Swift.Int) -> [Swift.UInt8]
+}
+public protocol BluetoothDeviceDelegate : AnyObject {
+  func onDeviceConnected(device: any FPPOICore.PoiDevice)
+  func onDeviceFailure(deviceName: Swift.String, errorMessage: Swift.String)
+}
+public class PaymentData {
+  final public let cardData: (any FPPOICore.CardData)?
+  final public let tagMap: [Swift.Int : FPPOICore.ChipTag]?
+  final public let transactionAmount: Foundation.Decimal
+  final public let cashbackAmount: Foundation.Decimal
+  final public let fallbackMode: FPPOICore.FallbackMode
+  final public let paymentTransactionType: FPPOICore.PaymentTransactionType?
+  final public let pinData: (any FPPOICore.PinData)?
+  final public let scaUpgrade: Swift.Bool?
+  public var interacData: FPPOICore.InteracData? {
+    get
+  }
+  public var dccSelectionData: FPPOICore.DccSelectionData? {
+    get
+  }
+  convenience public init(data: any FPPOICore.CardData, transactionAmount: Foundation.Decimal, paymentTransactionType: FPPOICore.PaymentTransactionType?)
+  public init(cardData: (any FPPOICore.CardData)?, tagMap: [Swift.Int : FPPOICore.ChipTag]?, transactionAmount: Foundation.Decimal, cashbackAmount: Foundation.Decimal, fallbackMode: FPPOICore.FallbackMode, paymentTransactionType: FPPOICore.PaymentTransactionType?, pinData: (any FPPOICore.PinData)?, scaUpgrade: Swift.Bool?)
+  public func setInteracData(_ interactData: FPPOICore.InteracData)
+  public func setDccSelectionData(_ dccSelectionData: FPPOICore.DccSelectionData)
+  public func hasChipData() -> Swift.Bool
+  public func getBase64ChipData() throws -> Swift.String?
+  @objc deinit
+}
+final public class PoiDeviceFilesRequest {
+  final public let files: Swift.Set<Swift.String>
+  final public let includeFileContents: Swift.Bool
+  public init(files: [Swift.String], includeFileContents: Swift.Bool = false)
+  @objc deinit
+}
+final public class IpChannel {
+  final public let input: Foundation.InputStream
+  final public let output: Foundation.OutputStream
+  public init(input: Foundation.InputStream, output: Foundation.OutputStream)
+  @objc deinit
+}
+public struct EmvConfigValues {
+  public let aidConfigs: [FPPOICore.TerminalBaseConfig]
+  public let keyConfigs: [FPPOICore.TerminalBaseConfig]
+  public let generalConfig: FPPOICore.TerminalBaseConfig
+}
+public typealias SuccessBlock = (FPPOICore.EmvConfigValues) -> ()
+public typealias FailureBlock = (any Swift.Error) -> ()
+final public class PoiDeviceFile : Swift.Encodable {
+  final public let filename: Swift.String
+  final public let checksum: Swift.String
+  final public let contents: [Swift.UInt8]?
+  final public func encode(to encoder: any Swift.Encoder) throws
+  public init(filename: Swift.String, checksum: Swift.String, contents: [Swift.UInt8]? = nil)
+  @objc deinit
+}
+public enum UsbDeviceConnection {
+  case CONNECTED
+  case FAILED
+  case ATTEMPTED
+  case INVALID
+  public static func == (a: FPPOICore.UsbDeviceConnection, b: FPPOICore.UsbDeviceConnection) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class ChipTagSerializer {
+  public static func serializeWithLength(tags: [FPPOICore.ChipTag], filter: ((FPPOICore.ChipTag) -> Swift.Bool)?) throws -> [Swift.UInt8]?
+  public static func serialize(tags: [FPPOICore.ChipTag]) throws -> [Swift.UInt8]
+  public static func writeTag(tag: FPPOICore.ChipTag, builder: inout [Swift.UInt8]) throws
+  public static func writeTagId(tag: Swift.Int, builder: inout [Swift.UInt8])
+  public static func writeTlvLength(length: Swift.Int, builder: inout [Swift.UInt8]) throws
+  @objc deinit
+}
+public protocol VasMerchant {
+  var id: Swift.String { get }
+  var type: FPPOICore.VasType { get }
+}
+@_hasMissingDesignatedInitializers final public class KnownTags {
+  public static let UNKNOWN_TAG_NAME_PLACEHOLDER: Swift.String
+  public static let tags: [Swift.Int : FPPOICore.ChipTagInfo]
+  public static func getTagInfo(id: Swift.Int) -> FPPOICore.ChipTagInfo
+  @objc deinit
+}
+public struct ChipTagInfo {
+  public init(id: Swift.Int, name: Swift.String, format: FPPOICore.ChipFormat = .DEFAULT)
+}
+@_hasMissingDesignatedInitializers final public class GiveXUtils {
+  public static let GIVEX_ISO_IIN_1: Swift.String
+  public static let GIVEX_ISO_IIN_2: Swift.String
+  public static let GIVEX_ISO_IIN_3: Swift.String
+  public static func isGiveXGiftCard(_ pan: Swift.String) -> Swift.Bool
+  public static func createMaskedPan(_ pan: Swift.String) throws -> Swift.String
+  @objc deinit
+}
+public protocol IpDeviceProperties : FPPOICore.PoiDeviceProperties {
+  var host: Swift.String { get }
+  var port: Swift.String { get }
+  var heartbeatDelayMillis: Swift.Int { get }
+}
+public class ConfigReadResult {
+  final public let data: [FPPOICore.ConfigReadResult.ConfigReadEntry]
+  public init(data: [FPPOICore.ConfigReadResult.ConfigReadEntry])
+  public var didReadSucceed: Swift.Bool {
+    get
+  }
+  @_hasMissingDesignatedInitializers public class ConfigReadEntry {
+    final public let key: Swift.String
+    final public let value: Swift.String
+    final public let didReadSucceed: Swift.Bool
+    public static func SuccessEntry(key: Swift.String, value: Swift.String) -> FPPOICore.ConfigReadResult.ConfigReadEntry
+    public static func FailureEntry(key: Swift.String) -> FPPOICore.ConfigReadResult.ConfigReadEntry
+    @objc deinit
+  }
+  @objc deinit
+}
+public class FormFactorCapabilities {
+  final public let supportsInsert: Swift.Bool
+  final public let isConsumerDevice: Swift.Bool
+  final public let supportsConsumerDeviceCVM: Swift.Bool
+  final public let formFactor: FPPOICore.FormFactor
+  public init(supportsInsert: Swift.Bool, isConsumerDevice: Swift.Bool, supportsConsumerDeviceCVM: Swift.Bool)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ErrorPoiEvent : FPPOICore.PoiEvent {
+  final public let message: Swift.String
+  final public let errorCode: Swift.Int
+  final public let requiresHostReversal: Swift.Bool
+  final public let paymentData: FPPOICore.PaymentData?
+  final public let interacData: FPPOICore.InteracData?
+  final public let language: Swift.String?
+  final public let decision: Swift.String?
+  convenience public init(_ message: Swift.String, errorCode: FPPOICore.ErrorCode, requiresHostReversal: Swift.Bool = false)
+  convenience public init(_ message: Swift.String, errorNumber: Swift.Int, requiresHostReversal: Swift.Bool, interacData: FPPOICore.InteracData?)
+  convenience public init(_ message: Swift.String, errorCode: FPPOICore.ErrorCode, requiresHostReversal: Swift.Bool, paymentData: FPPOICore.PaymentData?, interacData: FPPOICore.InteracData?, language: Swift.String)
+  convenience public init(_ message: Swift.String, errorNumber: Swift.Int, requiresHostReversal: Swift.Bool, paymentData: FPPOICore.PaymentData?, interacData: FPPOICore.InteracData?, language: Swift.String)
+  convenience public init(data: FPPOICore.HostResponseData, language: Swift.String)
+  public static func fromPoiLibFailure(exception: FPPOICore.PoiLibFailureException, requiresHostReversal: Swift.Bool = false, interacData: FPPOICore.InteracData? = nil) -> FPPOICore.ErrorPoiEvent
+  override public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public class ConfigReadRequest {
+  final public let keys: [Swift.String]
+  public init(keys: [Swift.String])
+  @objc deinit
+}
+public struct FileWriteRequest {
+  public struct FileWriteInfo {
+    public let isFirmware: Swift.Bool
+    public let filename: Swift.String
+    public init(isFirmware: Swift.Bool, filename: Swift.String)
+  }
+  public let filename: Swift.String
+  public let inputStream: FPPOICore.ByteArrayInputStream
+  public let size: Swift.Int
+  public let extraInfo: FPPOICore.FileWriteRequest.FileWriteInfo?
+  public init(filename: Swift.String, inputStream: FPPOICore.ByteArrayInputStream, size: Swift.Int, extraInfo: FPPOICore.FileWriteRequest.FileWriteInfo?)
+}
+@_hasMissingDesignatedInitializers public class SemanticVersion : Swift.Comparable {
+  final public let version: Swift.String
+  final public let parts: [Swift.Int]
+  public static let v0_0_0: FPPOICore.SemanticVersion
+  public static let v1_0_0_0: FPPOICore.SemanticVersion
+  public static let v1_1_1_1: FPPOICore.SemanticVersion
+  public static func parse(_ version: Swift.String?, strict: Swift.Bool = false) throws -> FPPOICore.SemanticVersion
+  public static func < (lhs: FPPOICore.SemanticVersion, rhs: FPPOICore.SemanticVersion) -> Swift.Bool
+  public static func == (lhs: FPPOICore.SemanticVersion, rhs: FPPOICore.SemanticVersion) -> Swift.Bool
+  @objc deinit
+}
+public enum PaymentTransactionType : Swift.CustomStringConvertible {
+  case UNDEFINED
+  case SALE
+  case REFUND
+  case ACCOUNT_VERIFY
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: FPPOICore.PaymentTransactionType, b: FPPOICore.PaymentTransactionType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum PoiDeviceConnectionType : Swift.CustomStringConvertible {
+  case USB
+  case BLUETOOTH
+  case IP
+  case ALWAYS_CONNECTED
+  case AUDIO_JACK
+  case UNKNOWN
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: FPPOICore.PoiDeviceConnectionType, b: FPPOICore.PoiDeviceConnectionType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol LocalStorage {
+  func getAllDeviceConfigSettings(device: Swift.String) throws -> [Swift.String : Swift.String]
+  func getDeviceConfigSettings(device: Swift.String, settingKeys: [Swift.String]) throws -> [Swift.String : Swift.String]
+  func storeDeviceConfigSettings(device: Swift.String, settings: [Swift.String : Swift.String]) throws
+}
+final public class PoiDeviceFilesData {
+  final public let deviceConfiguration: (any FPPOICore.DeviceConfiguration)?
+  final public let files: [FPPOICore.PoiDeviceFile]
+  public init(deviceConfiguration: (any FPPOICore.DeviceConfiguration)? = nil, files: [FPPOICore.PoiDeviceFile])
+  @objc deinit
+}
+public protocol CardData {
+  var cardHolderName: Swift.String? { get }
+  var maskedCardNumber: Swift.String { get }
+  var expiryDate: Swift.String? { get }
+  var entryMode: Swift.String { get }
+  var encryptionMode: Swift.String? { get }
+  var encryptedTrack1: Swift.String? { get }
+  var encryptedTrack2: Swift.String? { get }
+  var encryptedTrackCombined: Swift.String? { get }
+  var rawCardData: (any FPPOICore.RawCardData)? { get }
+  var maskedTrack1: Swift.String? { get }
+  var maskedTrack2: Swift.String? { get }
+  var ksn: Swift.String? { get }
+  var msrType: Swift.String { get }
+  var cardType: FPPOICore.PoiCardType? { get }
+  var isEncrypted: Swift.Bool { get }
+  var hasChipServiceCode: Swift.Bool { get }
+}
+public protocol BluetoothChannel {
+}
+public protocol BluetoothHelper {
+  static func connectToDevice(deviceIdentifier: Swift.String, protocolName: Swift.String) throws -> any FPPOICore.BluetoothChannel
+}
+extension Foundation.ProcessInfo {
+  public var isRunningTests: Swift.Bool {
+    get
+  }
+}
+public struct BasicRawCardData : FPPOICore.BasicCardData {
+  public let cardHolderName: Swift.String?
+  public let entryMode: Swift.String
+  public let msrType: Swift.String
+  public let bin: Swift.String?
+  public let maskedTrack1: Swift.String?
+  public let maskedTrack2: Swift.String?
+  public let cardType: FPPOICore.PoiCardType?
+  public let isEncrypted: Swift.Bool
+  public let rawCardData: (any FPPOICore.RawCardData)?
+  public let expiryDate: Swift.String?
+  public let isInterac: Swift.Bool
+  public init(msrType: Swift.String, entryMode: Swift.String, rawCardData: any FPPOICore.RawCardData, cardType: FPPOICore.PoiCardType?)
+}
+final public class PaymentOptions : FPPOICore.PoiLabelModifier {
+  final public let cardReadOptions: FPPOICore.CardReadOptions
+  final public let transactionType: FPPOICore.PaymentTransactionType?
+  final public let giftCardTransType: FPPOICore.GiftCardTransactionType?
+  final public let forceCardType: FPPOICore.PoiCardType?
+  final public var tipAmount: Foundation.Decimal?
+  final public var labels: FPPOICore.PoiLabelCollection?
+  final public let binMap: (any FPPOICore.BinMap)?
+  final public let attemptDcc: Swift.Bool
+  final public let allowPosToHandleUnencryptedData: Swift.Bool
+  final public let currencySetting: any FPPOICore.CurrencySetting
+  public init(cardReadOptions: FPPOICore.CardReadOptions? = nil, baseAmount: Foundation.Decimal? = nil, transactionType: FPPOICore.PaymentTransactionType = .UNDEFINED, giftCardTransType: FPPOICore.GiftCardTransactionType? = nil, forceCardType: FPPOICore.PoiCardType? = nil, tipAmount: Foundation.Decimal? = nil, labels: FPPOICore.PoiLabelCollection? = nil, binMap: (any FPPOICore.BinMap)? = nil, attemptDcc: Swift.Bool = false, allowPosToHandleUnencryptedData: Swift.Bool = false, currencySetting: any FPPOICore.CurrencySetting)
+  final public var hasBaseAmount: Swift.Bool {
+    get
+  }
+  final public func getBaseAmount() -> Foundation.Decimal
+  final public func getTotalAmount() -> Foundation.Decimal
+  final public func isForceSwipe() -> Swift.Bool
+  final public func isForceManualEntry() -> Swift.Bool
+  final public func isForceRFIDEntry() -> Swift.Bool
+  final public func setLabels(labels: FPPOICore.PoiLabelCollection?)
+  final public func getLabels() -> FPPOICore.PoiLabelCollection?
+  @objc deinit
+}
+public protocol PoiLabelModifier {
+  func setLabels(labels: FPPOICore.PoiLabelCollection?)
+  func getLabels() -> FPPOICore.PoiLabelCollection?
+}
+public class ChipTagHolder {
+  public init(blacklistTags: [Swift.Int]? = nil)
+  public func getPosTags() -> [Swift.Int : FPPOICore.ChipTag]
+  public func get(_ id: Swift.Int) -> FPPOICore.ChipTag?
+  public func put(id: Swift.Int, tag: FPPOICore.ChipTag)
+  public func clear()
+  @objc deinit
+}
+public struct EmvTagHelper {
+  public static let TERMINAL_DECISION_AFTER_GENERATE_AC_DECLINE: Swift.String
+  public static let TERMINAL_DECISION_AFTER_GENERATE_AC_APPROVE: Swift.String
+  public enum CryptogramInformationData : Swift.String, Swift.CustomStringConvertible {
+    case AAC
+    case ARQC
+    case TC
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.String)
+    public typealias RawValue = Swift.String
+    public var rawValue: Swift.String {
+      get
+    }
+  }
+}
+final public class LocalStorageHelper : FPPOICore.LocalStorageHelping {
+  final public var logger: (any FPLoggerKit.Logger)?
+  public init(storage: (any FPPOICore.LocalStorage)?)
+  final public func getLaneConfigSetting(device: Swift.String, settingKey: Swift.String) -> Swift.String?
+  final public func getLaneConfigSettings(device: Swift.String, settingKeys: [Swift.String]) -> [Swift.String : Swift.String]?
+  final public func getSingleConfigSetting(settingKey: Swift.String, results: [Swift.String : Swift.String]?) -> Swift.String?
+  final public func storeLaneConfigSetting(device: Swift.String, key: Swift.String, value: Swift.String)
+  final public func storeLaneConfigSettings(device: Swift.String, settings: [Swift.String : Swift.String])
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class AppleVasMerchant : FPPOICore.VasMerchant {
+  public var id: Swift.String
+  public var type: FPPOICore.VasType
+  final public let url: Swift.String
+  final public let filter: Swift.String
+  final public let encryptedFlag: Swift.Bool
+  public static func create(_ id: Swift.String, url: Swift.String = "", encryptedFlag: Swift.Bool = true) -> FPPOICore.AppleVasMerchant
+  @objc deinit
+}
+public enum SessionKeyType {
+  case PIN_KEY
+  case MAC_KEY
+  case FIELD_KEY
+  public static func == (a: FPPOICore.SessionKeyType, b: FPPOICore.SessionKeyType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class CardReadOptions {
+  final public let forcedReader: FPPOICore.ForcedReaderMode?
+  final public let vasEnabled: Swift.Bool?
+  final public let vasMerchants: [any FPPOICore.VasMerchant]?
+  final public let prompt: Swift.String?
+  public init(forcedReader: FPPOICore.ForcedReaderMode? = nil, vasEnabled: Swift.Bool? = nil, vasMerchangeds: [any FPPOICore.VasMerchant]? = nil, prompt: Swift.String? = nil)
+  @objc deinit
+}
+public enum ForcedReaderMode {
+  case MANUAL_ENTRY
+  case SWIPE
+  case RFID
+  public static func == (a: FPPOICore.ForcedReaderMode, b: FPPOICore.ForcedReaderMode) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class EmvClessData {
+  public enum EmvKernelId : Swift.Int {
+    case MASTERCARD
+    case VISA
+    case AMERICAN_EXPRESS
+    case DISCOVER_DPAS
+    case DISCOVER_ZIP
+    case GOOGLE
+    public var id: Swift.Int {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  final public let terminalAidConfigs: [FPPOICore.TerminalBaseConfig]
+  final public let terminalCpaKeyConfigs: [FPPOICore.TerminalBaseConfig]
+  final public let terminalGeneralConfig: FPPOICore.TerminalBaseConfig
+  public var tagLengthValueConfigs: [Swift.Int : Swift.String]
+  public init(terminalAidConfigs: [FPPOICore.TerminalBaseConfig], terminalCpaKeyConfigs: [FPPOICore.TerminalBaseConfig], terminalGeneralConfig: FPPOICore.TerminalBaseConfig)
+  public func getTagLengthValueString(configs: [Swift.Int : Swift.String], tlvTags: [FPPOICore.Pair]) throws -> Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class HostSupportFactory {
+  public static func getHostSupportInstance(name: Swift.String, deviceProperties: any FPPOICore.PoiDeviceProperties, localStorageHelper: FPPOICore.LocalStorageHelper, logger: any FPLoggerKit.Logger) throws -> (any FPPOICore.HostSupport)?
+  @objc deinit
+}
+public enum ChipFormat {
+  case DEFAULT
+  case SECRET
+  case BCD_2
+  case BCD_3
+  case BCD_6
+  case BCD_12
+  case BCD_VARIABLE
+  case BINARY
+  case ASCII_2
+  case ASCII_VARIABLE
+  case ASCII_TRIM
+  public static func == (a: FPPOICore.ChipFormat, b: FPPOICore.ChipFormat) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers final public class SecretFormatter {
+  public static let INSTANCE: FPPOICore.SecretFormatter
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class BcdFormatter {
+  public static let INSTANCE_BCD_2: FPPOICore.BcdFormatter
+  public static let INSTANCE_BCD_3: FPPOICore.BcdFormatter
+  public static let INSTANCE_BCD_6: FPPOICore.BcdFormatter
+  public static let INSTANCE_BCD_12: FPPOICore.BcdFormatter
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class BcdVarFormatter {
+  public static let INSTANCE: FPPOICore.BcdVarFormatter
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class BinFormatter {
+  public static let INSTANCE: FPPOICore.BinFormatter
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class AsciiFormatter {
+  public static let INSTANCE: FPPOICore.AsciiFormatter
+  public static let INSTANCE_TRIM: FPPOICore.AsciiFormatter
+  @objc deinit
+}
+public protocol DeviceStateHandler : FPPOICore.DeviceState {
+  func handlePosMessage(posMessage: any FPPOICore.PosRequestMessage) throws
+  func handleDeviceMessage(deviceMessage: FPPOICore.DeviceMessage) throws
+}
+open class DeviceState {
+  public var nextState: FPPOICore.DeviceState? {
+    get
+  }
+  public var messageForNextState: (any FPPOICore.Message)? {
+    get
+  }
+  public var addPosRequestMessageFirst: Swift.Bool {
+    get
+  }
+  public init()
+  open func start()
+  open func deviceErrorState() -> FPPOICore.DeviceState
+  public func getCurrentState() -> FPPOICore.DeviceState
+  public func popNextState() -> FPPOICore.DeviceState?
+  public func getMessageForNextState() -> (any FPPOICore.Message)?
+  public func popEvent() -> FPPOICore.PoiEvent?
+  public func shouldAddMessageFirst() -> Swift.Bool
+  public func updateNextState(_ nextState: FPPOICore.DeviceState)
+  public func passMessageToNextState(_ message: any FPPOICore.Message, addFirst: Swift.Bool = true)
+  public func updateEvent(_ event: FPPOICore.PoiEvent)
+  public func isDeviceStateEmpty() -> Swift.Bool
+  public func getEventForTesting() -> FPPOICore.PoiEvent?
+  open func offlineState() -> FPPOICore.DeviceState?
+  @objc deinit
+}
+final public class ModifiedPaymentData {
+  public static func endTransaction() -> FPPOICore.ModifiedPaymentData
+  public static func forcePosToContinue() -> FPPOICore.ModifiedPaymentData
+  public init(amount: Foundation.Decimal, deviceBehavior: FPPOICore.DeviceBehavior = .NORMAL)
+  final public func getAmount() -> Foundation.Decimal
+  final public func getDeviceBehavior() -> FPPOICore.DeviceBehavior
+  @objc deinit
+}
+public enum DeviceBehavior {
+  case NORMAL
+  case ALLOW_POS_TO_HANDLE_UNENCRYPTED_DATA
+  case FORCE_POS_TO_CONTINUE
+  public static func == (a: FPPOICore.DeviceBehavior, b: FPPOICore.DeviceBehavior) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum CardBrand : Swift.String {
+  case UNKNOWN
+  case MASTERCARD
+  case VISA
+  case INTERAC
+  case AMEX
+  case DISCOVER
+  case DINERS_CLUB
+  case US_DEBIT
+  case UNION_PAY
+  case JCB
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol DeviceConfiguration {
+  var poiDeviceIdentifier: Swift.String { get }
+  var libraryVersion: Swift.String { get }
+  var deviceDetails: FPPOICore.DeviceDetail { get }
+  var files: [FPPOICore.PoiDeviceFile] { get }
+  func toJson() -> Swift.String
+}
+extension FPPOICore.DeviceConfiguration {
+  public var MANIFEST_JSON_NAME: Swift.String {
+    get
+  }
+}
+public protocol BinMap {
+  func getBINDataForBIN(binAsInt: Swift.Int, panLength: Swift.UInt) -> (any FPPOICore.BinMapping)?
+}
+public protocol BinMapping {
+  func getCardType() -> Swift.String
+  func getIssuerName() -> Swift.String
+}
+extension FPPOICore.BinMap {
+  public func lookupMappingByBin(bin: Swift.String, panLength: Swift.UInt) -> (any FPPOICore.BinMapping)?
+  public func lookupMappingByPrefix(maskedPan: Swift.String) -> (any FPPOICore.BinMapping)?
+}
+extension FPPOICore.BinMapping {
+  public func getPoiCardType() -> FPPOICore.PoiCardType
+}
+public protocol Message : AnyObject {
+}
+open class DeviceMessage : FPPOICore.Message {
+  public init()
+  @objc deinit
+}
+public protocol PosRequestMessage : FPPOICore.Message, Swift.CustomStringConvertible {
+}
+public class PosRequestMessageEx<T> : FPPOICore.PosRequestMessage {
+  public var description: Swift.String {
+    get
+  }
+  public init()
+  @objc deinit
+}
+public struct FileInfo {
+}
+public struct FormDisplayRequest {
+  public init()
+}
+public struct LineDisplayRequest {
+  public init()
+}
+public struct RequestData {
+}
+public struct SigCapRequest {
+}
+public struct DisplayRequest {
+}
+@_inheritsConvenienceInitializers public class Cancel : FPPOICore.PosRequestMessageEx<FPPOICore.Cancel> {
+  override public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers public class DeviceRemoved : FPPOICore.PosRequestMessageEx<FPPOICore.DeviceRemoved> {
+  override public init()
+  @objc deinit
+}
+public class OpenLane : FPPOICore.PosRequestMessageEx<FPPOICore.OpenLane> {
+  final public let skipConfiguration: Swift.Bool
+  public init(skipConfiguration: Swift.Bool = false)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers public class CloseLane : FPPOICore.PosRequestMessageEx<FPPOICore.CloseLane> {
+  override public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers public class RebootDevice : FPPOICore.PosRequestMessageEx<FPPOICore.RebootDevice> {
+  override public init()
+  @objc deinit
+}
+public class PollDevice : FPPOICore.PosRequestMessageEx<FPPOICore.PollDevice> {
+  final public let pollDeviceOptions: FPPOICore.PollDeviceOptions?
+  public init(pollDeviceOptions: FPPOICore.PollDeviceOptions? = nil)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers public class DeviceInfo : FPPOICore.PosRequestMessageEx<FPPOICore.DeviceInfo> {
+  override public init()
+  @objc deinit
+}
+public class CardRead : FPPOICore.PosRequestMessageEx<FPPOICore.CardRead> {
+  final public let cardReadOptions: FPPOICore.CardReadOptions?
+  public init(cardReadOptions: FPPOICore.CardReadOptions?)
+  @objc deinit
+}
+public class BeginPayment : FPPOICore.PosRequestMessageEx<FPPOICore.BeginPayment> {
+  final public let paymentOptions: FPPOICore.PaymentOptions
+  public init(paymentOptions: FPPOICore.PaymentOptions)
+  @objc deinit
+}
+public class ContinuePayment : FPPOICore.PosRequestMessageEx<FPPOICore.ContinuePayment> {
+  final public let modifiedPaymentData: FPPOICore.ModifiedPaymentData?
+  public init(modifiedPaymentData: FPPOICore.ModifiedPaymentData?)
+  @objc deinit
+}
+public class ContinueWithPaymentData : FPPOICore.PosRequestMessageEx<FPPOICore.ContinueWithPaymentData> {
+  final public let paymentData: FPPOICore.PaymentData
+  public init(paymentData: FPPOICore.PaymentData)
+  @objc deinit
+}
+public class Authorize : FPPOICore.PosRequestMessageEx<FPPOICore.Authorize> {
+  final public let hostResponseData: FPPOICore.HostResponseData
+  public init(hostResponseData: FPPOICore.HostResponseData)
+  @objc deinit
+}
+public class SetConfig : FPPOICore.PosRequestMessageEx<FPPOICore.SetConfig> {
+  final public let configWriteRequest: FPPOICore.ConfigWriteRequest
+  public init(_ configWriteRequest: FPPOICore.ConfigWriteRequest)
+  @objc deinit
+}
+public class GetConfig : FPPOICore.PosRequestMessageEx<FPPOICore.GetConfig> {
+  final public let configReadRequest: FPPOICore.ConfigReadRequest
+  public init(_ configReadRequest: FPPOICore.ConfigReadRequest)
+  @objc deinit
+}
+public class WriteFile : FPPOICore.PosRequestMessageEx<FPPOICore.WriteFile> {
+  final public let request: FPPOICore.FileWriteRequest
+  public init(_ request: FPPOICore.FileWriteRequest)
+  @objc deinit
+}
+public class ReadFileContents : FPPOICore.PosRequestMessageEx<FPPOICore.ReadFileContents> {
+  final public let request: FPPOICore.PoiDeviceFilesRequest
+  public init(_ request: FPPOICore.PoiDeviceFilesRequest)
+  @objc deinit
+}
+public class PromptForTip : FPPOICore.PosRequestMessageEx<FPPOICore.PromptForTip> {
+  final public let tipRequest: FPPOICore.PromptForTipRequest
+  public init(_ tipRequest: FPPOICore.PromptForTipRequest)
+  @objc deinit
+}
+public class PromptDcc : FPPOICore.PosRequestMessageEx<FPPOICore.PromptDcc> {
+  final public let dccRates: any FPPOICore.DccRatesData
+  public init(dccRates: any FPPOICore.DccRatesData)
+  @objc deinit
+}
+public class ShowDisplay : FPPOICore.PosRequestMessageEx<FPPOICore.ShowDisplay> {
+  public init(_ request: FPPOICore.FormDisplayRequest)
+  @objc deinit
+}
+public class LineDisplay : FPPOICore.PosRequestMessageEx<FPPOICore.LineDisplay> {
+  public init(_ request: FPPOICore.LineDisplayRequest)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class UpdateLineItem : FPPOICore.PosRequestMessageEx<FPPOICore.UpdateLineItem> {
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class SendDeviceMessage : FPPOICore.PosRequestMessageEx<FPPOICore.SendDeviceMessage> {
+  final public let message: FPPOICore.DeviceMessage
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class SigCap : FPPOICore.PosRequestMessageEx<FPPOICore.SigCap> {
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class VasSetup : FPPOICore.PosRequestMessageEx<FPPOICore.VasSetup> {
+  final public let cardReadOptions: FPPOICore.CardReadOptions?
+  @objc deinit
+}
+public class KeyExchange : FPPOICore.PosRequestMessageEx<FPPOICore.KeyExchange> {
+  final public let hostResponseData: FPPOICore.HostResponseData?
+  public init(_ keyData: FPPOICore.HostResponseData?)
+  @objc deinit
+}
+public class CalculateMacForRequest : FPPOICore.PosRequestMessageEx<FPPOICore.CalculateMacForRequest> {
+  final public let paymentData: FPPOICore.PaymentData
+  public init(_ paymentData: FPPOICore.PaymentData)
+  @objc deinit
+}
+public class VerifyTransactionResponse : FPPOICore.PosRequestMessageEx<FPPOICore.VerifyTransactionResponse> {
+  final public let hostResponseData: FPPOICore.HostResponseData
+  public init(_ hostResponseData: FPPOICore.HostResponseData)
+  @objc deinit
+}
+public class DccRatesResponse : FPPOICore.PosRequestMessageEx<FPPOICore.DccRatesResponse> {
+  final public let dccSelectionData: FPPOICore.DccSelectionData
+  public init(_ dccSelectionData: FPPOICore.DccSelectionData)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers public class LineItemUpdated : FPPOICore.PosRequestMessageEx<FPPOICore.LineItemUpdated> {
+  override public init()
+  @objc deinit
+}
+public class EmvConfig : FPPOICore.PosRequestMessageEx<FPPOICore.EmvConfig> {
+  final public let emvContact: Swift.String?
+  final public let emvCless: Swift.String?
+  public init(emvContact: Swift.String?, emvCless: Swift.String?)
+  @objc deinit
+}
+public class ResetEmvConfig : FPPOICore.PosRequestMessageEx<FPPOICore.ResetEmvConfig> {
+  final public let includeContact: Swift.Bool
+  final public let includeCless: Swift.Bool
+  public init(includeContact: Swift.Bool, includeCless: Swift.Bool)
+  @objc deinit
+}
+public class UpdateFirmware : FPPOICore.PosRequestMessageEx<FPPOICore.UpdateFirmware> {
+  public init(_ fileUrl: Swift.String)
+  public var url: Foundation.URL? {
+    get
+    set
+  }
+  public var inputStream: FPPOICore.ByteArrayInputStream? {
+    get
+    set
+  }
+  @objc deinit
+}
+public class DccRatesRequest : FPPOICore.PosRequestMessageEx<FPPOICore.DccRatesRequest> {
+  final public let dccRatesLookupEvent: FPPOICore.DccRatesLookupEvent
+  public init(_ dccRatesLookupEvent: FPPOICore.DccRatesLookupEvent)
+  @objc deinit
+}
+public struct ChipTag : Swift.Equatable {
+  public let id: Swift.Int
+  public let value: [Swift.UInt8]
+  public let textValue: Swift.String
+  public static func createAscii(id: Swift.Int, text: Swift.String) -> FPPOICore.ChipTag
+  public static func createAscii(id: Swift.Int, buffer: FPPOICore.ImmutableByteBuffer) -> FPPOICore.ChipTag
+  public static func createAsciiFromHex(id: Swift.Int, buffer: FPPOICore.ImmutableByteBuffer) -> FPPOICore.ChipTag
+  public static func createAsciiFromHex(id: Swift.Int, hexValue: Swift.String) -> FPPOICore.ChipTag
+  public static func createBcd(id: Swift.Int, buffer: FPPOICore.ImmutableByteBuffer) throws -> FPPOICore.ChipTag
+  public static func createBcd(id: Swift.Int, value: Swift.Int, totalDigits: Swift.Int) -> FPPOICore.ChipTag
+  public func isInteracTag() -> Swift.Bool
+  public var isEmpty: Swift.Bool {
+    get
+  }
+  public func getIdAsHexString() -> Swift.String
+  public func replaceByte(byte: Swift.UInt8, position: Swift.Int) -> FPPOICore.ChipTag
+  public static func == (a: FPPOICore.ChipTag, b: FPPOICore.ChipTag) -> Swift.Bool
+}
+public protocol PoiDevice : AnyObject {
+  var properties: any FPPOICore.PoiDeviceProperties { get }
+  var features: any FPPOICore.PoiDeviceFeatures { get }
+  func getDeviceDriver() throws -> any FPPOICore.PoiDeviceDriver
+}
+extension FPPOICore.Placement : Swift.Equatable {}
+extension FPPOICore.Placement : Swift.Hashable {}
+extension FPPOICore.Placement : Swift.RawRepresentable {}
+extension FPPOICore.ContactlessPriorityFlag : Swift.Equatable {}
+extension FPPOICore.ContactlessPriorityFlag : Swift.Hashable {}
+extension FPPOICore.FormFactor : Swift.Equatable {}
+extension FPPOICore.FormFactor : Swift.Hashable {}
+extension FPPOICore.PoiEventType : Swift.Equatable {}
+extension FPPOICore.PoiEventType : Swift.Hashable {}
+extension FPPOICore.PoiEventType : Swift.RawRepresentable {}
+extension FPPOICore.CardEncryptionMode : Swift.Equatable {}
+extension FPPOICore.CardEncryptionMode : Swift.Hashable {}
+extension FPPOICore.PoiCardType : Swift.Equatable {}
+extension FPPOICore.PoiCardType : Swift.Hashable {}
+extension FPPOICore.PoiCardType : Swift.RawRepresentable {}
+extension FPPOICore.FallbackMode : Swift.Equatable {}
+extension FPPOICore.FallbackMode : Swift.Hashable {}
+extension FPPOICore.FormButtonType : Swift.Equatable {}
+extension FPPOICore.FormButtonType : Swift.Hashable {}
+extension FPPOICore.RawCardType : Swift.Equatable {}
+extension FPPOICore.RawCardType : Swift.Hashable {}
+extension FPPOICore.PoiDeviceProgressMessage : Swift.Equatable {}
+extension FPPOICore.PoiDeviceProgressMessage : Swift.Hashable {}
+extension FPPOICore.SessionKeyManager.Status : Swift.Equatable {}
+extension FPPOICore.SessionKeyManager.Status : Swift.Hashable {}
+extension FPPOICore.PoiDeviceState : Swift.Equatable {}
+extension FPPOICore.PoiDeviceState : Swift.Hashable {}
+extension FPPOICore.DccSelectionStatus : Swift.Hashable {}
+extension FPPOICore.ErrorCode : Swift.Equatable {}
+extension FPPOICore.ErrorCode : Swift.Hashable {}
+extension FPPOICore.ErrorCode : Swift.RawRepresentable {}
+extension FPPOICore.BluetoothDeviceConnectionStatus : Swift.Equatable {}
+extension FPPOICore.BluetoothDeviceConnectionStatus : Swift.Hashable {}
+extension FPPOICore.GiftCardTransactionType : Swift.Equatable {}
+extension FPPOICore.GiftCardTransactionType : Swift.Hashable {}
+extension FPPOICore.OfflineApprovalRule : Swift.Equatable {}
+extension FPPOICore.OfflineApprovalRule : Swift.Hashable {}
+extension FPPOICore.OfflineApprovalRule : Swift.RawRepresentable {}
+extension FPPOICore.AuthorizationStatus : Swift.Equatable {}
+extension FPPOICore.AuthorizationStatus : Swift.Hashable {}
+extension FPPOICore.AccountType : Swift.Equatable {}
+extension FPPOICore.AccountType : Swift.Hashable {}
+extension FPPOICore.AccountType : Swift.RawRepresentable {}
+extension FPPOICore.HostSupportAction : Swift.Equatable {}
+extension FPPOICore.HostSupportAction : Swift.Hashable {}
+extension FPPOICore.EmvLocale : Swift.Equatable {}
+extension FPPOICore.EmvLocale : Swift.Hashable {}
+extension FPPOICore.EmvLocale : Swift.RawRepresentable {}
+extension FPPOICore.VasType : Swift.Equatable {}
+extension FPPOICore.VasType : Swift.Hashable {}
+extension FPPOICore.KeyCardType : Swift.Equatable {}
+extension FPPOICore.KeyCardType : Swift.Hashable {}
+extension FPPOICore.UsbDeviceConnection : Swift.Equatable {}
+extension FPPOICore.UsbDeviceConnection : Swift.Hashable {}
+extension FPPOICore.PaymentTransactionType : Swift.Equatable {}
+extension FPPOICore.PaymentTransactionType : Swift.Hashable {}
+extension FPPOICore.PoiDeviceConnectionType : Swift.Equatable {}
+extension FPPOICore.PoiDeviceConnectionType : Swift.Hashable {}
+extension FPPOICore.EmvTagHelper.CryptogramInformationData : Swift.Equatable {}
+extension FPPOICore.EmvTagHelper.CryptogramInformationData : Swift.Hashable {}
+extension FPPOICore.EmvTagHelper.CryptogramInformationData : Swift.RawRepresentable {}
+extension FPPOICore.SessionKeyType : Swift.Equatable {}
+extension FPPOICore.SessionKeyType : Swift.Hashable {}
+extension FPPOICore.ForcedReaderMode : Swift.Equatable {}
+extension FPPOICore.ForcedReaderMode : Swift.Hashable {}
+extension FPPOICore.EmvClessData.EmvKernelId : Swift.Equatable {}
+extension FPPOICore.EmvClessData.EmvKernelId : Swift.Hashable {}
+extension FPPOICore.EmvClessData.EmvKernelId : Swift.RawRepresentable {}
+extension FPPOICore.ChipFormat : Swift.Equatable {}
+extension FPPOICore.ChipFormat : Swift.Hashable {}
+extension FPPOICore.DeviceBehavior : Swift.Equatable {}
+extension FPPOICore.DeviceBehavior : Swift.Hashable {}
+extension FPPOICore.CardBrand : Swift.Equatable {}
+extension FPPOICore.CardBrand : Swift.Hashable {}
+extension FPPOICore.CardBrand : Swift.RawRepresentable {}

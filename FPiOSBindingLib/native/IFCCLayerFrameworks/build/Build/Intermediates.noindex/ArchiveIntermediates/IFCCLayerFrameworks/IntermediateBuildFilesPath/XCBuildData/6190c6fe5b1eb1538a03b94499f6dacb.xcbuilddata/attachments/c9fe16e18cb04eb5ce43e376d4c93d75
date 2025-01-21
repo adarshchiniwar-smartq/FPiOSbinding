@@ -1,0 +1,10 @@
+framework module IFCCLayerFrameworks {
+  umbrella header "IFCCLayerFrameworks.h"
+  export *
+
+  module * { export * }
+}
+
+module IFCCLayerFrameworks.__Swift {
+  exclude header "IFCCLayerFrameworks-Swift.h"
+}

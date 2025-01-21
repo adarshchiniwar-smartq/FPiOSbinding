@@ -1,0 +1,11 @@
+framework module FPPOICore {
+  umbrella header "FPPOICore.h"
+  export *
+
+  module * { export * }
+}
+
+module FPPOICore.Swift {
+  header "FPPOICore-Swift.h"
+  requires objc
+}

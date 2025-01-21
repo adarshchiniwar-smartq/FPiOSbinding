@@ -1,0 +1,23 @@
+{
+  'version': 0,
+  'use-external-names': 'false',
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/BuildProductsPath/Release-iphoneos/IFCCLayerFrameworks.framework/Modules"
+    'contents': [{
+      'type': 'file',
+      'name': "module.modulemap",
+      'external-contents': "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/unextended-module.modulemap",
+    }]
+    },
+    {
+    'type': 'directory',
+    'name': "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/BuildProductsPath/Release-iphoneos/IFCCLayerFrameworks.framework/Headers"
+    'contents': [{
+      'type': 'file',
+      'name': "IFCCLayerFrameworks-Swift.h",
+      'external-contents': "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/unextended-interface-header.h",
+    }]
+    }]
+}

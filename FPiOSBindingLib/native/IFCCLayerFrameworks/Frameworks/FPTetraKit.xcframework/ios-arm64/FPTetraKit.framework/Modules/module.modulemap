@@ -1,0 +1,11 @@
+framework module FPTetraKit {
+  umbrella header "FPTetraKit.h"
+  export *
+
+  module * { export * }
+}
+
+module FPTetraKit.Swift {
+  header "FPTetraKit-Swift.h"
+  requires objc
+}

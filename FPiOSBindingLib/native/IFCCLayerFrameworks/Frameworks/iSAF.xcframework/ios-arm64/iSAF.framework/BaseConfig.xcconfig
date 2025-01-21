@@ -1,0 +1,13 @@
+//
+// Copyright © 2024 FreedomPay. All rights reserved.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+MARKETING_VERSION = 4.44.0
+CURRENT_PROJECT_VERSION = 2
+
+DYLIB_CURRENT_VERSION = $(CURRENT_PROJECT_VERSION)
+SDK_VERSION = $(MARKETING_VERSION)
+SDK_BUILD = $(CURRENT_PROJECT_VERSION)

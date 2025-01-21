@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>logFormatVersion</key>
+	<integer>11</integer>
+	<key>logs</key>
+	<dict>
+		<key>6C12317A-2468-4B7D-978D-7E50ED2B34DD</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>6C12317A-2468-4B7D-978D-7E50ED2B34DD.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>12</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>IFCCLayerFrameworks project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>IFCCLayerFrameworks</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Archiving project IFCCLayerFrameworks with scheme IFCCLayerFrameworks</string>
+			<key>timeStartedRecording</key>
+			<real>759152081.648628</real>
+			<key>timeStoppedRecording</key>
+			<real>759152116.937392</real>
+			<key>title</key>
+			<string>Archiving project IFCCLayerFrameworks with scheme IFCCLayerFrameworks</string>
+			<key>uniqueIdentifier</key>
+			<string>6C12317A-2468-4B7D-978D-7E50ED2B34DD</string>
+		</dict>
+		<key>849A2663-6C8A-4A78-94B7-DAB5B165DA98</key>
+		<dict>
+			<key>className</key>
+			<string>IDECommandLineBuildLog</string>
+			<key>documentTypeString</key>
+			<string>&lt;nil&gt;</string>
+			<key>domainType</key>
+			<string>Xcode.IDEActivityLogDomainType.BuildLog</string>
+			<key>fileName</key>
+			<string>849A2663-6C8A-4A78-94B7-DAB5B165DA98.xcactivitylog</string>
+			<key>hasPrimaryLog</key>
+			<true/>
+			<key>primaryObservable</key>
+			<dict>
+				<key>highLevelStatus</key>
+				<string>W</string>
+				<key>totalNumberOfAnalyzerIssues</key>
+				<integer>0</integer>
+				<key>totalNumberOfErrors</key>
+				<integer>0</integer>
+				<key>totalNumberOfTestFailures</key>
+				<integer>0</integer>
+				<key>totalNumberOfWarnings</key>
+				<integer>24</integer>
+			</dict>
+			<key>schemeIdentifier-containerName</key>
+			<string>IFCCLayerFrameworks project</string>
+			<key>schemeIdentifier-schemeName</key>
+			<string>IFCCLayerFrameworks</string>
+			<key>schemeIdentifier-sharedScheme</key>
+			<integer>1</integer>
+			<key>signature</key>
+			<string>Archiving project IFCCLayerFrameworks with scheme IFCCLayerFrameworks</string>
+			<key>timeStartedRecording</key>
+			<real>759152017.27093005</real>
+			<key>timeStoppedRecording</key>
+			<real>759152052.70551097</real>
+			<key>title</key>
+			<string>Archiving project IFCCLayerFrameworks with scheme IFCCLayerFrameworks</string>
+			<key>uniqueIdentifier</key>
+			<string>849A2663-6C8A-4A78-94B7-DAB5B165DA98</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

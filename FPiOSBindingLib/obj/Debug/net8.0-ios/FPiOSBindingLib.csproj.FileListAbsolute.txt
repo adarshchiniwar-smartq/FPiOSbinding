@@ -1,0 +1,2 @@
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/Debug/net8.0-ios/_ProcessedBundleResourcesPath.items
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/Debug/net8.0-ios/_ProcessedContentPath.items

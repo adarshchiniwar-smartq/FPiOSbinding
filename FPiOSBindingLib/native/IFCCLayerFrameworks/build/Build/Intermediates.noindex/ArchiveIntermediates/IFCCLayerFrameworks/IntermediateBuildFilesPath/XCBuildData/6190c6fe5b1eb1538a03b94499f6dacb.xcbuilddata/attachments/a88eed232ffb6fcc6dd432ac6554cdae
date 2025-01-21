@@ -1,0 +1,25 @@
+{
+  "" : {
+    "const-values" : "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/IFCCLayerFrameworks-master.swiftconstvalues",
+    "dependencies" : "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/IFCCLayerFrameworks-master.d",
+    "diagnostics" : "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/IFCCLayerFrameworks-master.dia",
+    "emit-module-dependencies" : "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/IFCCLayerFrameworks-master-emit-module.d",
+    "emit-module-diagnostics" : "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/IFCCLayerFrameworks-master-emit-module.dia",
+    "swift-dependencies" : "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/IFCCLayerFrameworks-master.swiftdeps"
+  },
+  "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/IFCCLayerFrameworks/ApplicationState.swift" : {
+    "index-unit-output-path" : "/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/ApplicationState.o",
+    "llvm-bc" : "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/ApplicationState.bc",
+    "object" : "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/ApplicationState.o"
+  },
+  "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/IFCCLayerFrameworks/DotnetNewBinding.swift" : {
+    "index-unit-output-path" : "/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/DotnetNewBinding.o",
+    "llvm-bc" : "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/DotnetNewBinding.bc",
+    "object" : "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/DotnetNewBinding.o"
+  },
+  "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/IFCCLayerFrameworks/FCCBaseViewController.swift" : {
+    "index-unit-output-path" : "/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/FCCBaseViewController.o",
+    "llvm-bc" : "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/FCCBaseViewController.bc",
+    "object" : "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/build/Build/Intermediates.noindex/ArchiveIntermediates/IFCCLayerFrameworks/IntermediateBuildFilesPath/IFCCLayerFrameworks.build/Release-iphoneos/IFCCLayerFrameworks.build/Objects-normal/arm64/FCCBaseViewController.o"
+  }
+}

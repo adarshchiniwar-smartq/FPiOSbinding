@@ -1,0 +1,4 @@
+framework module FPLoggerKit {
+  header "FPLoggerKit-Swift.h"
+  requires objc
+}

@@ -1,0 +1,6 @@
+framework module RUA_MFI {
+  umbrella header "RUA_MFI.h"
+
+  export *
+  module * { export * }
+}

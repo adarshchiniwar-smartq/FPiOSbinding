@@ -1,0 +1,8 @@
+version: "Apple Swift version 6.0.3 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)"
+options: "b7cb98f1519f66c984e7526c969e54aa7178767509a74e768a8ff58e67ca8531"
+build_start_time: [1737459282, 614108000]
+build_end_time: [1737459316, 932662000]
+inputs:
+  "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/IFCCLayerFrameworks/ApplicationState.swift": [1737457956, 0]
+  "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/IFCCLayerFrameworks/DotnetNewBinding.swift": [1737458078, 0]
+  "/Users/Adarsh.Chiniwar/Downloads/Old/Murli/IFCCLayerFrameworks/IFCCLayerFrameworks/FCCBaseViewController.swift": [1737458063, 0]

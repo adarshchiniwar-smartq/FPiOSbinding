@@ -1,0 +1,11 @@
+framework module IFCCLayerFrameworks {
+  umbrella header "IFCCLayerFrameworks.h"
+  export *
+
+  module * { export * }
+}
+
+module IFCCLayerFrameworks.Swift {
+  header "IFCCLayerFrameworks-Swift.h"
+  requires objc
+}

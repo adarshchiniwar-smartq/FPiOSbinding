@@ -1,0 +1,292 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target x86_64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FPRuaKit
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import FPLoggerKit
+import FPPOICore
+@_exported import FPRuaKit
+import Foundation
+import RUA_MFI
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_hasMissingDesignatedInitializers public class DeviceTerminalCapabilities : Swift.CustomStringConvertible {
+  final public let terminalCapabilities: Swift.String
+  final public let displayFormat: Swift.String
+  final public let ledsAndIndicators: Swift.String
+  final public let serialNumber: Swift.String
+  public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public protocol RuaAudiojackPairingDelegate : AnyObject {
+  func devicePairingSucceeded(_ identifier: Swift.String)
+  func devicePairingConnected()
+  func devicePairingDisconnected()
+  func devicePairingError(_ message: Swift.String?)
+  func devicePairingPasscodeConfirmationRequested(_ passCode: Swift.String)
+}
+public struct RuaConfigConstants {
+  public static let DEFAULT_AID_PRIORITY_LIST: [Swift.String]
+  public static let DEFAULT_DEBIT_AIDS: [Swift.String]
+}
+public class ContactlessTransactionOptions : Swift.CustomStringConvertible {
+  public init(isCvmSupported: Swift.Bool? = nil, isAmexSupported: Swift.Bool? = nil, enableCryptogram17: Swift.Bool? = nil, enableOnlineCryptogram: Swift.Bool? = nil, enableOnline: Swift.Bool? = nil, enableMagStripe: Swift.Bool? = nil, enableMagChip: Swift.Bool? = nil, enableQVSDC: Swift.Bool? = nil, enableMSD: Swift.Bool? = nil, isDPASEmvSupported: Swift.Bool? = nil, isDPASMsrSupported: Swift.Bool? = nil, disableDiscoverIssuerScript: Swift.Bool? = nil, contactlessOutcomeDisplayTime: Swift.Int? = nil)
+  public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public class RuaConfig : Swift.CustomStringConvertible {
+  public static let cardTimeoutMin: Swift.Int32
+  public static let cardTimeoutMax: Swift.Int32
+  public static let commandTimeoutMin: Swift.Int32
+  public static let commandTimeoutMax: Swift.Int32
+  public static let shutdownTimeoutMin: Swift.Int32
+  public static let shutdownTimeoutMax: Swift.Int32
+  public static let energySavingModeTimeoutMin: Swift.Int32
+  public static let energySavingModeTimeoutMax: Swift.Int32
+  final public let deviceType: RUA_MFI.RUADeviceType
+  public init?(deviceType: FPRuaKit.RuaDeviceType, readers: [FPRuaKit.RuaConfiguredReader] = [.CONTACT, .CONTACTLESS, .SWIPE], aidPriorityList: [Swift.String] = RuaConfigConstants.DEFAULT_AID_PRIORITY_LIST, debitAids: [Swift.String] = RuaConfigConstants.DEFAULT_DEBIT_AIDS, bluetoothPollDelaySeconds: Swift.Int = 100, screenLocale: FPRuaKit.SupportedLocale = .ENGLISH, contactlessPriorityFlag: FPPOICore.ContactlessPriorityFlag = .DEFAULT, contactlessTransactionOptions: FPRuaKit.ContactlessTransactionOptions? = nil, overallContactlessTransactionLimit: Swift.String? = nil, cardTimeoutInSeconds: Swift.String? = nil, commandTimeoutInSeconds: Swift.String? = nil, energySavingModeTimeoutInSeconds: Swift.String? = nil, shutDownTimeoutInSeconds: Swift.String? = nil, extraProgressMessageFlag: Swift.String? = nil, enableRuaDebugMessages: Swift.Bool? = nil, enableAidSelection: Swift.Bool? = nil)
+  public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public enum SupportedLocale : Swift.String {
+  case ENGLISH
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+@objc public class RuaUSBHelper : ObjectiveC.NSObject {
+  public init(context: any FPRuaKit.Context, config: FPRuaKit.RuaConfig, logger: any FPLoggerKit.Logger)
+  public func getAvailableDevice(delegate: any FPPOICore.UsbDeviceDelegate)
+  public func cancel()
+  @objc deinit
+}
+public protocol RuaBluetoothHelperCreating {
+  func create(context: any FPRuaKit.Context, config: FPRuaKit.RuaConfig, delegate: any FPPOICore.BluetoothDeviceDelegate, logger: any FPLoggerKit.Logger, pairingConfirmationDelegate: (any FPRuaKit.RuaPairingConfirmationDelegate)?) -> any FPRuaKit.RuaBluetoothHelping
+}
+public protocol RuaDevice {
+  var name: Swift.String { get }
+  var identifier: Swift.String { get }
+  var connectionType: FPPOICore.PoiDeviceConnectionType { get }
+  var uuid: Swift.String { get }
+  var rssi: Swift.Int { get }
+}
+extension RUA_MFI.RUAApplicationIdentifier {
+  @objc override dynamic open var description: Swift.String {
+    @objc get
+  }
+}
+public class RuaLibLoggerModuleIdentity : FPLoggerKit.LoggerModuleIdentity {
+  public func loggingModules(levels: [Swift.String : FPLoggerKit.LogLevel], defaultLevel: FPLoggerKit.LogLevel) -> [any FPLoggerKit.LoggerModule]
+  public init()
+  public static var sdkVersion: Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class VersionUtil {
+  public static var sharedInstance: FPRuaKit.VersionUtil
+  public var version: Swift.String {
+    get
+    set
+  }
+  public var versionName: Swift.String {
+    get
+    set
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class RuaDeviceExtraInfo : FPPOICore.PoiDeviceData, Swift.CustomStringConvertible {
+  public var readerVersionInfo: FPRuaKit.ReaderVersionInfo? {
+    get
+  }
+  public var batteryInfo: FPRuaKit.RuaBatteryInfo? {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+extension RUA_MFI.RUAPublicKey {
+  @objc override dynamic open var description: Swift.String {
+    @objc get
+  }
+}
+public struct RuaBluetoothHelperFactory : FPRuaKit.RuaBluetoothHelperCreating {
+  public init()
+  public func create(context: any FPRuaKit.Context, config: FPRuaKit.RuaConfig, delegate: any FPPOICore.BluetoothDeviceDelegate, logger: any FPLoggerKit.Logger, pairingConfirmationDelegate: (any FPRuaKit.RuaPairingConfirmationDelegate)?) -> any FPRuaKit.RuaBluetoothHelping
+}
+extension RUA_MFI.RUAProgressMessage : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+public protocol RuaBluetoothHelping {
+  var config: FPRuaKit.RuaConfig { get }
+  func connectDevice(device: any FPRuaKit.RuaDevice)
+  func pairDeviceViaAudiojack(delegate: any FPRuaKit.RuaAudiojackPairingDelegate)
+  func getAvailableDevices(delegate: any FPPOICore.BluetoothEventDelegate)
+}
+public class RuaLibDevice : FPPOICore.PoiDevice {
+  public var properties: any FPPOICore.PoiDeviceProperties {
+    get
+  }
+  public var features: any FPPOICore.PoiDeviceFeatures {
+    get
+  }
+  public init(device: RUA_MFI.RUADevice, config: FPRuaKit.RuaConfig, context: (any FPRuaKit.Context)?, logger: any FPLoggerKit.Logger)
+  public func getDeviceDriver() throws -> any FPPOICore.PoiDeviceDriver
+  @objc deinit
+}
+public protocol Context {
+}
+@objc public class RuaBluetoothHelper : ObjectiveC.NSObject, FPRuaKit.RuaBluetoothHelping {
+  final public let config: FPRuaKit.RuaConfig
+  public init(context: any FPRuaKit.Context, config: FPRuaKit.RuaConfig, delegate: any FPPOICore.BluetoothDeviceDelegate, logger: any FPLoggerKit.Logger, pairingConfirmationDelegate: (any FPRuaKit.RuaPairingConfirmationDelegate)? = nil)
+  public func connectDevice(device: any FPRuaKit.RuaDevice)
+  public func pairDeviceViaAudiojack(delegate: any FPRuaKit.RuaAudiojackPairingDelegate)
+  public func getAvailableDevices(delegate: any FPPOICore.BluetoothEventDelegate)
+  public func cancel()
+  @objc deinit
+}
+@objc public class RuaDiscoveryManager : ObjectiveC.NSObject {
+  public init(logger: any FPLoggerKit.Logger)
+  public func getAvailableDevices(_ deviceType: FPRuaKit.RuaDeviceType, delegate: any FPPOICore.BluetoothEventDelegate) throws
+  @objc deinit
+}
+extension FPRuaKit.RuaDiscoveryManager : RUA_MFI.RUADeviceSearchListener {
+  @objc dynamic public func discoveredDevice(_ reader: RUA_MFI.RUADevice!)
+  @objc dynamic public func discoveryComplete()
+}
+public enum RuaConfiguredReader : Swift.CustomStringConvertible {
+  case CONTACT
+  case CONTACTLESS
+  case SWIPE
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: FPRuaKit.RuaConfiguredReader, b: FPRuaKit.RuaConfiguredReader) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class RuaDeviceProperties : FPPOICore.PoiDeviceProperties {
+  public var extraDeviceData: (any FPPOICore.PoiDeviceData)? {
+    get
+  }
+  public var connectionType: FPPOICore.PoiDeviceConnectionType {
+    get
+  }
+  final public let driverName: Swift.String
+  public var driverVersion: Swift.String {
+    get
+  }
+  public var firmwareVersion: Swift.String {
+    get
+  }
+  public var manufacturerName: Swift.String
+  public var productName: Swift.String {
+    get
+  }
+  public var serialNumber: Swift.String {
+    get
+  }
+  public var serialNumber2: Swift.String {
+    get
+  }
+  public var additionalConfigurations: [FPPOICore.Configuration]?
+  public var name: Swift.String {
+    get
+    set
+  }
+  public init(device: RUA_MFI.RUADevice)
+  public func getDefaultLabel(labelIndex: Swift.Int) -> Swift.String?
+  final public let profileId: Swift.String?
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class RuaBatteryInfo {
+  final public let batteryLevel: Swift.Int
+  final public let isCharging: Swift.Bool
+  final public let lastTimeBatteryChecked: Foundation.Date
+  @objc deinit
+}
+public enum RuaDeviceType : Swift.CustomStringConvertible {
+  case RP450c
+  case RP45BT
+  case MOBY5500
+  case UNKNOWN
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: FPRuaKit.RuaDeviceType, b: FPRuaKit.RuaDeviceType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class RuaPairingConfirmationHelper {
+  weak public var ledConfirmationCallback: (any RUA_MFI.RUALedPairingConfirmationCallback)?
+  final public let ledSequence: [RUA_MFI.RUALedSequence]
+  public var ledPairingView: RUA_MFI.RUALedPairingView?
+  public func handleLEDPairingAction(_ isConfirmed: Swift.Bool)
+  public func restartLEDPairingSequence()
+  public func showLEDPairingView(_ ledSequenceContainer: UIKit.UIView)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class VersionData : Swift.Codable {
+  final public let compatibility_matrix: Swift.String
+  final public let customer_id: Swift.String
+  final public let day: Swift.String
+  final public let depend_ver: Swift.String
+  final public let file_level: Swift.String
+  final public let file_sn: Swift.String
+  final public let file_type: Swift.String
+  final public let maintainer_id: Swift.String
+  final public let month: Swift.String
+  final public let platform: Swift.String
+  final public let subplatform: Swift.String
+  final public let verflag: Swift.String
+  final public let version: Swift.String
+  final public let year: Swift.String
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers public class ReaderVersionInfo : Swift.CustomStringConvertible, Swift.Codable {
+  final public let bluetooth_mac_address: Swift.String
+  final public let boot_file_version: FPRuaKit.VersionData
+  final public let control_file_version: FPRuaKit.VersionData
+  final public let emv_kernel_version: Swift.String
+  final public let font_file_version: Swift.String
+  final public let hardware_type: Swift.String
+  final public let key_version: Swift.String
+  final public let parameter_file_version: [FPRuaKit.VersionData]
+  final public let ped_version: Swift.String
+  final public let product_serial_number: Swift.String
+  final public let user_file_version: [FPRuaKit.VersionData]
+  public var description: Swift.String {
+    get
+  }
+  public static func parse(json: Swift.String) -> FPRuaKit.ReaderVersionInfo?
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+public protocol RuaPairingConfirmationDelegate : AnyObject {
+  func devicePairingLedSequenceConfirmationRequested(_ pairingConfirmationHelper: FPRuaKit.RuaPairingConfirmationHelper)
+}
+extension FPRuaKit.SupportedLocale : Swift.Equatable {}
+extension FPRuaKit.SupportedLocale : Swift.Hashable {}
+extension FPRuaKit.SupportedLocale : Swift.RawRepresentable {}
+extension FPRuaKit.RuaConfiguredReader : Swift.Equatable {}
+extension FPRuaKit.RuaConfiguredReader : Swift.Hashable {}
+extension FPRuaKit.RuaDeviceType : Swift.Equatable {}
+extension FPRuaKit.RuaDeviceType : Swift.Hashable {}

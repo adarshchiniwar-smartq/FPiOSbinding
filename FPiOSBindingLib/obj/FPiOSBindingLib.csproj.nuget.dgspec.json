@@ -1,0 +1,74 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/FPiOSBindingLib.csproj": {}
+  },
+  "projects": {
+    "/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/FPiOSBindingLib.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/FPiOSBindingLib.csproj",
+        "projectName": "FPiOSBindingLib",
+        "projectPath": "/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/FPiOSBindingLib.csproj",
+        "packagesPath": "/Users/Adarsh.Chiniwar/.nuget/packages/",
+        "outputPath": "/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/Adarsh.Chiniwar/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0-ios"
+        ],
+        "sources": {
+          "/usr/local/share/dotnet/library-packs": {},
+          "https://api.nuget.org/v3/index.json": {},
+          "https://pkgs.dev.azure.com/xamarin/public/_packaging/maui-nativelibraryinterop/nuget/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0-ios18.0": {
+            "targetAlias": "net8.0-ios",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0-ios18.0": {
+          "targetAlias": "net8.0-ios",
+          "dependencies": {
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.10, )",
+              "autoReferenced": true
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.iOS": {
+              "privateAssets": "all"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.403/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

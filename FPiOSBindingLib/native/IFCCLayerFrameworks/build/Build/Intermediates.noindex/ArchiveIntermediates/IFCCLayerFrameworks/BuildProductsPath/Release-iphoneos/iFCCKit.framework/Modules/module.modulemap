@@ -1,0 +1,4 @@
+framework module iFCCKit {
+  header "iFCCKit-Swift.h"
+  requires objc
+}

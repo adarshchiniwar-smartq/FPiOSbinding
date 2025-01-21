@@ -1,0 +1,2163 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target x86_64-apple-ios15.0-simulator -enable-objc-interop -assert-config Release -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name iFCCKit
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Compression
+import CoreFoundation
+import FPAmaKit
+import FPLoggerKit
+import FPPOICore
+import FPRuaKit
+import FPTetraKit
+import Foundation
+import Swift
+import SystemConfiguration
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import iFCCCore
+import iSAF
+import zlib
+@_inheritsConvenienceInitializers @objc public class EmptyCardReaderDeviceInfo : ObjectiveC.NSObject, iFCCKit.CardReaderDeviceInfo {
+  @objc public var configuration: [Swift.String : Swift.String]?
+  @objc public var deviceVersionInfo: (any iFCCKit.DeviceVersionInfo)?
+  @objc public var deviceFeatures: (any iFCCKit.DeviceFeatures)?
+  @objc final public let hardwareType: Swift.String
+  @objc final public let applicationVersion: Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class GiftCardDeactivateOperationRequest : iFCCKit.GiftCardOperationRequest {
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, purchaseTotal: Foundation.NSDecimalNumber?)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public protocol VersionInfo {
+  @objc var iFccVersion: Swift.String { get }
+  @objc var iFccBuildNumber: Swift.String { get }
+  @objc @available(*, deprecated, message: "No longer utilized, use fpRuaKitVersion")
+  var iMsrLibVersionNumber: Swift.String { get }
+  @objc @available(*, deprecated, message: "No longer utilized, use fpRuaKitBuildNumber")
+  var iMsrLibBuildNumber: Swift.String { get }
+  @objc var fpRuaKitVersion: Swift.String { get }
+  @objc var fpRuaKitBuildNumber: Swift.String { get }
+  @objc var fpTetraKitVersion: Swift.String { get }
+  @objc var fpTetraKitBuildNumber: Swift.String { get }
+  @objc var fpPOICoreVersion: Swift.String { get }
+  @objc var fpPOICoreBuildNumber: Swift.String { get }
+  @objc var ruaSDKVersion: Swift.String { get }
+  @objc var fpAmaKitVersion: Swift.String { get }
+  @objc var fpAmaKitBuildNumber: Swift.String { get }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class FccVersionInfo : ObjectiveC.NSObject, iFCCKit.VersionInfo {
+  @objc final public let iFccVersion: Swift.String
+  @objc final public let iFccBuildNumber: Swift.String
+  @objc final public let fpRuaKitVersion: Swift.String
+  @objc final public let fpRuaKitBuildNumber: Swift.String
+  @objc final public let fpTetraKitVersion: Swift.String
+  @objc final public let fpTetraKitBuildNumber: Swift.String
+  @objc final public let fpPOICoreVersion: Swift.String
+  @objc final public let fpPOICoreBuildNumber: Swift.String
+  @objc final public let ruaSDKVersion: Swift.String
+  @objc final public let fpAmaKitVersion: Swift.String
+  @objc final public let fpAmaKitBuildNumber: Swift.String
+  @available(*, deprecated, message: "No longer utilized, use fpRuaKitVersion")
+  @objc final public let iMsrLibVersionNumber: Swift.String
+  @available(*, deprecated, message: "No longer utilized, use fpRuaKitBuildNumber")
+  @objc final public let iMsrLibBuildNumber: Swift.String
+  @objc deinit
+}
+@objc public protocol PalUpdateOperationFailedException {
+  @objc var message: Swift.String { get }
+  @objc var inner: (any Swift.Error)? { get }
+  @objc var errorMessage: Swift.String? { get }
+  @objc var localizedDescription: Swift.String? { get }
+}
+@_hasMissingDesignatedInitializers @objc public class FccPalUpdateOperationFailedException : ObjectiveC.NSObject, iFCCKit.PalUpdateOperationFailedException, Swift.Error {
+  @objc final public let message: Swift.String
+  @objc final public let inner: (any Swift.Error)?
+  @objc final public let errorMessage: Swift.String?
+  @objc public var localizedDescription: Swift.String? {
+    @objc get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class iFCCErrorCodeConstants : ObjectiveC.NSObject {
+  @objc public static let iFCCErrorDomain: Swift.String
+  @objc public static let iPoiErrorDomain: Swift.String
+  @available(*, deprecated, message: "Use iPoiErrorDomain")
+  @objc public static let iMsrLibErrorDomain: Swift.String
+  @objc public static let genericErrorCode: Swift.Int
+  @objc public static let illegalArgumentException: Swift.Int
+  @objc public static let invalidThreadErrorCode: Swift.Int
+  @objc public static let failedCastErrorCode: Swift.Int
+  @objc public static let httpStatusCodeErrorCode: Swift.Int
+  @objc public static let badGatewayErrorCode: Swift.Int
+  @objc public static let unexpectedResponseTypeReturnedErrorCode: Swift.Int
+  @objc public static let existingLoggingDelegateErrorCode: Swift.Int
+  @objc public static let invalidLaneMapCountErrorCode: Swift.Int
+  @objc public static let invalidIFCCStateErrorCode: Swift.Int
+  @objc public static let iFCCInitializationDataMissing: Swift.Int
+  @objc public static let iFCCConfigurationContextAlreadyInitialized: Swift.Int
+  @objc public static let invalidContactlessConfigurationErrorCode: Swift.Int
+  @objc public static let unableToDeinitializeErrorCode: Swift.Int
+  @objc public static let iFCCInitializationFailedErrorCode: Swift.Int
+  @objc public static let networkIsUnreachableErrorCode: Swift.Int
+  @objc public static let operationCurrentlyInProgressErrorCode: Swift.Int
+  @objc public static let operationResponseMissingExpectedReplyComponentErrorCode: Swift.Int
+  @objc public static let inputParameterFormatErrorCode: Swift.Int
+  @objc public static let requiredPurchaseAmountDataNotAvailableErrorCode: Swift.Int
+  @objc public static let responseDeserializationErrorCode: Swift.Int
+  @objc public static let requestSerializationErrorCode: Swift.Int
+  @objc public static let unableToCreateFreeWayUrlConnectionErrorCode: Swift.Int
+  @objc public static let cardWaitTimedOutErrorCode: Swift.Int
+  @objc public static let noOperationCurrentlyInProgressErrorCode: Swift.Int
+  @objc public static let noOperationMetaDataFoundErrorCode: Swift.Int
+  @objc public static let operationIdentifierNotFoundErrorCode: Swift.Int
+  @objc public static let operationRequestNotFoundErrorCode: Swift.Int
+  @objc public static let serviceResponseElementNotFoundErrorCode: Swift.Int
+  @objc public static let noMappedDeviceAvailableErrorCode: Swift.Int
+  @objc public static let posResponseNotAvailableErrorCode: Swift.Int
+  @objc public static let operationNotSupportedErrorCode: Swift.Int
+  @objc public static let cancelNotSupportedWhileCommunicatingWithFreeWayErrorCode: Swift.Int
+  @objc public static let operationInInvalidStateErrorCode: Swift.Int
+  @objc public static let cardDataNotAvailableErrorCode: Swift.Int
+  @objc public static let freeWayResponseDidNotContainUsableDataErrorCode: Swift.Int
+  @objc public static let freeWayResponseDidNonSuccessHttpResponseCodeErrorCode: Swift.Int
+  @objc public static let emvTagValueNotAvailableErrorCode: Swift.Int
+  @objc public static let requestedDolNotAvailableErrorCode: Swift.Int
+  @objc public static let misMatchedEMVTagValueErrorCode: Swift.Int
+  @objc public static let improperlyFormattedTagValueErrorCode: Swift.Int
+  @objc public static let improperlyFormattedTLVDataErrorCode: Swift.Int
+  @objc public static let laneHasExistingOperationDelegateErrorCode: Swift.Int
+  @objc public static let laneDoesNotHaveRegisteredOperationDelegateErrorCode: Swift.Int
+  @objc public static let iFCCIsNotInitializedErrorCode: Swift.Int
+  @objc public static let laneIsCurrentlyIdleErrorCode: Swift.Int
+  @objc public static let laneIsCurrentlyBusyErrorCode: Swift.Int
+  @objc public static let laneDeviceDisconnectedErrorCode: Swift.Int
+  @objc public static let laneElementsMissingErrorCode: Swift.Int
+  @objc public static let invalidOperationTypeErrorCode: Swift.Int
+  @objc public static let invalidLaneErrorCode: Swift.Int
+  @objc public static let cancelNotSupportedOnOperationError: Swift.Int
+  @objc public static let noOperationIdentifierReturnedErrorCode: Swift.Int
+  @objc public static let invalidAIDSelectionListReceivedFromReaderErrorCode: Swift.Int
+  @objc public static let noCancellableOperationsFoundInLaneErrorCode: Swift.Int
+  @objc public static let responseDeserializationNoIdentifierErrorCode: Swift.Int
+  @objc public static let expectedResponsePayloadNotFoundErrorCode: Swift.Int
+  @objc public static let operationNotPreparedErrorCode: Swift.Int
+  @objc public static let laneIsUnavailableErrorCode: Swift.Int
+  @objc public static let lanesBusyErrorCode: Swift.Int
+  @objc public static let laneIllegalStateErrorCode: Swift.Int
+  @objc public static let laneReleaseTimeoutErrorCode: Swift.Int
+  @objc public static let networkIsCurrentlyBusyErrorCode: Swift.Int
+  @objc public static let deviceStatusUnavailableErrorCode: Swift.Int
+  @objc public static let voidIncompleteTransactionErrorCode: Swift.Int
+  @objc public static let laneDoesNotHaveRegisteredLaneStatusDelegateErrorCode: Swift.Int
+  @objc public static let laneDoesNotHaveRegisteredAttachDeviceDelegateErrorCode: Swift.Int
+  @objc public static let deviceIsCurrentlyAttachedErrorCode: Swift.Int
+  @objc public static let deviceNoLaneAvailableErrorCode: Swift.Int
+  @objc public static let deviceIsNotDisconnectedErrorCode: Swift.Int
+  @objc public static let functionalityNotImplementedErrorCode: Swift.Int
+  @objc public static let internalStateCorruptedErrorCode: Swift.Int
+  @objc public static let moduleStateSuspendedErrorCode: Swift.Int
+  @objc public static let couldNotCreateXMLParserErrorCode: Swift.Int
+  @objc public static let xmlParsingFailedToStart: Swift.Int
+  @objc public static let appConfigurationUnknownErrorCode: Swift.Int
+  @objc public static let binDataRequestCompletedWithNoDataErrorCode: Swift.Int
+  @objc public static let binDataFailedToSerializeErrorCode: Swift.Int
+  @objc public static let binDataInternalErrorErrorCode: Swift.Int
+  @objc public static let dccBinDataRequestCompletedWithNoDataErrorCode: Swift.Int
+  @objc public static let dccBinDataFailedToSerializeErrorCode: Swift.Int
+  @objc public static let dccBinDataInternalErrorErrorCode: Swift.Int
+  @objc public static let invalidOfflineRequestIdErrorCode: Swift.Int
+  @objc public static let invalidOfflineStateErrorCode: Swift.Int
+  @objc public static let replayInProgressErrorCode: Swift.Int
+  @objc public static let replaySleepTimerErrorCode: Swift.Int
+  @objc public static let replayShortCircuitTimerErrorCode: Swift.Int
+  @objc public static let iFCCDeviceSetupErrorCode: Swift.Int
+  @objc public static let iFCCDeviceSetupDataMissingErrorCode: Swift.Int
+  @objc public static let iFCCDeviceScanNotSupported: Swift.Int
+  @objc public static let iFCCDeviceSetupFailedErrorCode: Swift.Int
+  @objc public static let iFCCDeviceConnectionFailedErrorCode: Swift.Int
+  @objc public static let iFCCDeviceConnectionInProgressErrorCode: Swift.Int
+  @objc public static let iFCCDeviceConnectionTimeoutErrorCode: Swift.Int
+  @objc public static let genericPALErrorCode: Swift.Int
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class iFCCErrorKeyConstants : ObjectiveC.NSObject {
+  @objc public static let expectedLaneMappingCountKeyConstant: Swift.String
+  @objc public static let actualLaneMappingCountKeyConstant: Swift.String
+  @objc public static let invalidParameterNameKeyConstant: Swift.String
+  @objc public static let specifiedOperationIdentifierKeyConstant: Swift.String
+  @objc public static let currentOperationStateKeyConstant: Swift.String
+  @objc public static let httpErrorHTTPStatusCodeKeyConstant: Swift.String
+  @objc public static let emvTagKeyConstant: Swift.String
+  @objc public static let tlvDataErrorReasonKeyConstant: Swift.String
+  @objc public static let illegalArgumentNameKeyConstant: Swift.String
+  @objc public static let expectedIFCCStateKeyConstant: Swift.String
+  @objc public static let actualIFCCStateKeyConstant: Swift.String
+  @objc public static let expectedLaneStateKeyConstant: Swift.String
+  @objc public static let actualLaneStateKeyConstant: Swift.String
+  @objc public static let requestedLaneActionKeyConstant: Swift.String
+  @objc public static let actualUrlKeyConstant: Swift.String
+  @objc public static let invalidParameterAnomaliesConstant: Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class GiftCardCashoutOperationRequest : iFCCKit.GiftCardOperationRequest {
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, purchaseTotal: Foundation.NSDecimalNumber?)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public protocol iFCCInitializationDelegate {
+  @objc func initializationCompleted()
+  @objc func initializationFailed(error: any Swift.Error)
+  @objc func deinitializationCompleted()
+}
+@objc public protocol LEDSequenceItem {
+  @objc var redOn: Swift.Bool { get }
+  @objc var yellowOn: Swift.Bool { get }
+  @objc var orangeOn: Swift.Bool { get }
+  @objc var blueOn: Swift.Bool { get }
+}
+@_hasMissingDesignatedInitializers @objc public class FccLedSequenceItem : ObjectiveC.NSObject, iFCCKit.LEDSequenceItem {
+  @objc final public let redOn: Swift.Bool
+  @objc final public let yellowOn: Swift.Bool
+  @objc final public let orangeOn: Swift.Bool
+  @objc final public let blueOn: Swift.Bool
+  @objc deinit
+}
+extension iFCCKit.FccLedSequenceItem {
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @available(*, deprecated, message: "Use FccCardReaderDeviceInfo")
+@objc public class PoiCardReaderDeviceInfo : ObjectiveC.NSObject, iFCCKit.CardReaderDeviceInfo {
+  @objc final public let hardwareType: Swift.String
+  @objc final public let applicationVersion: Swift.String
+  @objc final public let configuration: [Swift.String : Swift.String]?
+  @objc final public let supportsManualEntry: Swift.Bool
+  @objc final public let supportsBarcodeScanning: Swift.Bool
+  @objc final public let supportsLineItems: Swift.Bool
+  @objc final public let supportsPosAidSelection: Swift.Bool
+  @objc final public let supportsSignatureCapture: Swift.Bool
+  @objc final public let supportsVasReads: Swift.Bool
+  @objc final public let supportsContactOptimizedQuickChip: Swift.Bool
+  @objc final public let supportsContactlessOptimizedQuickChip: Swift.Bool
+  @objc public var deviceVersionInfo: (any iFCCKit.DeviceVersionInfo)?
+  @objc public var deviceFeatures: (any iFCCKit.DeviceFeatures)?
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public class iFCCROAMDeviceOptions : ObjectiveC.NSObject, iFCCKit.iFCCCardReaderDeviceOptions {
+  @objc final public let deviceType: iFCCKit.iFCCDeviceType
+  @objc final public let communicationInterface: iFCCKit.iFCCDeviceCommunicationInterface
+  @objc final public let identifier: Swift.String
+  @objc final public let deviceData: Foundation.Data?
+  @objc public static func USB_OPTIONS(roamDeviceType: iFCCKit.iFCCROAMDeviceType, deviceData: Foundation.Data, contactEMVData: Foundation.Data, contactlessEMVData: Foundation.Data?) -> iFCCKit.iFCCROAMDeviceOptions
+  @objc public static func BLUETOOTH_OPTIONS(identifier: Swift.String, roamDeviceType: iFCCKit.iFCCROAMDeviceType, deviceData: Foundation.Data, contactEMVData: Foundation.Data, contactlessEMVData: Foundation.Data?) -> iFCCKit.iFCCROAMDeviceOptions
+  @objc public static func AUDIOJACK_OPTIONS(deviceData: Foundation.Data, contactEMVData: Foundation.Data, contactlessEMVData: Foundation.Data?) -> iFCCKit.iFCCROAMDeviceOptions
+  @objc public init(identifier: Swift.String, roamCommunicationInterface: iFCCKit.iFCCDeviceCommunicationInterface, roamDeviceType: iFCCKit.iFCCROAMDeviceType, deviceData: Foundation.Data, contactEMVData: Foundation.Data, contactlessEMVData: Foundation.Data?)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc public var contactEMVDataDebugDescription: Swift.String {
+    @objc get
+  }
+  @objc public var contactlessEMVDataDebugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class FccPosStoredTransactionRequest : ObjectiveC.NSObject, iFCCKit.PosStoredTransactionRequest {
+  @objc final public let requestXml: Swift.String
+  @objc public func getPosSyncId() -> Swift.String
+  @objc public func getFreewayXml() -> Swift.String
+  @objc deinit
+}
+@objc public class InvoiceHeader : ObjectiveC.NSObject, iFCCKit.Validation, Foundation.NSCopying {
+  @objc final public let invoiceNumber: Swift.String?
+  @objc final public let invoiceDate: Foundation.Date?
+  @objc final public let customerPO: Swift.String?
+  @objc final public let purchaserOrderDate: Foundation.Date?
+  @objc final public let goodsIndicator: iFCCKit.GoodsIndicator
+  @objc final public let businessDate: Foundation.Date?
+  @objc final public let purchaserCode: Swift.String?
+  @objc public init(invoiceNumber: Swift.String? = nil, invoiceDate: Foundation.Date? = nil, customerPO: Swift.String? = nil, purchaserOrderDate: Foundation.Date? = nil, goodsIndicator: iFCCKit.GoodsIndicator = .unspecified, businessDate: Foundation.Date? = nil, purchaserCode: Swift.String? = nil)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc public func validate() -> any iFCCKit.ValidationResult
+  @objc public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
+  @objc public var isEmpty: Swift.Bool {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public protocol CardReaderDeviceInfo : ObjectiveC.NSObjectProtocol {
+  @objc var hardwareType: Swift.String { get }
+  @objc var applicationVersion: Swift.String { get }
+  @objc var configuration: [Swift.String : Swift.String]? { get }
+  @objc var deviceVersionInfo: (any iFCCKit.DeviceVersionInfo)? { get }
+  @objc var deviceFeatures: (any iFCCKit.DeviceFeatures)? { get }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class iFCC : ObjectiveC.NSObject {
+  @objc deinit
+}
+@objc extension iFCCKit.iFCC {
+  @objc public static let sharedInstance: iFCCKit.iFCC
+  @objc dynamic public func getVersionInfo() -> any iFCCKit.VersionInfo
+  @objc dynamic public func isInitialized() -> Swift.Bool
+  @objc dynamic public func isDeviceConnected() -> Swift.Bool
+  @objc dynamic public func initializeLibrary(appSettingsData: Foundation.Data, loggingConfiguration: iFCCKit.iFCCLoggingConfiguration, delegate: any iFCCKit.iFCCInitializationDelegate) throws
+  @objc dynamic public func deInitializeLibrary() throws
+  @objc dynamic public func forceCloseLibrary()
+  @objc dynamic public func removeLane(_ laneId: Swift.String, removeLaneDelegate: any iFCCKit.RemoveLaneDelegate) throws
+  @objc dynamic public func scanDevices(deviceOptions: any iFCCKit.iFCCCardReaderDeviceOptions, deviceScanDelegate: any iFCCKit.iFCCScanDevicesDelegate) throws
+  @objc dynamic public func setupDevices(deviceOptions: any iFCCKit.iFCCCardReaderDeviceOptions, delegate: any iFCCKit.iFCCDeviceSetupDelegate) throws
+  @objc dynamic public func reconnectDevice(inLane laneIdentifier: Swift.String) throws
+  @objc dynamic public func attachDevice(deviceOptions: any iFCCKit.iFCCCardReaderDeviceOptions, attachDeviceDelegate: any iFCCKit.AttachDeviceDelegate, timeoutInSecs: Foundation.NSNumber?) throws
+  @objc dynamic public func reattachDevice(inLane laneIdentifier: Swift.String, reattachDeviceDelegate: any iFCCKit.ReattachDeviceDelegate, timeoutInSecs: Foundation.NSNumber?) throws
+  @objc dynamic public func openLane(inLane laneIdentifier: Swift.String, laneStatusDelegate: any iFCCKit.LaneStatusDelegate) throws
+  @objc dynamic public func closeLane(inLane laneIdentifier: Swift.String) throws
+  @objc dynamic public func detachDevice(inLane laneIdentifier: Swift.String, detachDeviceDelegate: any iFCCKit.DetachDeviceDelegate) throws
+  @objc dynamic public func clearAmaCredentials() -> Swift.Bool
+}
+@objc extension iFCCKit.iFCC {
+  @objc dynamic public func registerLoggingDelegate(_ loggingDelegate: any iFCCKit.iFCCLoggingDelegate) throws
+  @objc dynamic public func deregisterLoggingDelegate() throws
+  @objc dynamic public func getFileLoggingInfo() -> (any iFCCKit.iFCCFileLoggingInfo)?
+  @objc dynamic public func isDeviceAttached(inLane laneIdentifier: Swift.String) -> Swift.Bool
+  @objc dynamic public func isLaneOpen(inLane laneIdentifier: Swift.String) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers @available(*, deprecated, message: "Use NetworkDeviceOptions or BluetoothDeviceOptions for UPP and RBA devices")
+@objc public class iFCCUPPDeviceOptions : iFCCKit.ICANetworkDeviceOptions {
+  @objc public init(hostAddress: Swift.String, portNumber: Swift.Int, deviceData: Foundation.Data)
+  @objc deinit
+}
+@objc public protocol PosStoredDelegate {
+  @objc func storeTransaction(request: any iFCCKit.PosStoredTransactionRequest, operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane: Swift.String) -> iFCCKit.FailureAction.Mode
+}
+@objc public protocol iFCCLaneDelegate {
+  @objc func operationProgressUpdate(forOperationIdentifier operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String, progressType: iFCCKit.OperationProgressType)
+  @objc func operationApproved(response: any iFCCKit.POSResponse, operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String)
+  @objc func operationDeclined(response: any iFCCKit.POSResponse, operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String)
+  @objc func operationFailed(forOperationIdentifier operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String, error: any Swift.Error)
+  @objc func operationCompleted(forOperationIdentifier operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String)
+  @objc func deviceReconnecting(lane: Swift.String)
+  @objc func deviceError(lane: Swift.String, error: any Swift.Error)
+  @objc func deviceDisconnected(lane: Swift.String)
+  @objc @available(*, deprecated, message: "no longer supported, use deviceDisconnected")
+  func deviceDisconnectedWhileBackgrounding(lane: Swift.String)
+  @objc func deviceConnected(lane: Swift.String)
+  @objc func requestBatteryStatusSucceeded(batteryStatus: any iFCCKit.DeviceBatteryStatus, inLane lane: Swift.String)
+  @objc func requestBatteryStatusFailed(error: any Swift.Error, inLane lane: Swift.String)
+  @objc func deviceResetSucceeded(lane: Swift.String)
+  @objc func deviceResetFailed(lane: Swift.String, error: any Swift.Error)
+  @objc func firmwareUpdateModeEntered(lane: Swift.String)
+  @objc func firmwareUpdateProgressUpdate(progressMessage: Swift.String, inLane lane: Swift.String)
+  @objc func firmwareUpdateSucceeded(lane: Swift.String)
+  @objc func firmwareUpdateFailed(inLane lane: Swift.String, error: any Swift.Error)
+  @objc func firmwareUpdateCanceled(inLane lane: Swift.String)
+  @objc func cardReadOperationResult(response: any iFCCKit.CardReadResponse, operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String)
+  @objc func laneDelegateReleasing(lane: Swift.String)
+}
+@objc public protocol ReattachDeviceDelegate : ObjectiveC.NSObjectProtocol {
+  @objc func onDeviceReattached(laneId: Swift.String)
+  @objc func onReattachDeviceError(laneId: Swift.String, error: any Swift.Error)
+}
+@objc public enum OperationProgressType : Swift.Int, Swift.CustomStringConvertible {
+  case waitingForCardInsert
+  case cardRemovalOK
+  case iccErrorPromptMagCardSwipe
+  case reInsertCardRequired
+  case swipeErrorReSwipeRequested
+  case swipeErrorBadSwipeThresholdExceeded
+  case cardMustBeInserted
+  case cardInserted
+  case cardRemoved
+  case swipeDetected
+  @available(*, deprecated, message: "Use onlineAuthorizationStarted")
+  case freeWayCommunicationStarted
+  @available(*, deprecated, message: "Use onlineAuthorizationEnded")
+  case freeWayCommunicationEnded
+  case tapDetected
+  case contactlessInterfaceFailedTryContact
+  case errorReadingContactlessCard
+  case multipleContactlessCardsDetected
+  case contactlessCardStillInField
+  case contactlessTransactionRevertedToContact
+  case contactlessApplicationNotSupported
+  case doNotRemoveCard
+  case firstPINPrompt
+  case pinRetryPrompt
+  case pinEntrySuccessful
+  case pinEntryFailed
+  case finalPINEntryPrompt
+  case applicationSelectionCompleted
+  case pinEntryInProgress
+  case manualCardEntryInProgress
+  case applicationNotSupportedPromptMagCardSwipe
+  case waitingForCardSwipe
+  case contactlessEMVPaymentComplete
+  case waitingForTipAmountSelection
+  case waitingForAmountEntry
+  case waitingForCreditDebitSelection
+  case cardShouldBeRemoved
+  case onlineAuthorizationStarted
+  case onlineAuthorizationEnded
+  case transactionApproved
+  case transactionDeclined
+  case transactionCanceled
+  case transactionApprovedWaitingOnCardRemoval
+  case transactionDeclinedWaitingOnCardRemoval
+  case transactionCanceledWaitingOnCardRemoval
+  case posDisplayStarted
+  case applicationBlocked
+  case seePhoneWaitingForCard
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum ElectronicCommerceIndicator : Swift.Int, Swift.CustomStringConvertible, Swift.CaseIterable {
+  case unspecified
+  case moto
+  case reauthorize
+  case recurring
+  case internet
+  case retail
+  case delayed
+  case unscheduled
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [iFCCKit.ElectronicCommerceIndicator]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [iFCCKit.ElectronicCommerceIndicator] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum iFCCDeviceCommunicationInterface : Swift.Int, Swift.CustomStringConvertible, Swift.CaseIterable {
+  case bluetooth = 1
+  case ip = 2
+  case audiojack = 3
+  case usb = 4
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [iFCCKit.iFCCDeviceCommunicationInterface]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [iFCCKit.iFCCDeviceCommunicationInterface] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class NetworkDeviceOptions : iFCCKit.DeviceOptions {
+  @objc final public let hostAddress: Swift.String
+  @objc final public let portNumber: Swift.UInt
+  @objc public init(deviceType: iFCCKit.iFCCDeviceType, hostAddress: Swift.String, portNumber: Swift.UInt, deviceData: Foundation.Data?)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class FccDeviceNub : ObjectiveC.NSObject, iFCCKit.RUADeviceNub {
+  @objc final public let name: Swift.String
+  @objc final public let identifier: Swift.String
+  @objc deinit
+}
+@objc extension iFCCKit.iFCC {
+  @objc dynamic public func registerLaneDelegate(_ laneDelegate: any iFCCKit.iFCCLaneDelegate, inLane laneIdentifier: Swift.String) throws
+  @objc dynamic public func deregisterLaneDelegate(inLane laneIdentifier: Swift.String) throws
+  @available(*, deprecated, message: "Use getCardReaderDeviceInfo")
+  @objc dynamic public func getDeviceVersionInformation(inLane laneIdentifier: Swift.String) throws -> iFCCKit.RUAReaderVersionInfo
+  @available(*, deprecated, message: "Use getCardReaderDeviceInfo")
+  @objc dynamic public func getDeviceInformation(inLane laneIdentifier: Swift.String) throws -> any iFCCKit.CardReaderDeviceInfo
+  @objc dynamic public func getCardReaderDeviceInfo(inLane laneIdentifier: Swift.String) throws -> any iFCCKit.CardReaderDeviceInfo
+  @objc dynamic public func resetDevice(inLane laneIdentifier: Swift.String) throws -> any iFCCKit.iFCCOperationIdentifier
+  @available(*, deprecated, message: "Use runPalUpdate() to update firmware using a PAL package")
+  @objc dynamic public func updateFirmware(inLane laneIdentifier: Swift.String, firmwareURI: Swift.String) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func requestBatteryStatus(inLane laneIdentifier: Swift.String) throws
+  @objc dynamic public func requestStoreAndForwardStatus() throws -> any iFCCKit.StoreAndForwardStatus
+  @available(*, deprecated, message: "Method is no longer supported")
+  @objc dynamic public func startStoreAndForwardReplay() throws
+  @objc dynamic public func resolveStoreAndForwardRequestIds(_ offlineRequestIds: [Swift.String]) throws -> [any iFCCKit.StoreAndForwardResult]
+  @objc dynamic public func runPalUpdate(inLane laneIdentifier: Swift.String, fileURI: Swift.String, palUpdateDelegate: any iFCCKit.PalUpdateDelegate) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func getManifestVersions(deviceId: Swift.String) throws -> [Swift.String]
+  @objc dynamic public func registerPosStoredDelegate(_ posStoredDelegate: (any iFCCKit.PosStoredDelegate)?, inLane laneIdentifier: Swift.String) throws
+  @objc dynamic public func submitPosStoredRequest(_ posStoredTransactionRequest: any iFCCKit.PosStoredTransactionRequest, delegate: any iFCCKit.PosStoredOperationRequestDelegate) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func resetEmvConfig(inLane laneIdentifier: Swift.String, includeContact: Swift.Bool, includeContactless: Swift.Bool, delegate: any iFCCKit.ResetEmvConfigDelegate) throws -> any iFCCKit.iFCCOperationIdentifier
+}
+@objc public protocol ValidationResult {
+  @objc var isValid: Swift.Bool { get }
+  @objc var anomalies: [Swift.String]? { get }
+}
+@_hasMissingDesignatedInitializers @objc public class FccValidationResult : ObjectiveC.NSObject, iFCCKit.ValidationResult {
+  @objc final public let isValid: Swift.Bool
+  @objc final public let anomalies: [Swift.String]?
+  @objc deinit
+}
+@objc public protocol FileVersionInfo : ObjectiveC.NSObjectProtocol {
+  @objc var platform: Swift.String { get }
+  @objc var subPlatform: Swift.String { get }
+  @objc var fileType: Swift.String { get }
+  @objc var maintainerId: Swift.String { get }
+  @objc var fileLevel: Swift.String { get }
+  @objc var fileSN: Swift.String { get }
+  @objc var version: Swift.String { get }
+  @objc var dependVer: Swift.String { get }
+  @objc var verFlag: Swift.String { get }
+  @objc var year: Swift.String { get }
+  @objc var month: Swift.String { get }
+  @objc var day: Swift.String { get }
+  @objc var customerId: Swift.String { get }
+  @objc var compatibilityMatrix: Swift.String { get }
+  @objc static func empty() -> any iFCCKit.FileVersionInfo
+}
+@_hasMissingDesignatedInitializers @objc public class FccFileVersionInfo : ObjectiveC.NSObject, iFCCKit.FileVersionInfo {
+  @objc final public let platform: Swift.String
+  @objc final public let subPlatform: Swift.String
+  @objc final public let fileType: Swift.String
+  @objc final public let maintainerId: Swift.String
+  @objc final public let fileLevel: Swift.String
+  @objc final public let fileSN: Swift.String
+  @objc final public let version: Swift.String
+  @objc final public let dependVer: Swift.String
+  @objc final public let verFlag: Swift.String
+  @objc final public let year: Swift.String
+  @objc final public let month: Swift.String
+  @objc final public let day: Swift.String
+  @objc final public let customerId: Swift.String
+  @objc final public let compatibilityMatrix: Swift.String
+  @objc public static func empty() -> any iFCCKit.FileVersionInfo
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public enum iFCCDeviceType : Swift.Int, Swift.CustomStringConvertible, Swift.CaseIterable {
+  case none
+  case rp457c
+  case moby5500
+  case upp
+  case rba
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [iFCCKit.iFCCDeviceType]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [iFCCKit.iFCCDeviceType] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class iFCCDeviceTypeBridge : ObjectiveC.NSObject {
+  @objc public class func deviceName(deviceType: iFCCKit.iFCCDeviceType) -> Swift.String
+  @objc public class func deviceFamily(deviceType: iFCCKit.iFCCDeviceType) -> iFCCKit.iFCCDeviceFamily
+  @objc public class func deviceFamilyName(deviceFamily: iFCCKit.iFCCDeviceFamily) -> Swift.String
+  @objc public class func getDeviceFamilyName(deviceName: Swift.String) -> Swift.String
+  @objc public class func getDeviceType(deviceName: Swift.String?) -> iFCCKit.iFCCDeviceType
+  @objc public class func getDeviceFamily(deviceFamilyName: Swift.String?) -> iFCCKit.iFCCDeviceFamily
+  @objc public class func availableDeviceNames() -> [Swift.String]
+  @objc public class func supportedDeviceNames(for deviceInterface: iFCCKit.iFCCDeviceCommunicationInterface) -> [Swift.String]
+  @objc public class func supportedDeviceFamilies(for deviceInterface: iFCCKit.iFCCDeviceCommunicationInterface) -> [Swift.String]
+  @objc public class func availableDeviceFamilyNames() -> [Swift.String]
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol iFCCCardReaderDevice {
+  @objc var name: Swift.String { get }
+  @objc var serialNumber: Swift.String { get }
+  @objc var laneIdentifier: Swift.String { get }
+  @objc var deviceType: iFCCKit.iFCCDeviceType { get }
+  @objc var identifier: Swift.String { get }
+  @objc var description: Swift.String { get }
+}
+@objc public protocol ResetEmvConfigDelegate {
+  @objc func resetEmvConfigSucceeded(operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String)
+  @objc func resetEmvConfigFailed(error: any Swift.Error, operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String)
+}
+@objc public protocol iFCCCardReaderDeviceOptions : ObjectiveC.NSObjectProtocol {
+  @objc var deviceType: iFCCKit.iFCCDeviceType { get }
+  @objc var communicationInterface: iFCCKit.iFCCDeviceCommunicationInterface { get }
+  @objc var deviceData: Foundation.Data? { get }
+}
+@objc public protocol AttachDeviceDelegate : ObjectiveC.NSObjectProtocol {
+  @objc func onDeviceAttached(device: any iFCCKit.iFCCCardReaderDevice)
+  @objc func onAttachDeviceError(deviceOptions: any iFCCKit.iFCCCardReaderDeviceOptions, error: any Swift.Error)
+  @objc optional func ledPairingConfirmationRequested(ledSequence: [any iFCCKit.LEDSequenceItem], pairingConfirmationDelegate: any iFCCKit.iFCCPairingConfirmationDelegate)
+}
+@objc extension iFCCKit.iFCC {
+  @objc dynamic public func initiateAuthorizationOperation(authorizationOperationRequest: iFCCKit.AuthorizationOperationRequest, implementDynamicCallbacks: Swift.Bool = false) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func initiateCaptureOperation(captureOperationRequest: iFCCKit.CaptureOperationRequest, implementDynamicCallbacks: Swift.Bool = false) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func initiateSaleOperation(saleOperationRequest: iFCCKit.SaleOperationRequest, implementDynamicCallbacks: Swift.Bool = false) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func initiateVoidOperation(voidOperationRequest: iFCCKit.VoidOperationRequest, implementDynamicCallbacks: Swift.Bool = false) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func initiateRefundOperation(refundOperationRequest: iFCCKit.RefundOperationRequest, implementDynamicCallbacks: Swift.Bool = false) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func initiateFollowOnRefundOperation(followOnRefundOperationRequest: iFCCKit.FollowOnRefundOperationRequest, implementDynamicCallbacks: Swift.Bool = false) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func initiateAdjustmentOperation(adjustmentOperationRequest: iFCCKit.AdjustmentOperationRequest, implementDynamicCallbacks: Swift.Bool = false) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func cancelOperation(inLane laneIdentifier: Swift.String, operationIdentifier: any iFCCKit.iFCCCancellableOperationIdentifier) throws
+  @objc dynamic public func initiateRawCardReadOperation(inLane laneIdentifier: Swift.String) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func initiateGiftCardIssueOperation(giftCardIssueOperationRequest: iFCCKit.GiftCardIssueOperationRequest) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func initiateGiftCardActivateOperation(giftCardActivateOperationRequest: iFCCKit.GiftCardActivateOperationRequest) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func initiateGiftCardReloadOperation(giftCardReloadOperationRequest: iFCCKit.GiftCardReloadOperationRequest) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func initiateGiftCardInquiryOperation(giftCardInquiryOperationRequest: iFCCKit.GiftCardInquiryOperationRequest) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func initiateGiftCardDeactivateOperation(giftCardDeactivateOperationRequest: iFCCKit.GiftCardDeactivateOperationRequest) throws -> any iFCCKit.iFCCOperationIdentifier
+  @objc dynamic public func initiateGiftCardCashoutOperation(giftCardCashoutOperationRequest: iFCCKit.GiftCardCashoutOperationRequest) throws -> any iFCCKit.iFCCOperationIdentifier
+}
+@_hasMissingDesignatedInitializers @objc public class FailureAction : ObjectiveC.NSObject {
+  @objc public static let APPROVE_OFFLINE_ACTION: iFCCKit.FailureAction
+  @objc public static let RETRY_ACTION: iFCCKit.FailureAction
+  @objc public static let ABORT_ACTION: iFCCKit.FailureAction
+  @objc public static let POS_STORED: iFCCKit.FailureAction
+  @objc public enum Mode : Swift.Int, Swift.CustomStringConvertible {
+    case APPROVE_OFFLINE
+    case POS_STORED
+    case RETRY
+    case ABORT
+    public var description: Swift.String {
+      get
+    }
+    public init?(rawValue: Swift.Int)
+    public typealias RawValue = Swift.Int
+    public var rawValue: Swift.Int {
+      get
+    }
+  }
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@available(*, deprecated, message: "Use NetworkDeviceOptions or BluetoothDeviceOptions for UPP and RBA devices")
+@objc public protocol iFCCNetworkDeviceOptions {
+  @objc var hostAddress: Swift.String { get }
+  @objc var portNumber: Swift.Int { get }
+}
+@objc public enum iFCCLoggingLevel : Swift.Int, Swift.CustomStringConvertible, Swift.CaseIterable, Swift.Comparable {
+  case none = 0
+  case error = 1
+  case warn = 2
+  case info = 3
+  case debug = 4
+  case verbose = 5
+  public var description: Swift.String {
+    get
+  }
+  public static func < (lhs: iFCCKit.iFCCLoggingLevel, rhs: iFCCKit.iFCCLoggingLevel) -> Swift.Bool
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [iFCCKit.iFCCLoggingLevel]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [iFCCKit.iFCCLoggingLevel] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum iFCCLoggingModule : Swift.Int, Swift.CustomStringConvertible, Swift.CaseIterable {
+  case libraryInitialization = 0
+  case deviceSetup
+  case deviceOperation
+  case deviceMessaging
+  case freeWayOperation
+  case storeAndForward
+  case configurationUpdate
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [iFCCKit.iFCCLoggingModule]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [iFCCKit.iFCCLoggingModule] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class iFCCLoggingBridge : ObjectiveC.NSObject {
+  @objc public class func getiFCCModuleLoggingLevel(moduleName: Swift.String, levelName: Swift.String) -> iFCCKit.iFCCModuleLoggingLevel?
+  @objc public class func loggingLevelName(for level: iFCCKit.iFCCLoggingLevel) -> Swift.String
+  @objc public class func loggingLevelNames() -> [Swift.String]
+  @objc public class func loggingModuleName(for loggingModule: iFCCKit.iFCCLoggingModule) -> Swift.String
+  @objc public class func loggingModulesNames() -> [Swift.String]
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol RawCardReadResponse : ObjectiveC.NSObjectProtocol {
+  @objc var errorCode: Swift.String { get }
+  @objc var data: [Swift.UInt8] { get }
+  @objc var track1Data: Swift.String { get }
+  @objc var track2Data: Swift.String { get }
+  @objc var encryptionMode: Swift.String { get }
+  @objc var rawCardType: Swift.String { get }
+  @objc var entryMode: Swift.String { get }
+}
+@_hasMissingDesignatedInitializers @objc public class FccRawCardReadResponse : ObjectiveC.NSObject, iFCCKit.RawCardReadResponse {
+  @objc final public let errorCode: Swift.String
+  @objc final public let data: [Swift.UInt8]
+  @objc final public let track1Data: Swift.String
+  @objc final public let track2Data: Swift.String
+  @objc final public let encryptionMode: Swift.String
+  @objc final public let rawCardType: Swift.String
+  @objc final public let entryMode: Swift.String
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public protocol BasicCardData : ObjectiveC.NSObjectProtocol {
+  @objc var cardHolderName: Swift.String? { get }
+  @objc var entryMode: Swift.String { get }
+  @objc var msrType: Swift.String { get }
+  @objc var bin: Swift.String { get }
+  @objc var cardType: Swift.String? { get }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class FccBasicCardData : ObjectiveC.NSObject, iFCCKit.BasicCardData, Foundation.NSCopying {
+  @objc final public let cardHolderName: Swift.String?
+  @objc final public let entryMode: Swift.String
+  @objc final public let msrType: Swift.String
+  @objc final public let bin: Swift.String
+  @objc final public let cardType: Swift.String?
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class ReceiptConfigBridge : ObjectiveC.NSObject {
+  @objc public static var languages: [Swift.String] {
+    @objc get
+  }
+  @objc public static var formats: [Swift.String] {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol RUADeviceNub {
+  @objc var name: Swift.String { get }
+  @objc var identifier: Swift.String { get }
+}
+@_inheritsConvenienceInitializers @objc public class FccConfigBridge : ObjectiveC.NSObject {
+  @objc public static var emvLocales: [Swift.String] {
+    @objc get
+  }
+  @objc public static var dccPromptLogics: [Swift.String] {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol iFCCCardDataReceivedDelegate {
+  @objc func getModifiedPaymentData(basicCardData: any iFCCKit.BasicCardData, paymentOptionsDelegate: any iFCCKit.PaymentOptionsDelegate)
+}
+@objc public protocol PaymentOptionsDelegate {
+  @objc var operationIdentifier: any iFCCKit.iFCCCancellableOperationIdentifier { get }
+  @objc var laneIdentifier: Swift.String { get }
+  @objc func continuePayment(_ modifiedPaymentData: iFCCKit.ModifiedPaymentData?)
+}
+@objc public class ShipFrom : ObjectiveC.NSObject, iFCCKit.Validation, Foundation.NSCopying {
+  @objc public var company: Swift.String? {
+    @objc get
+  }
+  @objc public var title: Swift.String? {
+    @objc get
+  }
+  @objc public var firstName: Swift.String? {
+    @objc get
+  }
+  @objc public var middleName: Swift.String? {
+    @objc get
+  }
+  @objc public var lastName: Swift.String? {
+    @objc get
+  }
+  @objc public var suffix: Swift.String? {
+    @objc get
+  }
+  @objc public var street1: Swift.String? {
+    @objc get
+  }
+  @objc public var street2: Swift.String? {
+    @objc get
+  }
+  @objc public var street3: Swift.String? {
+    @objc get
+  }
+  @objc public var street4: Swift.String? {
+    @objc get
+  }
+  @objc public var city: Swift.String? {
+    @objc get
+  }
+  @objc public var state: Swift.String? {
+    @objc get
+  }
+  @objc public var postalCode: Swift.String? {
+    @objc get
+  }
+  @objc public var country: Swift.String? {
+    @objc get
+  }
+  @objc public var phoneNumber: Swift.String? {
+    @objc get
+  }
+  @objc public var faxNumber: Swift.String? {
+    @objc get
+  }
+  @objc public var email: Swift.String? {
+    @objc get
+  }
+  @objc public init(company: Swift.String? = nil, title: Swift.String? = nil, firstName: Swift.String? = nil, middleName: Swift.String? = nil, lastName: Swift.String? = nil, suffix: Swift.String? = nil, street1: Swift.String? = nil, street2: Swift.String? = nil, street3: Swift.String? = nil, street4: Swift.String? = nil, city: Swift.String? = nil, state: Swift.String? = nil, postalCode: Swift.String? = nil, country: Swift.String? = nil, phoneNumber: Swift.String? = nil, faxNumber: Swift.String? = nil, email: Swift.String? = nil)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc public func validate() -> any iFCCKit.ValidationResult
+  @objc public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class iFCCPairingService : ObjectiveC.NSObject {
+  @objc public static let sharedInstance: iFCCKit.iFCCPairingService
+  @objc public func initiatePairingWithRUADevice(pairingDelegate: any iFCCKit.RUAPairingDelegate) throws
+  @objc public func cancelPairing() throws
+  @objc deinit
+}
+@objc public protocol PairedDevice {
+  @objc var identifier: Swift.String { get }
+}
+@objc public protocol RUAPairingDelegate {
+  @objc func pairingConfirmationWithPasscode(passCode: Swift.String)
+  @objc func pairingCancelled()
+  @objc func deviceFound()
+  @objc func deviceLost()
+  @objc func pairingError(error: any Swift.Error)
+  @objc func pairingSucceeded(device: any iFCCKit.PairedDevice)
+}
+@_hasMissingDesignatedInitializers @objc public class GiftCardReloadOperationRequest : iFCCKit.GiftCardOperationRequest {
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, purchaseTotal: Foundation.Decimal)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public class HotelData : ObjectiveC.NSObject, iFCCKit.Validation, Foundation.NSCopying {
+  @objc final public let expectedDuration: Foundation.NSNumber?
+  @objc final public let folioNumber: Swift.String
+  @objc final public let noShow: Foundation.NSNumber?
+  @objc final public let checkInDate: Foundation.Date?
+  @objc final public let checkOutDate: Foundation.Date?
+  @objc final public let extraChargeTypes: Swift.String?
+  @objc final public let roomRate: Foundation.NSDecimalNumber?
+  @objc final public let roomTax: Foundation.NSDecimalNumber?
+  @objc final public let extraChargeTotal: Foundation.NSDecimalNumber?
+  @objc final public let renterName: Swift.String?
+  @available(*, deprecated, message: "Use folio number initializer")
+  @objc public init(expectedDuration: Swift.Int, folioNumber: Swift.String, noShow: Swift.Bool, checkInDate: Foundation.Date, checkOutDate: Foundation.Date, extraChargeTypes: Swift.String, roomRate: Foundation.NSDecimalNumber, roomTax: Foundation.NSDecimalNumber, extraChargeTotal: Foundation.NSDecimalNumber, renterName: Swift.String)
+  @objc public init(folioNumber: Swift.String, expectedDuration: Foundation.NSNumber? = nil, noShow: Foundation.NSNumber? = nil, checkInDate: Foundation.Date? = nil, checkOutDate: Foundation.Date? = nil, extraChargeTypes: Swift.String? = nil, roomRate: Foundation.NSDecimalNumber? = nil, roomTax: Foundation.NSDecimalNumber? = nil, extraChargeTotal: Foundation.NSDecimalNumber? = nil, renterName: Swift.String? = nil)
+  @objc public func validate() -> any iFCCKit.ValidationResult
+  @objc public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @available(*, deprecated, message: "Use NetworkDeviceOptions or BluetoothDeviceOptions for UPP and RBA devices")
+@objc public class iFCCRBADeviceOptions : iFCCKit.ICANetworkDeviceOptions {
+  @objc public init(hostAddress: Swift.String, portNumber: Swift.Int, deviceData: Foundation.Data)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class GiftCardActivateOperationRequest : iFCCKit.GiftCardOperationRequest {
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, purchaseTotal: Foundation.Decimal)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public protocol iFCCPairingConfirmationDelegate {
+  @objc func showLEDPairingSequenceInView(_ containerView: UIKit.UIView)
+  @objc func confirmLEDPairingSequence()
+  @objc func cancelLEDPairingSequence()
+  @objc func restartLEDPairingSequence()
+}
+@objc public protocol Validation {
+  @objc func validate() -> any iFCCKit.ValidationResult
+}
+@objc public protocol DeviceVersionInfo : ObjectiveC.NSObjectProtocol {
+  @objc var bootFileVersion: iFCCKit.FccFileVersionInfo { get }
+  @objc var controlFileVersion: iFCCKit.FccFileVersionInfo { get }
+  @objc var userFileVersions: [iFCCKit.FccFileVersionInfo] { get }
+  @objc var parameterFileVersions: [iFCCKit.FccFileVersionInfo] { get }
+  @objc var emvKernelVersion: Swift.String { get }
+  @objc var keyVersion: Swift.String { get }
+  @objc var pedVersion: Swift.String { get }
+  @objc var fontFileVersion: Swift.String { get }
+  @objc var productSerialNumber: Swift.String { get }
+}
+@_hasMissingDesignatedInitializers @objc public class FccDeviceVersionInfo : ObjectiveC.NSObject, iFCCKit.DeviceVersionInfo {
+  @objc final public let bootFileVersion: iFCCKit.FccFileVersionInfo
+  @objc final public let controlFileVersion: iFCCKit.FccFileVersionInfo
+  @objc final public let userFileVersions: [iFCCKit.FccFileVersionInfo]
+  @objc final public let parameterFileVersions: [iFCCKit.FccFileVersionInfo]
+  @objc final public let emvKernelVersion: Swift.String
+  @objc final public let keyVersion: Swift.String
+  @objc final public let pedVersion: Swift.String
+  @objc final public let fontFileVersion: Swift.String
+  @objc final public let productSerialNumber: Swift.String
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class OperationProgressTypeBridge : ObjectiveC.NSObject {
+  @objc public static func toString(_ operationProgressType: iFCCKit.OperationProgressType) -> Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol RemoveLaneDelegate : ObjectiveC.NSObjectProtocol {
+  @objc func onLaneRemoved(laneId: Swift.String)
+}
+@objc public protocol DeviceFeatures : ObjectiveC.NSObjectProtocol {
+  @objc var supportsManualEntry: Swift.Bool { get }
+  @objc var supportsBarcodeScanning: Swift.Bool { get }
+  @objc var supportsLineItems: Swift.Bool { get }
+  @objc var supportsPosAidSelection: Swift.Bool { get }
+  @objc var supportsSignatureCapture: Swift.Bool { get }
+  @objc var supportsVasReads: Swift.Bool { get }
+  @objc var supportsContactOptimizedQuickChip: Swift.Bool { get }
+  @objc var supportsContactlessOptimizedQuickChip: Swift.Bool { get }
+  @objc var supportsUtf8Encoding: Swift.Bool { get }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class FccDeviceFeatures : ObjectiveC.NSObject, iFCCKit.DeviceFeatures {
+  @objc final public let supportsManualEntry: Swift.Bool
+  @objc final public let supportsBarcodeScanning: Swift.Bool
+  @objc final public let supportsLineItems: Swift.Bool
+  @objc final public let supportsPosAidSelection: Swift.Bool
+  @objc final public let supportsSignatureCapture: Swift.Bool
+  @objc final public let supportsVasReads: Swift.Bool
+  @objc final public let supportsContactOptimizedQuickChip: Swift.Bool
+  @objc final public let supportsContactlessOptimizedQuickChip: Swift.Bool
+  @objc final public let supportsUtf8Encoding: Swift.Bool
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public protocol StoreAndForwardStatus {
+  @objc var offlineQueueSize: Swift.UInt { get }
+  @objc var lastReplayAttempt: Foundation.Date? { get }
+  @objc var statusCounts: [Swift.String : Swift.Int] { get }
+}
+@_hasMissingDesignatedInitializers @objc public class FccStoreAndForwardStatus : ObjectiveC.NSObject, iFCCKit.StoreAndForwardStatus {
+  @objc final public let offlineQueueSize: Swift.UInt
+  @objc final public let lastReplayAttempt: Foundation.Date?
+  @objc final public let statusCounts: [Swift.String : Swift.Int]
+  @objc deinit
+}
+@objc public enum SymbolPlacement : Swift.Int, Swift.CustomStringConvertible, Swift.CaseIterable {
+  case left
+  case right
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [iFCCKit.SymbolPlacement]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [iFCCKit.SymbolPlacement] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @available(*, deprecated, message: "Use FccCardReaderDeviceInfo")
+@objc public class RUAReaderVersionInfo : ObjectiveC.NSObject, iFCCKit.CardReaderDeviceInfo {
+  @objc final public let hardwareType: Swift.String
+  @objc final public let applicationVersion: Swift.String
+  @objc final public let bootFileVersion: iFCCKit.RUAFileVersionInfo
+  @objc final public let controlFileVersion: iFCCKit.RUAFileVersionInfo
+  @objc final public let userFileVersions: [iFCCKit.RUAFileVersionInfo]
+  @objc final public let parameterFileVersions: [iFCCKit.RUAFileVersionInfo]
+  @objc final public let emvKernelVersion: Swift.String
+  @objc final public let keyVersion: Swift.String
+  @objc final public let pedVersion: Swift.String
+  @objc final public let fontFileVersion: Swift.String
+  @objc final public let productSerialNumber: Swift.String
+  @objc public var configuration: [Swift.String : Swift.String]?
+  @objc public var deviceVersionInfo: (any iFCCKit.DeviceVersionInfo)?
+  @objc public var deviceFeatures: (any iFCCKit.DeviceFeatures)?
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @available(*, deprecated, message: "Use FileVersionInfo")
+@objc public class RUAFileVersionInfo : ObjectiveC.NSObject {
+  @objc final public let platform: Swift.String
+  @objc final public let subPlatform: Swift.String
+  @objc final public let fileType: Swift.String
+  @objc final public let maintainerId: Swift.String
+  @objc final public let fileLevel: Swift.String
+  @objc final public let fileSN: Swift.String
+  @objc final public let version: Swift.String
+  @objc final public let dependVer: Swift.String
+  @objc final public let verFlag: Swift.String
+  @objc final public let year: Swift.String
+  @objc final public let month: Swift.String
+  @objc final public let day: Swift.String
+  @objc final public let customerId: Swift.String
+  @objc final public let compatibilityMatrix: Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class BluetoothDeviceOptions : iFCCKit.DeviceOptions {
+  @objc final public let bluetoothIdentifier: Swift.String
+  @objc final public let name: Swift.String?
+  @objc final public let serialNumber: Swift.String?
+  @objc public init(deviceType: iFCCKit.iFCCDeviceType, bluetoothIdentifier: Swift.String, deviceData: Foundation.Data?)
+  @objc public init(deviceType: iFCCKit.iFCCDeviceType, name: Swift.String, serialNumber: Swift.String, deviceData: Foundation.Data?)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class iFCCNotificationConstants : ObjectiveC.NSObject {
+  @objc public static let binMgrStatusNotificationNameValue: Swift.String
+  @objc public static let binMgrErrorNotificationNameValue: Swift.String
+  @objc public static let binMgrErrorNotificationKey: Swift.String
+  @objc public static let binMgrStatusNotificationKey: Swift.String
+  @objc public static let binMgrDateTimeNotificationKey: Swift.String
+  @objc public static let binMgrStatusBINDataLoadedNotificationStatusValue: Swift.String
+  @objc public static let binMgrStatusBINDataSavedNotificationStatusValue: Swift.String
+  @objc public static let binMgrStatusBINDataUpdateRequestedNotificationStatusValue: Swift.String
+  @objc public static let binMgrStatusBINDataUpdateReceivedNotificationStatusValue: Swift.String
+  @objc public static let binMgrStatusBINDataLastDownloadDateTimeNotificationStatusValue: Swift.String
+  @objc public static let dccBinMgrStatusNotificationNameValue: Swift.String
+  @objc public static let dccBinMgrErrorNotificationNameValue: Swift.String
+  @objc public static let dccBinMgrErrorNotificationKey: Swift.String
+  @objc public static let dccBinMgrStatusNotificationKey: Swift.String
+  @objc public static let dccBinMgrDateTimeNotificationKey: Swift.String
+  @objc public static let dccBinMgrStatusBINDataLoadedNotificationStatusValue: Swift.String
+  @objc public static let dccBinMgrStatusBINDataSavedNotificationStatusValue: Swift.String
+  @objc public static let dccBinMgrStatusBINDataUpdateRequestedNotificationStatusValue: Swift.String
+  @objc public static let dccBinMgrStatusBINDataUpdateReceivedNotificationStatusValue: Swift.String
+  @objc public static let dccBinMgrStatusBINDataLastDownloadDateTimeNotificationStatusValue: Swift.String
+  @objc public static let offlineReplayStartedNotificationNameValue: Swift.String
+  @objc public static let offlineReplayStartedNotificationCountValue: Swift.String
+  @objc public static let offlineReplayFailedNotificationNameValue: Swift.String
+  @objc public static let offlineReplayFailedNotificationReason: Swift.String
+  @objc public static let offlineReplayIneligibleNotificationNameValue: Swift.String
+  @objc public static let offlineReplayIneligibleNotificationOfflineId: Swift.String
+  @objc public static let offlineReplayIneligibleNotificationRequestId: Swift.String
+  @objc public static let offlineReplayIneligibleNotificationReason: Swift.String
+  @objc public static let offlineReplayCompleteNotificationNameValue: Swift.String
+  @objc public static let offlineReplayCompleteNotificationCountValue: Swift.String
+  @objc public static let amaPALPackageStagedNotificationNameValue: Swift.String
+  @objc public static let amaPALPackageStagedNotificationFileURL: Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol iFCCScanDevicesDelegate {
+  @objc optional func deviceScanCompleted(availableDevices: [Swift.String], deviceType: Swift.String)
+}
+@_hasMissingDesignatedInitializers @objc public class FccCardReaderDevice : ObjectiveC.NSObject, iFCCKit.iFCCCardReaderDevice {
+  @objc final public let name: Swift.String
+  @objc final public let serialNumber: Swift.String
+  @objc final public let laneIdentifier: Swift.String
+  @objc final public let deviceType: iFCCKit.iFCCDeviceType
+  @objc final public let identifier: Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class GiftCardOperationRequest : iFCCKit.CardBasedOperationRequest {
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class FccOperationIdentifier : ObjectiveC.NSObject, iFCCKit.iFCCOperationIdentifier {
+  @objc final public let identifier: Swift.String
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc override dynamic public var hash: Swift.Int {
+    @objc get
+  }
+  @objc deinit
+}
+extension Swift.Sequence {
+  public func associateBy<T, K, V>(_ keySelector: (T) -> K, _ valueTransform: (T) -> V) -> [K : V] where T == Self.Element, K : Swift.Hashable
+}
+@objc public protocol iFCCLoggingOutput {
+}
+@_inheritsConvenienceInitializers @objc public class iFCCConsoleLoggingOutput : ObjectiveC.NSObject, iFCCKit.iFCCLoggingOutput {
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class iFCCFileLoggingOutput : ObjectiveC.NSObject, iFCCKit.iFCCLoggingOutput {
+  @objc final public let fileLocation: Foundation.URL
+  @objc final public let filePrefix: Swift.String
+  @objc final public let daysToKeep: Swift.Int
+  @objc final public let daysPerLog: Swift.Int
+  @objc final public let maximumFileSizeInMB: Swift.UInt
+  @objc public init?(fileLocation: Foundation.URL, filePrefix: Swift.String = "iFCC", daysToKeep: Swift.Int = 7, daysPerLog: Swift.Int = 1, maximumFileSizeInMB: Swift.UInt = 200)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public class iFCCModuleLoggingLevel : ObjectiveC.NSObject {
+  @objc final public let module: iFCCKit.iFCCLoggingModule
+  @objc final public let level: iFCCKit.iFCCLoggingLevel
+  @objc public init(module: iFCCKit.iFCCLoggingModule, level: iFCCKit.iFCCLoggingLevel)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public class iFCCLoggingLevels : ObjectiveC.NSObject {
+  @objc final public let defaultLevel: iFCCKit.iFCCLoggingLevel
+  @objc final public let customLevels: [iFCCKit.iFCCModuleLoggingLevel]?
+  @objc public init(defaultLevel: iFCCKit.iFCCLoggingLevel = .warn, customLevels: [iFCCKit.iFCCModuleLoggingLevel]? = nil)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public class iFCCLoggingConfiguration : ObjectiveC.NSObject {
+  @objc final public let outputs: [any iFCCKit.iFCCLoggingOutput]
+  @objc final public let levels: iFCCKit.iFCCLoggingLevels
+  @objc final public let enableCommsLogging: Swift.Bool
+  @objc public init(outputs: [any iFCCKit.iFCCLoggingOutput], levels: iFCCKit.iFCCLoggingLevels = iFCCLoggingLevels(), enableCommsLogging: Swift.Bool = false)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public protocol iFCCLoggingDelegate {
+  @objc func write(message: Swift.String)
+}
+@objc public class AuthorizationData : ObjectiveC.NSObject, iFCCKit.Validation, Foundation.NSCopying {
+  @objc final public let allowPartial: Swift.Bool
+  @objc final public let returnBalance: Swift.Bool
+  @objc final public let verbalAuthCode: Swift.String?
+  @objc final public let origAuthAmount: Foundation.NSDecimalNumber?
+  @objc final public let enableAVS: Swift.Bool
+  @objc final public let commerceIndicator: iFCCKit.ElectronicCommerceIndicator
+  @objc final public let isRecurring: Swift.Bool
+  @objc final public let installmentCount: Foundation.NSNumber?
+  @objc final public let installmentNumber: Foundation.NSNumber?
+  @objc final public let industryDataType: Swift.String?
+  @objc public init(allowPartial: Swift.Bool = false, returnBalance: Swift.Bool = false, verbalAuthCode: Swift.String? = nil, origAuthAmount: Foundation.NSDecimalNumber? = nil, enableAVS: Swift.Bool = false, commerceIndicator: iFCCKit.ElectronicCommerceIndicator = .unspecified, isRecurring: Swift.Bool = false, installmentCount: Foundation.NSNumber? = nil, installmentNumber: Foundation.NSNumber? = nil, industryDataType: Swift.String? = nil)
+  @objc public init(allowPartial: Swift.Bool = false, returnBalance: Swift.Bool = false, enableAVS: Swift.Bool = false, commerceIndicator: iFCCKit.ElectronicCommerceIndicator = .unspecified, isRecurring: Swift.Bool = false, installmentCount: Foundation.NSNumber? = nil, installmentNumber: Foundation.NSNumber? = nil, industryDataType: Swift.String? = nil)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc public func validate() -> any iFCCKit.ValidationResult
+  @objc public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
+  @objc deinit
+}
+@objc public enum GoodsIndicator : Swift.Int, Swift.CustomStringConvertible, Swift.CaseIterable {
+  case unspecified
+  case digital
+  case physical
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [iFCCKit.GoodsIndicator]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [iFCCKit.GoodsIndicator] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol PosStoredOperationRequestDelegate {
+  @objc func operationSucceeded(result: Swift.String, operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String)
+  @objc func operationFailed(error: any Swift.Error, operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String)
+}
+@objc public class PosStoredOperationRequest : iFCCKit.OperationRequest {
+  @objc public init(laneId: Swift.String, requestXml: Swift.String, posSyncId: Swift.String, posSyncAttemptNumber: Swift.Int, delegate: any iFCCKit.PosStoredOperationRequestDelegate)
+  @objc deinit
+}
+extension iFCCKit.PosStoredOperationRequest : iFCCKit.Validation {
+  @objc dynamic public func validate() -> any iFCCKit.ValidationResult
+}
+@_hasMissingDesignatedInitializers @available(*, deprecated, message: "Use NetworkDeviceOptions or BluetoothDeviceOptions for UPP and RBA devices")
+@objc public class ICANetworkDeviceOptions : ObjectiveC.NSObject, iFCCKit.iFCCCardReaderDeviceOptions, iFCCKit.iFCCNetworkDeviceOptions {
+  @objc final public let deviceType: iFCCKit.iFCCDeviceType
+  @objc final public let deviceData: Foundation.Data?
+  @objc final public let hostAddress: Swift.String
+  @objc public var portNumber: Swift.Int
+  @objc public var communicationInterface: iFCCKit.iFCCDeviceCommunicationInterface {
+    @objc get
+  }
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class DeviceOptions : ObjectiveC.NSObject, iFCCKit.iFCCCardReaderDeviceOptions {
+  @objc final public let deviceType: iFCCKit.iFCCDeviceType
+  @objc final public let deviceData: Foundation.Data?
+  @objc final public let communicationInterface: iFCCKit.iFCCDeviceCommunicationInterface
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class GoodsIndicatorBridge : ObjectiveC.NSObject {
+  @objc public static func allCases() -> [Swift.Int]
+  @objc public static func allStrings() -> [Swift.String]
+  @objc public static func toString(_ goodsIndicator: iFCCKit.GoodsIndicator) -> Swift.String
+  @objc public static func fromRawValue(_ rawValue: Swift.Int) -> iFCCKit.GoodsIndicator
+  @objc public static func fromString(_ stringValue: Swift.String) -> iFCCKit.GoodsIndicator
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class GiftCardIssueOperationRequest : iFCCKit.GiftCardOperationRequest {
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, purchaseTotal: Foundation.Decimal)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public protocol StoreAndForwardResult {
+  @objc var offlineRequestId: Swift.String { get }
+  @objc var onlineRequestId: Swift.String? { get }
+  @objc var onlineDecision: Swift.String? { get }
+  @objc var onlineErrorCode: Swift.String? { get }
+  @objc var replayStatus: Swift.String { get }
+}
+@_hasMissingDesignatedInitializers @objc public class FccStoreAndForwardResult : ObjectiveC.NSObject, iFCCKit.StoreAndForwardResult {
+  @objc final public let offlineRequestId: Swift.String
+  @objc final public let onlineRequestId: Swift.String?
+  @objc final public let onlineDecision: Swift.String?
+  @objc final public let onlineErrorCode: Swift.String?
+  @objc final public let replayStatus: Swift.String
+  @objc deinit
+}
+@objc public protocol CurrencyData : ObjectiveC.NSObjectProtocol {
+  @objc var name: Swift.String { get }
+  @objc var isoCode: Swift.String { get }
+  @objc var asciiSymbol: Swift.String { get }
+  @objc var utf8Symbol: Swift.String { get }
+  @objc var afterDecimalDigits: Swift.Int { get }
+  @objc var groupSeparator: Swift.String { get }
+  @objc var decimalSeparator: Swift.String { get }
+  @objc var symbolPlacement: iFCCKit.SymbolPlacement { get }
+  @objc var hasSpaceBetween: Swift.Bool { get }
+  @objc var groupingSize: Swift.Int { get }
+  @objc dynamic var description: Swift.String { get }
+}
+@_inheritsConvenienceInitializers @objc public class FccCurrencyBridge : ObjectiveC.NSObject {
+  @objc public static func getSupportedSymbolPlacements() -> [Swift.String]
+  @objc public static func getPresetCurrencies() -> [any iFCCKit.CurrencyData]
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class ModifiedPaymentData : ObjectiveC.NSObject {
+  @objc public var purchaseTotal: Foundation.NSDecimalNumber {
+    @objc get
+  }
+  @objc public init(purchaseTotal: Foundation.NSDecimalNumber)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public enum PalProgressType : Swift.Int {
+  case fileWritePercentage
+  case fileWriteComplete
+  case rebootPending
+  case processingPendingCommands
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension iFCCKit.PalProgressType : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+@objc public protocol PalUpdateDelegate {
+  @objc func onFailure(response: any iFCCKit.PalUpdateFailureResponse)
+  @objc func onSuccess(response: any iFCCKit.PalUpdateSuccessResponse)
+  @objc func onProgressUpdate(progressType: iFCCKit.PalProgressType, progressMessage: Swift.String, inLane lane: Swift.String)
+}
+@objc public protocol PalUpdateFailureResponse : ObjectiveC.NSObjectProtocol {
+  @objc var id: Foundation.UUID { get }
+  @objc var exception: any iFCCKit.PalUpdateOperationFailedException { get }
+  @objc var manifestResults: [any iFCCKit.PalManifestResult] { get }
+  @objc func errorMessage() -> Swift.String?
+  @objc dynamic var description: Swift.String { get }
+}
+@_hasMissingDesignatedInitializers @objc public class FccPalUpdateFailureResponse : ObjectiveC.NSObject, iFCCKit.PalUpdateFailureResponse {
+  @objc final public let id: Foundation.UUID
+  @objc final public let exception: any iFCCKit.PalUpdateOperationFailedException
+  @objc final public let manifestResults: [any iFCCKit.PalManifestResult]
+  @objc public func errorMessage() -> Swift.String?
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public protocol PalUpdateSuccessResponse : ObjectiveC.NSObjectProtocol {
+  @objc var id: Foundation.UUID { get }
+  @objc var manifestResults: [any iFCCKit.PalManifestResult] { get }
+}
+@_hasMissingDesignatedInitializers @objc public class FccPalUpdateSuccessResponse : ObjectiveC.NSObject, iFCCKit.PalUpdateSuccessResponse {
+  @objc final public let id: Foundation.UUID
+  @objc final public let manifestResults: [any iFCCKit.PalManifestResult]
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public enum PalManifestResultInstallationDetail : Swift.Int, Swift.CustomStringConvertible {
+  case successful
+  case skipped
+  case failed
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol PalManifestResult {
+  @objc var description: Swift.String { get }
+  @objc var manifestInstalled: Swift.Bool { get }
+  @objc var installationDetail: iFCCKit.PalManifestResultInstallationDetail { get }
+  @objc var validateErrors: [any iFCCKit.PalValidationError]? { get }
+  @objc var exception: (any iFCCKit.PalUpdateOperationFailedException)? { get }
+  @objc var packageName: Swift.String { get }
+  @objc var manifestName: Swift.String { get }
+  @objc var manifestHash: Swift.String { get }
+  @objc var manifestVariant: Swift.String { get }
+  @objc var manifestVersion: Swift.String { get }
+}
+@_hasMissingDesignatedInitializers @objc public class FccPalManifestResult : ObjectiveC.NSObject, iFCCKit.PalManifestResult {
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc final public let manifestInstalled: Swift.Bool
+  @objc final public let installationDetail: iFCCKit.PalManifestResultInstallationDetail
+  @objc final public let validateErrors: [any iFCCKit.PalValidationError]?
+  @objc final public let exception: (any iFCCKit.PalUpdateOperationFailedException)?
+  @objc final public let packageName: Swift.String
+  @objc final public let manifestName: Swift.String
+  @objc final public let manifestHash: Swift.String
+  @objc final public let manifestVariant: Swift.String
+  @objc final public let manifestVersion: Swift.String
+  @objc deinit
+}
+@objc public protocol DeviceBatteryStatus : ObjectiveC.NSObjectProtocol {
+  @objc var batteryPercentage: Swift.Int { get }
+  @objc var isCharging: Swift.Bool { get }
+  @objc func logDescription() -> Swift.String
+}
+@_hasMissingDesignatedInitializers @objc public class FccDeviceBatteryStatus : ObjectiveC.NSObject, iFCCKit.DeviceBatteryStatus {
+  @objc final public let batteryPercentage: Swift.Int
+  @objc final public let isCharging: Swift.Bool
+  @objc public func logDescription() -> Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class GiftCardInquiryOperationRequest : iFCCKit.GiftCardOperationRequest {
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class FreeWayOperationRequest : iFCCKit.OperationRequest, iFCCKit.Validation {
+  @objc final public let merchantReferenceCode: Swift.String
+  @objc final public let invoiceHeader: iFCCKit.InvoiceHeader?
+  @objc final public let registerId: Swift.String
+  @objc final public let clerkId: Swift.String
+  @objc final public let clientDeviceId: Swift.String?
+  @objc public var billTo: iFCCKit.BillTo? {
+    get
+  }
+  @objc public var shipTo: iFCCKit.ShipTo? {
+    get
+  }
+  @objc public var shipFrom: iFCCKit.ShipFrom? {
+    get
+  }
+  @objc public var hotelData: iFCCKit.HotelData? {
+    get
+  }
+  @objc public var lineItems: iFCCKit.LineItems? {
+    get
+  }
+  @objc public func addBillTo(_ billTo: iFCCKit.BillTo?)
+  @objc public func addShipTo(_ shipTo: iFCCKit.ShipTo?)
+  @objc public func addShipFrom(_ shipFrom: iFCCKit.ShipFrom?)
+  @objc public func addLineItems(_ lineItems: iFCCKit.LineItems?)
+  @objc public func addHotelData(_ hotelData: iFCCKit.HotelData?)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc public func validate() -> any iFCCKit.ValidationResult
+  @objc deinit
+}
+@objc public enum iFCCDeviceFamily : Swift.Int, Swift.CustomStringConvertible, Swift.CaseIterable {
+  case unknown = 0
+  case roam = 1
+  @available(*, deprecated, message: "Use tetra for UPP and RBA devices")
+  case upp = 2
+  case ram = 3
+  @available(*, deprecated, message: "Use tetra for UPP and RBA devices")
+  case rba = 4
+  case tetra = 5
+  public var description: Swift.String {
+    get
+  }
+  public static var allCases: [iFCCKit.iFCCDeviceFamily] {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [iFCCKit.iFCCDeviceFamily]
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers @objc public class AuthorizationOperationRequest : iFCCKit.CardBasedOperationRequest {
+  @available(*, deprecated, message: "Use AuthorizationData")
+  @objc public var partialAmount: Swift.Bool {
+    @objc get
+  }
+  @objc final public let authorizationData: iFCCKit.AuthorizationData?
+  @available(*, deprecated, message: "Use TransactionAmount/AuthorizationData initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, purchaseTotal: Foundation.Decimal, partialAmount: Swift.Bool = false, generateToken: Swift.Bool = false, useDynamicExpiration: Swift.Bool = false)
+  @available(*, deprecated, message: "Use TransactionAmount/AuthorizationData initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, purchaseTotal: Foundation.Decimal, partialAmount: Swift.Bool = false, token: Swift.String, cardExpirationMonth: Swift.String? = nil, cardExpirationYear: Swift.String? = nil)
+  @available(*, deprecated, message: "Use AuthorizationData initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, partialAmount: Swift.Bool = false, generateToken: Swift.Bool = false, useDynamicExpiration: Swift.Bool = false)
+  @available(*, deprecated, message: "Use AuthorizationData initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, partialAmount: Swift.Bool = false, token: Swift.String, cardExpirationMonth: Swift.String? = nil, cardExpirationYear: Swift.String? = nil)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, authorizationData: iFCCKit.AuthorizationData? = nil, generateToken: Swift.Bool = false, useDynamicExpiration: Swift.Bool = false)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, authorizationData: iFCCKit.AuthorizationData? = nil, generateToken: Swift.Bool = false, useDynamicExpiration: Swift.Bool = false, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, shipFrom: iFCCKit.ShipFrom? = nil, lineItems: iFCCKit.LineItems? = nil)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, authorizationData: iFCCKit.AuthorizationData? = nil, token: Swift.String, cardExpirationMonth: Swift.String? = nil, cardExpirationYear: Swift.String? = nil, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, shipFrom: iFCCKit.ShipFrom? = nil)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc override public func validate() -> any iFCCKit.ValidationResult
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class CaptureOperationRequest : iFCCKit.FollowOnOperationRequest {
+  @available(*, deprecated, message: "Use TransactionAmount")
+  @objc public var purchaseTotal: Foundation.Decimal {
+    @objc get
+  }
+  @objc final public let transactionAmount: iFCCKit.TransactionAmount
+  @objc final public let industryDataType: Swift.String?
+  @available(*, deprecated, message: "Use TransactionAmount/InvoiceHeader initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, purchaseTotal: Foundation.Decimal)
+  @available(*, deprecated, message: "Use InvoiceHeader/TransactionAmount initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, transactionAmount: iFCCKit.TransactionAmount)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, transactionAmount: iFCCKit.TransactionAmount)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, transactionAmount: iFCCKit.TransactionAmount, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, shipFrom: iFCCKit.ShipFrom? = nil, lineItems: iFCCKit.LineItems? = nil)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, transactionAmount: iFCCKit.TransactionAmount, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, shipFrom: iFCCKit.ShipFrom? = nil, lineItems: iFCCKit.LineItems? = nil, industryDataType: Swift.String? = nil)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc override public func validate() -> any iFCCKit.ValidationResult
+  @objc deinit
+}
+@objc public protocol PosStoredTransactionRequest : ObjectiveC.NSObjectProtocol {
+  @objc var requestXml: Swift.String { get }
+  @objc func getFreewayXml() -> Swift.String
+}
+@_hasMissingDesignatedInitializers @objc public class SaleOperationRequest : iFCCKit.CardBasedOperationRequest {
+  @available(*, deprecated, message: "Use AuthorizationData")
+  @objc public var partialAmount: Swift.Bool {
+    @objc get
+  }
+  @objc final public let authorizationData: iFCCKit.AuthorizationData?
+  @available(*, deprecated, message: "Use TransactionAmount/AuthorizationData initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, purchaseTotal: Foundation.Decimal, partialAmount: Swift.Bool = false, generateToken: Swift.Bool = false, useDynamicExpiration: Swift.Bool = false)
+  @available(*, deprecated, message: "Use TransactionAmount/AuthorizationData initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, purchaseTotal: Foundation.Decimal, partialAmount: Swift.Bool = false, token: Swift.String, cardExpirationMonth: Swift.String? = nil, cardExpirationYear: Swift.String? = nil)
+  @available(*, deprecated, message: "Use AuthorizationData initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, partialAmount: Swift.Bool = false, generateToken: Swift.Bool = false, useDynamicExpiration: Swift.Bool = false)
+  @available(*, deprecated, message: "Use AuthorizationData initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, partialAmount: Swift.Bool = false, token: Swift.String, cardExpirationMonth: Swift.String? = nil, cardExpirationYear: Swift.String? = nil)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, authorizationData: iFCCKit.AuthorizationData? = nil, generateToken: Swift.Bool = false, useDynamicExpiration: Swift.Bool = false)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, authorizationData: iFCCKit.AuthorizationData? = nil, generateToken: Swift.Bool = false, useDynamicExpiration: Swift.Bool = false, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, shipFrom: iFCCKit.ShipFrom? = nil, lineItems: iFCCKit.LineItems? = nil)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, authorizationData: iFCCKit.AuthorizationData? = nil, token: Swift.String, cardExpirationMonth: Swift.String? = nil, cardExpirationYear: Swift.String? = nil, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, shipFrom: iFCCKit.ShipFrom? = nil, lineItems: iFCCKit.LineItems? = nil)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc override public func validate() -> any iFCCKit.ValidationResult
+  @objc deinit
+}
+@objc public protocol DetachDeviceDelegate : ObjectiveC.NSObjectProtocol {
+  @objc func onDeviceDetached(laneId: Swift.String)
+}
+@_inheritsConvenienceInitializers @objc public class ElectronicCommerceIndicatorBridge : ObjectiveC.NSObject {
+  @objc public static func allCases() -> [Swift.Int]
+  @objc public static func allStrings() -> [Swift.String]
+  @objc public static func toString(_ eci: iFCCKit.ElectronicCommerceIndicator) -> Swift.String
+  @objc public static func fromRawValue(_ rawValue: Swift.Int) -> iFCCKit.ElectronicCommerceIndicator
+  @objc public static func fromString(_ stringValue: Swift.String) -> iFCCKit.ElectronicCommerceIndicator
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class VoidOperationRequest : iFCCKit.FollowOnOperationRequest {
+  @available(*, deprecated, message: "Use InvoiceHeader initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, shipFrom: iFCCKit.ShipFrom? = nil, lineItems: iFCCKit.LineItems? = nil)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class AdjustmentOperationRequest : iFCCKit.AuthorizationUpdateOperationRequest {
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @available(*, deprecated, message: "Use TransactionAmount/AuthorizationData initializer")
+  @objc override public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, purchaseTotal: Foundation.Decimal, partialAmount: Swift.Bool = super)
+  @available(*, deprecated, message: "Use AuthorizationData initializer")
+  @objc override public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, transactionAmount: iFCCKit.TransactionAmount, partialAmount: Swift.Bool = super)
+  @objc override public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, transactionAmount: iFCCKit.TransactionAmount, authorizationData: iFCCKit.AuthorizationData?)
+  @objc override public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, transactionAmount: iFCCKit.TransactionAmount, authorizationData: iFCCKit.AuthorizationData?, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, shipFrom: iFCCKit.ShipFrom? = nil, lineItems: iFCCKit.LineItems? = nil)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class FollowOnRefundOperationRequest : iFCCKit.FollowOnOperationRequest {
+  @available(*, deprecated, message: "Use TransactionAmount")
+  @objc public var purchaseTotal: Foundation.Decimal {
+    @objc get
+  }
+  @objc final public let transactionAmount: iFCCKit.TransactionAmount
+  @objc final public let industryDataType: Swift.String?
+  @available(*, deprecated, message: "Use InvoiceHeader/TransactionAmount initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, purchaseTotal: Foundation.Decimal)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, transactionAmount: iFCCKit.TransactionAmount)
+  @available(*, deprecated, message: "Use IndustryDataType initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, transactionAmount: iFCCKit.TransactionAmount, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, transactionAmount: iFCCKit.TransactionAmount, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, industryDataType: Swift.String? = nil)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc override public func validate() -> any iFCCKit.ValidationResult
+  @objc deinit
+}
+@objc public class TaxDetailItem : ObjectiveC.NSObject, iFCCCore.TaxDetailEntry {
+  @objc public var type: Swift.String
+  @objc public var amount: Foundation.NSNumber
+  @objc public init(type: Swift.String, amount: Foundation.NSNumber)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class TransactionAmount : ObjectiveC.NSObject, iFCCCore.AmountData, Foundation.NSCopying {
+  public var taxDetails: [any iFCCCore.TaxDetailEntry]? {
+    get
+  }
+  @objc public var total: Foundation.NSDecimalNumber
+  @objc public var tip: Foundation.NSDecimalNumber?
+  @objc public var taxTotal: Foundation.NSDecimalNumber?
+  @objc public var discountTotal: Foundation.NSDecimalNumber?
+  @objc public var taxDetailItems: [iFCCKit.TaxDetailItem]?
+  @objc public init(_ total: Foundation.NSDecimalNumber, tip: Foundation.NSDecimalNumber? = nil, taxTotal: Foundation.NSDecimalNumber? = nil, taxDetails: [iFCCKit.TaxDetailItem]? = nil, discountTotal: Foundation.NSDecimalNumber? = nil)
+  @objc public init(_ total: Foundation.NSDecimalNumber, tip: Foundation.NSDecimalNumber? = nil)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
+  @objc deinit
+}
+@objc public protocol iFCCFileLoggingInfo {
+  @objc var fileLocation: Swift.String? { get }
+  @objc var currentFileURL: Foundation.URL? { get }
+  @objc var archivedFileURLs: [Foundation.URL] { get }
+}
+@_hasMissingDesignatedInitializers @objc public class FccFileLoggingInfo : ObjectiveC.NSObject, iFCCKit.iFCCFileLoggingInfo {
+  @objc final public let fileLocation: Swift.String?
+  @objc public var currentFileURL: Foundation.URL? {
+    @objc get
+  }
+  @objc public var archivedFileURLs: [Foundation.URL] {
+    @objc get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class RefundOperationRequest : iFCCKit.CardBasedOperationRequest {
+  @objc final public let industryDataType: Swift.String?
+  @available(*, deprecated, message: "Use InvoiceHeader/TransactionAmount initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, purchaseTotal: Foundation.Decimal, generateToken: Swift.Bool = false, useDynamicExpiration: Swift.Bool = false)
+  @available(*, deprecated, message: "Use InvoiceHeader/TransactionAmount initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, purchaseTotal: Foundation.Decimal, token: Swift.String, cardExpirationMonth: Swift.String? = nil, cardExpirationYear: Swift.String? = nil)
+  @available(*, deprecated, message: "Use InvoiceHeader/TransactionAmount initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, generateToken: Swift.Bool = false, useDynamicExpiration: Swift.Bool = false)
+  @available(*, deprecated, message: "Use InvoiceHeader/TransactionAmount initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, token: Swift.String, cardExpirationMonth: Swift.String? = nil, cardExpirationYear: Swift.String? = nil)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount?, generateToken: Swift.Bool = false, useDynamicExpiration: Swift.Bool = false)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount?, generateToken: Swift.Bool = false, useDynamicExpiration: Swift.Bool = false, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, shipFrom: iFCCKit.ShipFrom? = nil, lineItems: iFCCKit.LineItems? = nil)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount?, generateToken: Swift.Bool = false, useDynamicExpiration: Swift.Bool = false, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, shipFrom: iFCCKit.ShipFrom? = nil, lineItems: iFCCKit.LineItems? = nil, industryDataType: Swift.String? = nil)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, token: Swift.String, cardExpirationMonth: Swift.String? = nil, cardExpirationYear: Swift.String? = nil, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, shipFrom: iFCCKit.ShipFrom? = nil, lineItems: iFCCKit.LineItems? = nil)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, transactionAmount: iFCCKit.TransactionAmount, token: Swift.String, cardExpirationMonth: Swift.String? = nil, cardExpirationYear: Swift.String? = nil, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, shipFrom: iFCCKit.ShipFrom? = nil, lineItems: iFCCKit.LineItems? = nil, industryDataType: Swift.String? = nil)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class AuthorizationUpdateOperationRequest : iFCCKit.FollowOnOperationRequest {
+  @available(*, deprecated, message: "Use TransactionAmount")
+  @objc public var purchaseTotal: Foundation.Decimal {
+    @objc get
+  }
+  @objc final public let transactionAmount: iFCCKit.TransactionAmount
+  @available(*, deprecated, message: "Use AuthorizationData")
+  @objc public var partialAmount: Swift.Bool {
+    @objc get
+  }
+  @objc final public let authorizationData: iFCCKit.AuthorizationData?
+  @available(*, deprecated, message: "Use TransactionAmount/AuthorizationData initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, purchaseTotal: Foundation.Decimal, partialAmount: Swift.Bool = false)
+  @available(*, deprecated, message: "Use AuthorizationData initializer")
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceNumber: Swift.String, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, transactionAmount: iFCCKit.TransactionAmount, partialAmount: Swift.Bool = false)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, transactionAmount: iFCCKit.TransactionAmount, authorizationData: iFCCKit.AuthorizationData?)
+  @objc public init(laneId: Swift.String, merchantReferenceCode: Swift.String, invoiceHeader: iFCCKit.InvoiceHeader?, registerId: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String, transactionAmount: iFCCKit.TransactionAmount, authorizationData: iFCCKit.AuthorizationData?, billTo: iFCCKit.BillTo? = nil, shipTo: iFCCKit.ShipTo? = nil, shipFrom: iFCCKit.ShipFrom? = nil, lineItems: iFCCKit.LineItems? = nil)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc override public func validate() -> any iFCCKit.ValidationResult
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class CardBasedOperationRequest : iFCCKit.FreeWayOperationRequest {
+  @objc final public let generateToken: Swift.Bool
+  @objc final public let tokenDynamicExpiration: Swift.Bool
+  @objc final public let token: Swift.String?
+  @objc final public let cardExpirationMonth: Swift.String?
+  @objc final public let cardExpirationYear: Swift.String?
+  @objc final public let transactionAmount: iFCCKit.TransactionAmount?
+  @objc public var isDccEnabled: Swift.Bool {
+    get
+  }
+  @objc public func enableDcc(_ isDccEnabled: Swift.Bool)
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc override public func validate() -> any iFCCKit.ValidationResult
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers public class FollowOnOperationRequest : iFCCKit.FreeWayOperationRequest {
+  public var requestId: Swift.String {
+    get
+  }
+  @available(*, deprecated, message: "Use debugDescription")
+  @objc override public func logDescription() -> Swift.String
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc override public func validate() -> any iFCCKit.ValidationResult
+  @objc deinit
+}
+@objc public protocol PalValidationError : ObjectiveC.NSObjectProtocol {
+  @objc var setting: Swift.String { get }
+  @objc var expected: Swift.String { get }
+  @objc var actual: Swift.String { get }
+}
+@_hasMissingDesignatedInitializers @objc public class FccPalValidationError : ObjectiveC.NSObject, iFCCKit.PalValidationError {
+  @objc final public let setting: Swift.String
+  @objc final public let expected: Swift.String
+  @objc final public let actual: Swift.String
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public class BillTo : ObjectiveC.NSObject, iFCCKit.Validation, Foundation.NSCopying {
+  @objc final public let customerId: Swift.String?
+  @objc final public let ipAddress: Swift.String?
+  @objc final public let dateOfBirth: Foundation.Date?
+  @objc final public let driversLicenseNumber: Swift.String?
+  @objc final public let driversLicenseState: Swift.String?
+  @objc final public let ssnLastFour: Swift.String?
+  @objc public var company: Swift.String? {
+    @objc get
+  }
+  @objc public var title: Swift.String? {
+    @objc get
+  }
+  @objc public var firstName: Swift.String? {
+    @objc get
+  }
+  @objc public var middleName: Swift.String? {
+    @objc get
+  }
+  @objc public var lastName: Swift.String? {
+    @objc get
+  }
+  @objc public var suffix: Swift.String? {
+    @objc get
+  }
+  @objc public var street1: Swift.String? {
+    @objc get
+  }
+  @objc public var street2: Swift.String? {
+    @objc get
+  }
+  @objc public var street3: Swift.String? {
+    @objc get
+  }
+  @objc public var street4: Swift.String? {
+    @objc get
+  }
+  @objc public var city: Swift.String? {
+    @objc get
+  }
+  @objc public var state: Swift.String? {
+    @objc get
+  }
+  @objc public var postalCode: Swift.String? {
+    @objc get
+  }
+  @objc public var country: Swift.String? {
+    @objc get
+  }
+  @objc public var phoneNumber: Swift.String? {
+    @objc get
+  }
+  @objc public var faxNumber: Swift.String? {
+    @objc get
+  }
+  @objc public var email: Swift.String? {
+    @objc get
+  }
+  @objc public init(customerId: Swift.String? = nil, company: Swift.String? = nil, title: Swift.String? = nil, firstName: Swift.String? = nil, middleName: Swift.String? = nil, lastName: Swift.String? = nil, suffix: Swift.String? = nil, street1: Swift.String? = nil, street2: Swift.String? = nil, street3: Swift.String? = nil, street4: Swift.String? = nil, city: Swift.String? = nil, state: Swift.String? = nil, postalCode: Swift.String? = nil, country: Swift.String? = nil, phoneNumber: Swift.String? = nil, faxNumber: Swift.String? = nil, email: Swift.String? = nil, ipAddress: Swift.String? = nil, dateOfBirth: Foundation.Date? = nil, driversLicenseNumber: Swift.String? = nil, driversLicenseState: Swift.String? = nil, ssnLastFour: Swift.String? = nil)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc public func validate() -> any iFCCKit.ValidationResult
+  @objc public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
+  @objc deinit
+}
+@objc public protocol POSResponse {
+  @objc var decision: Swift.String { get }
+  @objc var errorCode: Swift.String { get }
+  @objc var requestId: Swift.String { get }
+  @objc var merchantReferenceCode: Swift.String { get }
+  @objc var message: Swift.String? { get }
+  @objc var approvedAmount: Swift.String? { get }
+  @objc var maskedCardNumber: Swift.String? { get }
+  @objc var cardType: Swift.String? { get }
+  @objc var nameOnCard: Swift.String? { get }
+  @objc var issuerName: Swift.String? { get }
+  @objc var expiryDate: Swift.String? { get }
+  @objc var entryMode: Swift.String? { get }
+  @objc var receipt: Swift.String? { get }
+  @objc var approvalCode: Swift.String? { get }
+  @objc var signatureRequired: Swift.Bool { get }
+  @objc var pinVerified: Swift.Bool { get }
+  @objc var tokenResponse: (any iFCCKit.TokenResponse)? { get }
+  @objc var accountBalance: Swift.String? { get }
+  @objc var accountBalanceCurrency: Swift.String? { get }
+  @objc var tipAmount: Swift.String? { get }
+  @objc var avsCode: Swift.String? { get }
+  @objc var avsCodeRaw: Swift.String? { get }
+  @objc var cvCode: Swift.String? { get }
+  @objc var cvCodeRaw: Swift.String? { get }
+  @objc var requestData: Swift.String? { get }
+  @objc var responseData: Swift.String? { get }
+  @objc var invalidFields: [Swift.String]? { get }
+  @objc func logDescription() -> Swift.String
+}
+@_hasMissingDesignatedInitializers @objc public class FccPosResponse : ObjectiveC.NSObject, iFCCKit.POSResponse {
+  @objc final public let decision: Swift.String
+  @objc final public let errorCode: Swift.String
+  @objc final public let requestId: Swift.String
+  @objc final public let merchantReferenceCode: Swift.String
+  @objc final public let message: Swift.String?
+  @objc final public let approvedAmount: Swift.String?
+  @objc final public let maskedCardNumber: Swift.String?
+  @objc final public let cardType: Swift.String?
+  @objc final public let nameOnCard: Swift.String?
+  @objc final public let issuerName: Swift.String?
+  @objc final public let expiryDate: Swift.String?
+  @objc final public let entryMode: Swift.String?
+  @objc final public let receipt: Swift.String?
+  @objc final public let approvalCode: Swift.String?
+  @objc final public let signatureRequired: Swift.Bool
+  @objc final public let pinVerified: Swift.Bool
+  @objc final public let tokenResponse: (any iFCCKit.TokenResponse)?
+  @objc final public let accountBalance: Swift.String?
+  @objc final public let accountBalanceCurrency: Swift.String?
+  @objc final public let tipAmount: Swift.String?
+  @objc final public let avsCode: Swift.String?
+  @objc final public let avsCodeRaw: Swift.String?
+  @objc final public let cvCode: Swift.String?
+  @objc final public let cvCodeRaw: Swift.String?
+  @objc final public let requestData: Swift.String?
+  @objc final public let responseData: Swift.String?
+  @objc final public let invalidFields: [Swift.String]?
+  @objc public func logDescription() -> Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class FccCardReaderDeviceInfo : ObjectiveC.NSObject, iFCCKit.CardReaderDeviceInfo {
+  @objc final public let hardwareType: Swift.String
+  @objc final public let applicationVersion: Swift.String
+  @objc final public let deviceVersionInfo: (any iFCCKit.DeviceVersionInfo)?
+  @objc final public let deviceFeatures: (any iFCCKit.DeviceFeatures)?
+  @objc final public let configuration: [Swift.String : Swift.String]?
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@objc public enum iFCCDeviceLanguage : Swift.Int, Swift.CustomStringConvertible, Swift.CaseIterable {
+  case english
+  case spanish
+  case french
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [iFCCKit.iFCCDeviceLanguage]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [iFCCKit.iFCCDeviceLanguage] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class iFCCLanguageBridge : ObjectiveC.NSObject {
+  @objc public static func deviceLanguage(fromString: Swift.String) -> iFCCKit.iFCCDeviceLanguage
+  @objc public static var supportedLanguageNames: [Swift.String] {
+    @objc get
+  }
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public protocol iFCCDeviceSetupDelegate {
+  @objc func deviceSetupCompleted(availableDevices: [any iFCCKit.iFCCCardReaderDevice])
+  @objc func deviceSetupFailed(error: any Swift.Error)
+  @objc optional func ledPairingConfirmationRequested(ledSequence: [any iFCCKit.LEDSequenceItem], pairingConfirmationDelegate: any iFCCKit.iFCCPairingConfirmationDelegate)
+}
+@objc public protocol LaneStatusDelegate {
+  @objc func onLaneOpened(device: any iFCCKit.iFCCCardReaderDevice)
+  @objc func onLaneClosed(laneId: Swift.String)
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc public class FccCancellableOperationIdentifier : iFCCKit.FccOperationIdentifier, iFCCKit.iFCCCancellableOperationIdentifier {
+  @objc deinit
+}
+@objc public class ShipTo : ObjectiveC.NSObject, iFCCKit.Validation, Foundation.NSCopying {
+  @objc final public let shippingCompany: Swift.String?
+  @objc final public let shippingMethod: Swift.String?
+  @objc final public let trackingNumber: Swift.String?
+  @objc public var company: Swift.String? {
+    @objc get
+  }
+  @objc public var title: Swift.String? {
+    @objc get
+  }
+  @objc public var firstName: Swift.String? {
+    @objc get
+  }
+  @objc public var middleName: Swift.String? {
+    @objc get
+  }
+  @objc public var lastName: Swift.String? {
+    @objc get
+  }
+  @objc public var suffix: Swift.String? {
+    @objc get
+  }
+  @objc public var street1: Swift.String? {
+    @objc get
+  }
+  @objc public var street2: Swift.String? {
+    @objc get
+  }
+  @objc public var street3: Swift.String? {
+    @objc get
+  }
+  @objc public var street4: Swift.String? {
+    @objc get
+  }
+  @objc public var city: Swift.String? {
+    @objc get
+  }
+  @objc public var state: Swift.String? {
+    @objc get
+  }
+  @objc public var postalCode: Swift.String? {
+    @objc get
+  }
+  @objc public var country: Swift.String? {
+    @objc get
+  }
+  @objc public var phoneNumber: Swift.String? {
+    @objc get
+  }
+  @objc public var faxNumber: Swift.String? {
+    @objc get
+  }
+  @objc public var email: Swift.String? {
+    @objc get
+  }
+  @objc public init(company: Swift.String? = nil, title: Swift.String? = nil, firstName: Swift.String? = nil, middleName: Swift.String? = nil, lastName: Swift.String? = nil, suffix: Swift.String? = nil, street1: Swift.String? = nil, street2: Swift.String? = nil, street3: Swift.String? = nil, street4: Swift.String? = nil, city: Swift.String? = nil, state: Swift.String? = nil, postalCode: Swift.String? = nil, country: Swift.String? = nil, phoneNumber: Swift.String? = nil, faxNumber: Swift.String? = nil, email: Swift.String? = nil, shippingCompany: Swift.String? = nil, shippingMethod: Swift.String? = nil, trackingNumber: Swift.String? = nil)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc public func validate() -> any iFCCKit.ValidationResult
+  @objc public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
+  @objc deinit
+}
+@objc public class OperationRequest : ObjectiveC.NSObject {
+  final public let laneId: Swift.String
+  final public let timeoutInSeconds: Swift.Int?
+  public init(laneId: Swift.String, timeoutInSeconds: Swift.Int? = nil)
+  @objc deinit
+}
+@objc public class LineItem : ObjectiveC.NSObject {
+  @objc public var uuid: Swift.String
+  @objc final public let productCode: Swift.String?
+  @objc final public let productUPC: Swift.String?
+  @objc final public let productSKU: Swift.String?
+  @objc final public let productName: Swift.String?
+  @objc final public let productDescription: Swift.String
+  @objc final public let commodityCode: Swift.String?
+  @objc final public let unitPrice: Foundation.NSDecimalNumber
+  @objc final public let quantity: Swift.Int
+  @objc final public let totalAmount: Foundation.NSDecimalNumber
+  @objc final public let taxIncludedFlag: Swift.Bool
+  @objc final public let taxAmount: Foundation.NSDecimalNumber?
+  @objc final public let unitOfMeasure: Swift.String?
+  @objc final public let saleCode: Swift.String
+  @objc final public let discountAmount: Foundation.NSDecimalNumber?
+  @objc final public let discountFlag: Swift.Bool
+  @objc final public let productMake: Swift.String?
+  @objc final public let productModel: Swift.String?
+  @objc final public let productPartNumber: Swift.String?
+  @objc final public let productYear: Swift.String?
+  @objc final public let productSerial1: Swift.String?
+  @objc final public let productSerial2: Swift.String?
+  @objc final public let productSerial3: Swift.String?
+  @objc final public let customerAssetId: Swift.String?
+  @objc final public let promoCode: Swift.String?
+  @objc final public let freightAmount: Foundation.NSDecimalNumber?
+  @objc final public let customFormatId: Swift.String?
+  @objc final public let custom1: Swift.String?
+  @objc final public let custom2: Swift.String?
+  @objc final public let custom3: Swift.String?
+  @objc final public let custom4: Swift.String?
+  @objc final public let custom5: Swift.String?
+  @objc final public let custom6: Swift.String?
+  @objc final public let custom7: Swift.String?
+  @objc final public let custom8: Swift.String?
+  @objc final public let custom9: Swift.String?
+  @objc final public let payAlloc: Swift.String?
+  @objc final public let origUnitPrice: Foundation.NSDecimalNumber?
+  @objc final public let origTotalAmount: Foundation.NSDecimalNumber?
+  @objc final public let category: Swift.String?
+  @objc final public let subCategory: Swift.String?
+  @objc final public let eidIndicator: Swift.String?
+  @objc public init(productCode: Swift.String? = nil, productUPC: Swift.String? = nil, productSKU: Swift.String? = nil, productName: Swift.String? = nil, productDescription: Swift.String, commodityCode: Swift.String? = nil, unitPrice: Foundation.NSDecimalNumber, quantity: Swift.Int, totalAmount: Foundation.NSDecimalNumber, taxIncludedFlag: Swift.Bool, taxAmount: Foundation.NSDecimalNumber? = nil, unitOfMeasure: Swift.String? = nil, saleCode: Swift.String, discountAmount: Foundation.NSDecimalNumber? = nil, discountFlag: Swift.Bool = false, productMake: Swift.String? = nil, productModel: Swift.String? = nil, productPartNumber: Swift.String? = nil, productYear: Swift.String? = nil, productSerial1: Swift.String? = nil, productSerial2: Swift.String? = nil, productSerial3: Swift.String? = nil, customerAssetId: Swift.String? = nil, promoCode: Swift.String? = nil, freightAmount: Foundation.NSDecimalNumber? = nil, customFormatId: Swift.String? = nil, custom1: Swift.String? = nil, custom2: Swift.String? = nil, custom3: Swift.String? = nil, custom4: Swift.String? = nil, custom5: Swift.String? = nil, custom6: Swift.String? = nil, custom7: Swift.String? = nil, custom8: Swift.String? = nil, custom9: Swift.String? = nil, payAlloc: Swift.String? = nil, origUnitPrice: Foundation.NSDecimalNumber? = nil, origTotalAmount: Foundation.NSDecimalNumber? = nil, category: Swift.String? = nil, subCategory: Swift.String? = nil, eidIndicator: Swift.String? = nil)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class LineItems : ObjectiveC.NSObject, iFCCKit.Validation, Foundation.NSCopying {
+  @objc public var items: [iFCCKit.LineItem] {
+    get
+  }
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc public func validate() -> any iFCCKit.ValidationResult
+  @objc public func copy(with zone: ObjectiveC.NSZone? = nil) -> Any
+  @objc override dynamic public init()
+  @objc public init(items: [iFCCKit.LineItem])
+  @objc public func add(item: iFCCKit.LineItem)
+  @objc public func remove(item: iFCCKit.LineItem)
+  @objc deinit
+}
+@objc public protocol iFCCOperationIdentifier : ObjectiveC.NSObjectProtocol {
+  @objc var identifier: Swift.String { get }
+}
+@objc public protocol iFCCCancellableOperationIdentifier : iFCCKit.iFCCOperationIdentifier {
+}
+@objc public protocol TokenResponse {
+  @objc var token: Swift.String { get }
+  @objc var tokenExpiration: Swift.String { get }
+  @objc func logDescription() -> Swift.String
+}
+@objc public class FccTokenResponse : ObjectiveC.NSObject, iFCCKit.TokenResponse {
+  @objc final public let token: Swift.String
+  @objc final public let tokenExpiration: Swift.String
+  public init(token: Swift.String, tokenExpiration: Swift.String)
+  @objc public func logDescription() -> Swift.String
+  @objc deinit
+}
+@objc public enum iFCCROAMDeviceType : Swift.Int {
+  case rp457cBT
+  case rp457cAJ
+  case moby5500
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol CardReadResponse : ObjectiveC.NSObjectProtocol {
+  @objc var errorCode: Swift.String { get }
+  @objc @available(*, deprecated, message: "Use encryptionMode")
+  var isEncrypted: Swift.Bool { get }
+  @objc @available(*, deprecated, message: "Not supported")
+  var ksn: Swift.String { get }
+  @objc var track1Data: Swift.String { get }
+  @objc var track2Data: Swift.String { get }
+  @objc var bin: Swift.String { get }
+  @objc var cardHolderName: Swift.String { get }
+  @objc @available(*, deprecated, message: "Not supported")
+  var serviceCode: Swift.String { get }
+  @objc var expirationDate: Swift.String { get }
+  @objc var cardLastFour: Swift.String { get }
+  @objc var data: [Swift.UInt8] { get }
+  @objc var encryptionMode: Swift.String { get }
+  @objc var rawCardType: Swift.String { get }
+  @objc var entryMode: Swift.String { get }
+}
+@_hasMissingDesignatedInitializers @objc public class FccCardReadResponse : ObjectiveC.NSObject, iFCCKit.CardReadResponse {
+  @objc final public let errorCode: Swift.String
+  @available(*, deprecated, message: "Use encryptionMode")
+  @objc final public let isEncrypted: Swift.Bool
+  @available(*, deprecated, message: "Not supported")
+  @objc final public let ksn: Swift.String
+  @objc final public let track1Data: Swift.String
+  @objc final public let track2Data: Swift.String
+  @objc final public let bin: Swift.String
+  @objc final public let cardHolderName: Swift.String
+  @available(*, deprecated, message: "Not supported")
+  @objc final public let serviceCode: Swift.String
+  @objc final public let expirationDate: Swift.String
+  @objc final public let cardLastFour: Swift.String
+  @objc final public let data: [Swift.UInt8]
+  @objc final public let encryptionMode: Swift.String
+  @objc final public let rawCardType: Swift.String
+  @objc final public let entryMode: Swift.String
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+extension iFCCKit.OperationProgressType : Swift.Equatable {}
+extension iFCCKit.OperationProgressType : Swift.Hashable {}
+extension iFCCKit.OperationProgressType : Swift.RawRepresentable {}
+extension iFCCKit.ElectronicCommerceIndicator : Swift.Equatable {}
+extension iFCCKit.ElectronicCommerceIndicator : Swift.Hashable {}
+extension iFCCKit.ElectronicCommerceIndicator : Swift.RawRepresentable {}
+extension iFCCKit.iFCCDeviceCommunicationInterface : Swift.Equatable {}
+extension iFCCKit.iFCCDeviceCommunicationInterface : Swift.Hashable {}
+extension iFCCKit.iFCCDeviceCommunicationInterface : Swift.RawRepresentable {}
+extension iFCCKit.iFCCDeviceType : Swift.Equatable {}
+extension iFCCKit.iFCCDeviceType : Swift.Hashable {}
+extension iFCCKit.iFCCDeviceType : Swift.RawRepresentable {}
+extension iFCCKit.FailureAction.Mode : Swift.Equatable {}
+extension iFCCKit.FailureAction.Mode : Swift.Hashable {}
+extension iFCCKit.FailureAction.Mode : Swift.RawRepresentable {}
+extension iFCCKit.iFCCLoggingLevel : Swift.Hashable {}
+extension iFCCKit.iFCCLoggingLevel : Swift.RawRepresentable {}
+extension iFCCKit.iFCCLoggingModule : Swift.Equatable {}
+extension iFCCKit.iFCCLoggingModule : Swift.Hashable {}
+extension iFCCKit.iFCCLoggingModule : Swift.RawRepresentable {}
+extension iFCCKit.SymbolPlacement : Swift.Equatable {}
+extension iFCCKit.SymbolPlacement : Swift.Hashable {}
+extension iFCCKit.SymbolPlacement : Swift.RawRepresentable {}
+extension iFCCKit.GoodsIndicator : Swift.Equatable {}
+extension iFCCKit.GoodsIndicator : Swift.Hashable {}
+extension iFCCKit.GoodsIndicator : Swift.RawRepresentable {}
+extension iFCCKit.PalProgressType : Swift.Equatable {}
+extension iFCCKit.PalProgressType : Swift.Hashable {}
+extension iFCCKit.PalProgressType : Swift.RawRepresentable {}
+extension iFCCKit.PalManifestResultInstallationDetail : Swift.Equatable {}
+extension iFCCKit.PalManifestResultInstallationDetail : Swift.Hashable {}
+extension iFCCKit.PalManifestResultInstallationDetail : Swift.RawRepresentable {}
+extension iFCCKit.iFCCDeviceFamily : Swift.Equatable {}
+extension iFCCKit.iFCCDeviceFamily : Swift.Hashable {}
+extension iFCCKit.iFCCDeviceFamily : Swift.RawRepresentable {}
+extension iFCCKit.iFCCDeviceLanguage : Swift.Equatable {}
+extension iFCCKit.iFCCDeviceLanguage : Swift.Hashable {}
+extension iFCCKit.iFCCDeviceLanguage : Swift.RawRepresentable {}
+extension iFCCKit.iFCCROAMDeviceType : Swift.Equatable {}
+extension iFCCKit.iFCCROAMDeviceType : Swift.Hashable {}
+extension iFCCKit.iFCCROAMDeviceType : Swift.RawRepresentable {}

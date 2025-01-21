@@ -1,0 +1,683 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target arm64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name iSAF
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import CoreData
+import FPLoggerKit
+import Foundation
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import iFCCCore
+@_exported import iSAF
+@_hasMissingDesignatedInitializers public class SAFProcessingEngine : iSAF.SAFEngine {
+  public func createReplayEvent(recordCount: Swift.Int)
+  public func onlineRequestSucceeded()
+  public func storeOfflineReversal(operationIdentifier: any iFCCCore.RemoteOperationIdentifier, attemptNumber: Swift.Int16 = 1) throws -> iSAF.BundledSAFResponse
+  public func storeOfflineRequest(_ freeWayRequestData: iFCCCore.FreeWayRequestData, operationIdentifier: any iFCCCore.RemoteOperationIdentifier, attemptNumber: Swift.Int16 = 1) throws -> iFCCCore.FreeWayResponsePayload
+  public func getOfflineStatus() throws -> iSAF.OfflineStatus
+  public func getReplayStatusCounts() throws -> [Swift.String : Swift.Int]
+  public func getOfflineRequestIds() throws -> [Swift.String]
+  public func prepareReplayRequest(_ offlineRequestId: Swift.String) throws -> (iSAF.SAFErrorCode, iSAF.OfflineRequest?)
+  public func updateReplayRequest(_ replayResult: iSAF.ReplayResult) throws -> Swift.Bool
+  public func checkVoidRequestId(_ voidRequestId: Swift.String) throws -> iFCCCore.FollowOnResult
+  public func checkFollowOnRequestId(_ followOnRequestId: Swift.String) throws -> iFCCCore.FollowOnResult
+  public func resolveOfflineRequestIds(_ offlineRequestIds: [Swift.String]) throws -> [iSAF.BundledSAFResult]
+  public func storeForExecution(requestBundle: iFCCCore.RequestBundle, res: iFCCCore.TransactionResponse) throws -> iSAF.BundledSAFResponse
+  public func createOfflineResponse(_ freeWayRequestData: iFCCCore.FreeWayRequestData) -> iFCCCore.FreeWayResponsePayload
+  public func storeReversalForExecution(req: iFCCCore.RequestBundle, isInterac: Swift.Bool) throws
+  public func getPendingReversal() -> Swift.String?
+  public func clearQueue()
+  public func getReversalRequests() -> [iSAF.BundledSAFResult]
+  public func getTimestamp(_ safTimestamp: iSAF.SAFTimestamp) -> Foundation.Date?
+  public func updateTimestamp(_ safTimestamp: iSAF.SAFTimestamp, date: Foundation.Date)
+  public func getOfflineConfig() -> iSAF.SAFEngineContext
+  public func getSafMetadata() -> any iSAF.SAFMetadata
+  public func prepareVoid(safRequestId: Swift.String) throws -> iSAF.OfflineVoidResponse?
+  public func createOfflineResponse(requestBundle: iFCCCore.RequestBundle, voidResponse: iSAF.OfflineVoidResponse?, requiresReversalOnFailure: Swift.Bool) -> iFCCCore.TransactionResponse?
+  @objc deinit
+}
+public struct ReplayResult : Swift.Equatable {
+  public var iFCCRequestId: Swift.String
+  public var lockHandle: iSAF.LockHandle
+  public var responseStatus: iSAF.ResponseStatus
+  public var isReversal: Swift.Bool
+  public var freeWayResponse: iFCCCore.FreeWayResponsePayload?
+  public init(iFCCRequestId: Swift.String, lockHandle: iSAF.LockHandle, responseStatus: iSAF.ResponseStatus, isReversal: Swift.Bool, freeWayResponse: iFCCCore.FreeWayResponsePayload?)
+  public var realRequestId: Swift.String? {
+    get
+  }
+  public static func == (a: iSAF.ReplayResult, b: iSAF.ReplayResult) -> Swift.Bool
+}
+public struct OfflineStatus : Swift.Equatable {
+  public let offlineRequestCount: Swift.UInt
+  public let lastReplayDate: Foundation.Date?
+  public static func == (a: iSAF.OfflineStatus, b: iSAF.OfflineStatus) -> Swift.Bool
+}
+public enum SAFTimestamp {
+  case onlineRequest
+  case replay
+  case maintenance
+  case shortCiruit
+  public static func == (a: iSAF.SAFTimestamp, b: iSAF.SAFTimestamp) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public protocol SAFEngine : AnyObject {
+  func storeOfflineRequest(_ freeWayRequestData: iFCCCore.FreeWayRequestData, operationIdentifier: any iFCCCore.RemoteOperationIdentifier, attemptNumber: Swift.Int16) throws -> iFCCCore.FreeWayResponsePayload
+  func storeOfflineReversal(operationIdentifier: any iFCCCore.RemoteOperationIdentifier, attemptNumber: Swift.Int16) throws -> iSAF.BundledSAFResponse
+  func checkFollowOnRequestId(_ followOnRequestId: Swift.String) throws -> iFCCCore.FollowOnResult
+  func checkVoidRequestId(_ voidRequestId: Swift.String) throws -> iFCCCore.FollowOnResult
+  func prepareReplayRequest(_ offlineRequestId: Swift.String) throws -> (iSAF.SAFErrorCode, iSAF.OfflineRequest?)
+  func updateReplayRequest(_ replayResult: iSAF.ReplayResult) throws -> Swift.Bool
+  func getOfflineStatus() throws -> iSAF.OfflineStatus
+  func createReplayEvent(recordCount: Swift.Int)
+  func resolveOfflineRequestIds(_ offlineRequestIds: [Swift.String]) throws -> [iSAF.BundledSAFResult]
+  func getOfflineRequestIds() throws -> [Swift.String]
+  func getReplayStatusCounts() throws -> [Swift.String : Swift.Int]
+  func onlineRequestSucceeded()
+  func createOfflineResponse(_ freeWayRequestData: iFCCCore.FreeWayRequestData) -> iFCCCore.FreeWayResponsePayload
+  func storeForExecution(requestBundle: iFCCCore.RequestBundle, res: iFCCCore.TransactionResponse) throws -> iSAF.BundledSAFResponse
+  func storeReversalForExecution(req: iFCCCore.RequestBundle, isInterac: Swift.Bool) throws
+  func getPendingReversal() -> Swift.String?
+  func clearQueue()
+  func getReversalRequests() -> [iSAF.BundledSAFResult]
+  func getTimestamp(_ safTimestamp: iSAF.SAFTimestamp) -> Foundation.Date?
+  func updateTimestamp(_ safTimestamp: iSAF.SAFTimestamp, date: Foundation.Date)
+  func getOfflineConfig() -> iSAF.SAFEngineContext
+  func getSafMetadata() -> any iSAF.SAFMetadata
+  func prepareVoid(safRequestId: Swift.String) throws -> iSAF.OfflineVoidResponse?
+  func createOfflineResponse(requestBundle: iFCCCore.RequestBundle, voidResponse: iSAF.OfflineVoidResponse?, requiresReversalOnFailure: Swift.Bool) -> iFCCCore.TransactionResponse?
+}
+public enum ResponseStatus : Swift.Int16, Swift.CustomStringConvertible {
+  case unknown
+  case noResponse
+  case offlineIncomplete
+  case onlineIncomplete
+  case onlineComplete
+  case offlineComplete
+  public func isComplete() -> Swift.Bool
+  public var description: Swift.String {
+    get
+  }
+  public var replayDescription: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int16)
+  public typealias RawValue = Swift.Int16
+  public var rawValue: Swift.Int16 {
+    get
+  }
+}
+public class iSafLoggerModuleIdentity : FPLoggerKit.LoggerModuleIdentity {
+  public func loggingModules(levels: [Swift.String : FPLoggerKit.LogLevel], defaultLevel: FPLoggerKit.LogLevel) -> [any FPLoggerKit.LoggerModule]
+  public init()
+  @objc deinit
+}
+public struct ReversalCreationRequest : Swift.Equatable {
+  public let requestType: iSAF.RequestType
+  public let safRequestId: Swift.String
+  public let requestIdType: iFCCCore.RequestIdType
+  public let url: Swift.String
+  public let posSyncId: iFCCCore.POSSyncId
+  public let posSyncAttemptNumber: Swift.Int16
+  public let initialResult: iSAF.SAFReplayResultData
+  public let requestData: Foundation.Data?
+  public let requestDataFormat: Swift.Int32?
+  public init(requestType: iSAF.RequestType, safRequestId: Swift.String, requestIdType: iFCCCore.RequestIdType, url: Swift.String, posSyncId: iFCCCore.POSSyncId, initialResult: iSAF.SAFReplayResultData, requestData: Foundation.Data?, requestDataFormat: Swift.Int32?)
+  public func logDescription() -> Swift.String
+  public static func == (a: iSAF.ReversalCreationRequest, b: iSAF.ReversalCreationRequest) -> Swift.Bool
+}
+public enum LockStatus : Swift.Int16 {
+  case unknown
+  case unlocked
+  case locked
+  public init?(rawValue: Swift.Int16)
+  public typealias RawValue = Swift.Int16
+  public var rawValue: Swift.Int16 {
+    get
+  }
+}
+extension Foundation.Date {
+  public func days(_ numberOfDays: Swift.Int) -> Foundation.Date?
+  public func minutes(_ numberOfMinutes: Swift.Int) -> Foundation.Date?
+}
+public struct OfflineRequest {
+  public let iFCCRequestId: Swift.String
+  public let completionStatus: iSAF.CompletionStatus
+  public let initialResponseStatus: iSAF.ResponseStatus
+  public let parentRequestId: Swift.String?
+  public let parentRequestIdType: iFCCCore.RequestIdType
+  public let posSyncId: iFCCCore.POSSyncId
+  public let posSyncAttemptNumber: Swift.Int16
+  public let rejectCount: Swift.Int32
+  public let isReversal: Swift.Bool
+  public let url: Swift.String
+  public let freewayRequest: iFCCCore.FreeWayRequestData?
+  public let lockHandle: iSAF.LockHandle
+  public let eventCounter: Swift.UInt
+  public func updateRequestId()
+  public func addOfflineControlDataIfNeeded(_ context: iSAF.OfflineContext)
+}
+extension iSAF.OfflineRequest : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension iSAF.OfflineRequest : Swift.Equatable {
+  public static func == (lhs: iSAF.OfflineRequest, rhs: iSAF.OfflineRequest) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers public class FreeWayRequestCodableUtil {
+  public static func encodeRequest(freeWayRequestData: iFCCCore.FreeWayRequestData, format: iSAF.DataFormat) throws -> Foundation.Data?
+  public static func decodeRequest(data: Foundation.Data, format: iSAF.DataFormat) throws -> iFCCCore.FreeWayRequestData?
+  @objc deinit
+}
+public struct BundledSAFResult {
+  public let freeWayResponseData: iFCCCore.FreeWayResponsePayload?
+  public let realRequestId: Swift.String?
+  public let safRequestId: Swift.String
+  public let status: iSAF.CompletionStatus
+  public let lockStatus: iSAF.LockStatus
+}
+public enum CompletionStatus : Swift.Int16, Swift.CustomStringConvertible {
+  case unknown
+  case pending
+  case complete
+  case voiding
+  case voided
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int16)
+  public typealias RawValue = Swift.Int16
+  public var rawValue: Swift.Int16 {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class iSAFErrorCodeConstants : ObjectiveC.NSObject {
+  public static let iSAFErrorDomain: Swift.String
+  public static let generalErrorCode: Swift.Int
+  public static let expectedRecordNotFoundFoCriteriaErrorCode: Swift.Int
+  public static let replayResultDataIllegalStateErrorCode: Swift.Int
+  public static let illegalResponseStatusForRecordCreationErrorCode: Swift.Int
+  public static let illegalNoVoidCodeForRecordCreationErrorCode: Swift.Int
+  public static let illegalStatusFoundInLockedRecordErrorCode: Swift.Int
+  public static let illegalResponseStatusFoundInLockedRecordErrorCode: Swift.Int
+  public static let invalidPosSyncIdFoundInOfflineRequestErrorCode: Swift.Int
+  public static let invalidResponseDataErrorCode: Swift.Int
+  public static let invalidFreeWayRequestIdErrorCode: Swift.Int
+  public static let invalidArgumentErrorCode: Swift.Int
+  @objc override dynamic public init()
+  @objc deinit
+}
+public enum NoVoidCode : Swift.Int16 {
+  case unknown
+  case permitted
+  case voidRequest
+  public init?(rawValue: Swift.Int16)
+  public typealias RawValue = Swift.Int16
+  public var rawValue: Swift.Int16 {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc(SAFTimestamps) public class SAFTimestamps : CoreData.NSManagedObject {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+  @objc deinit
+}
+public struct OfflineContext {
+  public let frequencyInMinutes: Swift.UInt
+  public let maxRejectCount: Swift.UInt
+  public let isDeclineReplayForceKeyed: Swift.Bool
+  public let declineReplayForceKeyedCount: Swift.UInt
+  public let maxReplayCount: Swift.Int
+  public init(frequencyInMinutes: Swift.UInt, maxRejectCount: Swift.UInt, isDeclineReplayForceKeyed: Swift.Bool, declineReplayForceKeyedCount: Swift.UInt, maxReplayCount: Swift.Int)
+}
+extension iSAF.SAFReplay {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<iSAF.SAFReplay>
+  @objc @NSManaged dynamic public var runDate: Foundation.NSDate {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var fetchedCount: Swift.Int32 {
+    @objc get
+    @objc set
+  }
+}
+public protocol SAFMetadata {
+  func getLastSuccessfulOnlineRequestTimestamp() -> Foundation.Date?
+  func getLastSafReplayTimestamp() -> Foundation.Date?
+  func getLastSafMaintenanceTimestamp() -> Foundation.Date?
+  func getAvailableStorageMegabytes() -> Swift.Int
+  func getLastSafReplayShortCircuitTimestamp() -> Foundation.Date?
+  func getNumberOfOfflineTransactionsCount() -> Swift.Int
+}
+public struct OfflineVoidResponse : Swift.CustomStringConvertible {
+  public let safErrorCode: iSAF.SAFErrorCode
+  public let previousRequestIdType: iFCCCore.RequestIdType?
+  public let previousRequestId: Swift.String?
+  public let posSyncId: iFCCCore.POSSyncId?
+  public let localRequestId: iFCCCore.LocalRequestId?
+  public init(safErrorCode: iSAF.SAFErrorCode, localRequestId: iFCCCore.LocalRequestId? = nil, previousRequestIdType: iFCCCore.RequestIdType? = nil, previousRequestId: Swift.String? = nil, posSyncId: iFCCCore.POSSyncId? = nil)
+  public var description: Swift.String {
+    get
+  }
+}
+public enum SAFErrorCode : Swift.Int16, Swift.CustomStringConvertible {
+  case none
+  case unknown
+  case requestNotFound
+  case requestPending
+  case requestVoided
+  case requestVoiding
+  case requestDeclined
+  case requestNotVoidable
+  case recordLocked
+  case requestComplete
+  case lockBroken
+  case replayFailed
+  case reversalExists
+  case invalidPOSSyncId
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int16)
+  public typealias RawValue = Swift.Int16
+  public var rawValue: Swift.Int16 {
+    get
+  }
+}
+public typealias ReversalQueueCallback = (Swift.Bool) -> ()
+public protocol SAFReversalQueue {
+  func addReversalToQueue(bundle: iFCCCore.RequestBundle) throws
+  func attemptPendingReversal(_ completion: iSAF.ReversalQueueCallback?)
+  func clearQueue()
+  func setRetryCount(count: Swift.UInt16)
+  func getRetryCount() -> Swift.UInt16
+}
+@_inheritsConvenienceInitializers @objc(SAFReplay) public class SAFReplay : CoreData.NSManagedObject {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class SAFCoreData : iSAF.SAFBackingStore {
+  public func createRecord(recordCreationRequest: iSAF.RecordCreationRequest) throws -> iSAF.BundledSAFResponse
+  public func createReversal(reversalCreationRequest: iSAF.ReversalCreationRequest) throws -> iSAF.BundledSAFResponse
+  public func acknowledgeRecord(safRequestId: Swift.String, eventCounter: Swift.Int32) throws
+  public func lockRecord(safRequestId: Swift.String) throws -> (iSAF.SAFErrorCode, iSAF.SAFTransaction?)
+  public func unlockRecord(safRequestId: Swift.String, lockHandle: iSAF.LockHandle, replayResult: iSAF.SAFReplayResultData) throws -> iSAF.SAFErrorCode
+  public func resolveSafRequestIdToRealRequestId(safRequestId: Swift.String) throws -> Swift.String?
+  public func resolveSafRequestIdsToRealRequestIds(safRequestIds: [Swift.String]) throws -> [iSAF.SAFTransaction]
+  public func performMaintenance(slidingExpiration: Foundation.Date) throws
+  public func beginVoid(safRequestId: Swift.String, requestIdType: iFCCCore.RequestIdType) throws -> iSAF.BundledSAFResponse
+  public func beginFollowOn(safRequestId: Swift.String, requestIdType: iFCCCore.RequestIdType) throws -> iSAF.BundledSAFResponse
+  public func getRecord(safRequestId: Swift.String, requestIdType: iFCCCore.RequestIdType) throws -> iSAF.SAFTransaction?
+  public func getUpdatedRecords() throws -> [iSAF.SAFTransaction]
+  public func getRecordIdsToReplay(maxRejectCount: Swift.UInt16, maxPoisonCount: Swift.UInt16) throws -> [Swift.String]
+  public func getRecordIdsToReplay(maxRejectCount: Swift.UInt16, maxPoisonCount: Swift.UInt16, maxReplayCount: Swift.Int) throws -> [Swift.String]
+  public func getReplayStatus(maxRejectCount: Swift.UInt16, maxPoisonCount: Swift.UInt16) throws -> (Swift.UInt, Foundation.Date?)
+  public func getResponseStatusCounts(maxRetryCount: Swift.UInt16) throws -> [(iSAF.ResponseStatus, Swift.Int)]
+  public func createReplayEvent(recordCount: Swift.Int32, runDate: Foundation.Date) throws
+  public func getReplayStatusBySAFRequestId(safRequestId: Swift.String) throws -> iSAF.CompletionStatus
+  public func getReversals() -> [iSAF.SAFTransaction]
+  public func getPendingReversal(maxRetryCount: Swift.UInt16) -> iSAF.SAFTransaction?
+  public func removeReversals()
+  public func updateLastSuccessfulOnlineRequestTimestamp(_ timestamp: Foundation.Date) throws
+  public func updateLastSafReplayTimestamp(_ timestamp: Foundation.Date) throws
+  public func updateLastSafMaintenanceTimestamp(_ timestamp: Foundation.Date) throws
+  public func updateSafReplayShortCircuitRetryAfterTimestamp(_ timestamp: Foundation.Date) throws
+  public func getLastSafReplayShortCircuitTimestamp() -> Foundation.Date?
+  public func getLastSuccessfulOnlineRequestTimestamp() -> Foundation.Date?
+  public func getLastSafReplayTimestamp() -> Foundation.Date?
+  public func getLastSafMaintenanceTimestamp() -> Foundation.Date?
+  @objc deinit
+}
+public enum DataFormat : Swift.Int32 {
+  case json
+  case propertyList
+  case notsupported
+  public init?(rawValue: Swift.Int32)
+  public typealias RawValue = Swift.Int32
+  public var rawValue: Swift.Int32 {
+    get
+  }
+}
+public enum RequestType : Swift.Int16 {
+  case unknown
+  case freeWay
+  public func logDescription() -> Swift.String
+  public init?(rawValue: Swift.Int16)
+  public typealias RawValue = Swift.Int16
+  public var rawValue: Swift.Int16 {
+    get
+  }
+}
+extension iSAF.SAFTransactionResult {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<iSAF.SAFTransactionResult>
+  @objc @NSManaged dynamic public var realRequestId: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var responseData: Foundation.NSData? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var responseDataFormat: Swift.Int32 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var transaction: iSAF.SAFTransaction? {
+    @objc get
+    @objc set
+  }
+}
+public struct BundledSAFResponse : Swift.CustomDebugStringConvertible {
+  public let errorCode: iSAF.SAFErrorCode
+  public let realRequestId: Swift.String?
+  public let previousRequestIdType: iFCCCore.RequestIdType?
+  public let previousRequestId: Swift.String?
+  public let posSyncId: iFCCCore.POSSyncId?
+  public let posSyncAttemptNumber: Swift.Int?
+  public let safRequestId: Swift.String?
+  public init(errorCode: iSAF.SAFErrorCode, realRequestId: Swift.String? = nil, posSyncId: iFCCCore.POSSyncId? = nil, posSyncAttemptNumber: Swift.Int? = nil, previousRequestIdType: iFCCCore.RequestIdType? = nil, previousRequestId: Swift.String? = nil, safRequestId: Swift.String? = nil)
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+public protocol SAFBackingStore {
+  func createRecord(recordCreationRequest: iSAF.RecordCreationRequest) throws -> iSAF.BundledSAFResponse
+  func createReversal(reversalCreationRequest: iSAF.ReversalCreationRequest) throws -> iSAF.BundledSAFResponse
+  func acknowledgeRecord(safRequestId: Swift.String, eventCounter: Swift.Int32) throws
+  func lockRecord(safRequestId: Swift.String) throws -> (iSAF.SAFErrorCode, iSAF.SAFTransaction?)
+  func unlockRecord(safRequestId: Swift.String, lockHandle: iSAF.LockHandle, replayResult: iSAF.SAFReplayResultData) throws -> iSAF.SAFErrorCode
+  func resolveSafRequestIdToRealRequestId(safRequestId: Swift.String) throws -> Swift.String?
+  func resolveSafRequestIdsToRealRequestIds(safRequestIds: [Swift.String]) throws -> [iSAF.SAFTransaction]
+  func performMaintenance(slidingExpiration: Foundation.Date) throws
+  func beginVoid(safRequestId: Swift.String, requestIdType: iFCCCore.RequestIdType) throws -> iSAF.BundledSAFResponse
+  func beginFollowOn(safRequestId: Swift.String, requestIdType: iFCCCore.RequestIdType) throws -> iSAF.BundledSAFResponse
+  func getRecord(safRequestId: Swift.String, requestIdType: iFCCCore.RequestIdType) throws -> iSAF.SAFTransaction?
+  func getUpdatedRecords() throws -> [iSAF.SAFTransaction]
+  func getRecordIdsToReplay(maxRejectCount: Swift.UInt16, maxPoisonCount: Swift.UInt16) throws -> [Swift.String]
+  func getRecordIdsToReplay(maxRejectCount: Swift.UInt16, maxPoisonCount: Swift.UInt16, maxReplayCount: Swift.Int) throws -> [Swift.String]
+  func getReplayStatusBySAFRequestId(safRequestId: Swift.String) throws -> iSAF.CompletionStatus
+  func getReplayStatus(maxRejectCount: Swift.UInt16, maxPoisonCount: Swift.UInt16) throws -> (Swift.UInt, Foundation.Date?)
+  func createReplayEvent(recordCount: Swift.Int32, runDate: Foundation.Date) throws
+  func getResponseStatusCounts(maxRetryCount: Swift.UInt16) throws -> [(iSAF.ResponseStatus, Swift.Int)]
+  func getPendingReversal(maxRetryCount: Swift.UInt16) -> iSAF.SAFTransaction?
+  func removeReversals()
+  func getReversals() -> [iSAF.SAFTransaction]
+  func updateLastSuccessfulOnlineRequestTimestamp(_ timestamp: Foundation.Date) throws
+  func updateLastSafReplayTimestamp(_ timestamp: Foundation.Date) throws
+  func updateLastSafMaintenanceTimestamp(_ timestamp: Foundation.Date) throws
+  func updateSafReplayShortCircuitRetryAfterTimestamp(_ timestamp: Foundation.Date) throws
+  func getLastSafReplayShortCircuitTimestamp() -> Foundation.Date?
+  func getLastSuccessfulOnlineRequestTimestamp() -> Foundation.Date?
+  func getLastSafReplayTimestamp() -> Foundation.Date?
+  func getLastSafMaintenanceTimestamp() -> Foundation.Date?
+}
+@_hasMissingDesignatedInitializers public class iSAFBackingStoreFactory {
+  public static let sharedInstance: iSAF.iSAFBackingStoreFactory
+  public static func getBackingStore(logger: any FPLoggerKit.Logger) -> any iSAF.SAFBackingStore
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(SAFTransactionResult) public class SAFTransactionResult : iSAF.SAFTransaction {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+  @objc deinit
+}
+public struct SAFEngineContext : Swift.Equatable, Swift.CustomDebugStringConvertible {
+  public let url: Swift.String
+  public let floorLimit: Foundation.Decimal
+  public let maxRejectCount: Swift.UInt16
+  public let maxPoisonCount: Swift.UInt16
+  public let maxReplayCount: Swift.Int
+  public let failureReplayIntervalInMinutes: Swift.UInt
+  public let declineReplayIntervalInMinutes: Swift.UInt
+  public let retainFailedTransactionsInDays: Swift.UInt
+  public let maxDaysAllowedOffline: Swift.Int
+  public let maxNumberOfOfflineTransactions: Swift.Int
+  public init(url: Swift.String, floorLimit: Foundation.Decimal, maxRejectCount: Swift.UInt16, maxPoisonCount: Swift.UInt16, maxReplayCount: Swift.Int, failureReplayIntervalInMinutes: Swift.UInt, declineReplayIntervalInMinutes: Swift.UInt, retainFailedTransactionsInDays: Swift.UInt, maxDaysAllowedOffline: Swift.Int, maxNumberOfOfflineTransactions: Swift.Int)
+  public var debugDescription: Swift.String {
+    get
+  }
+  public static func == (a: iSAF.SAFEngineContext, b: iSAF.SAFEngineContext) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers public class iSAFEngineFactory {
+  public static let sharedInstance: iSAF.iSAFEngineFactory
+  public static func getSAFEngine(safEngineContext: iSAF.SAFEngineContext, logger: any FPLoggerKit.Logger) -> iSAF.SAFProcessingEngine
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(SAFTransaction) public class SAFTransaction : CoreData.NSManagedObject {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+  @objc deinit
+}
+extension iSAF.SAFTransaction {
+  public var isLocked: Swift.Bool {
+    get
+  }
+  public var requestType: iSAF.RequestType {
+    get
+    set
+  }
+  public var lockStatus: iSAF.LockStatus {
+    get
+    set
+  }
+  public var noVoidCode: iSAF.NoVoidCode {
+    get
+    set
+  }
+  public var parentRequestIdType: iFCCCore.RequestIdType {
+    get
+    set
+  }
+}
+extension iFCCCore.TransactionResponse {
+  public static func createOfflineDeclineResponse(req: iFCCCore.RequestBundle, offlineMessage: iFCCCore.OfflineMessage? = nil) -> iFCCCore.TransactionResponse
+  public static func createRequestNotVoidableResponse(req: iFCCCore.RequestBundle, offlineMessage: iFCCCore.OfflineMessage? = nil) -> iFCCCore.TransactionResponse
+}
+@_hasMissingDesignatedInitializers public class FreeWayResponseCodableUtil {
+  public static func encodeResponse(freeWayResponse: iFCCCore.FreeWayResponsePayload, format: iSAF.DataFormat) throws -> Foundation.Data?
+  public static func decodeResponse(data: Foundation.Data, format: iSAF.DataFormat) throws -> iFCCCore.FreeWayResponsePayload?
+  @objc deinit
+}
+public struct RecordCreationRequest : Swift.Equatable {
+  public let requestType: iSAF.RequestType
+  public let safRequestId: Swift.String
+  public let requestIdType: iFCCCore.RequestIdType
+  public let url: Swift.String
+  public let posSyncId: iFCCCore.POSSyncId
+  public let posSyncAttemptNumber: Swift.Int16
+  public let noVoidCode: iSAF.NoVoidCode
+  public let requestDataFormat: Swift.Int32
+  public let requestData: Foundation.Data
+  public let parentRequestId: Swift.String
+  public let parentRequestIdType: iFCCCore.RequestIdType
+  public let initialResult: iSAF.SAFReplayResultData
+  public let reversalRequest: Swift.Bool
+  public init(requestType: iSAF.RequestType, safRequestId: Swift.String, requestIdType: iFCCCore.RequestIdType, url: Swift.String, posSyncId: iFCCCore.POSSyncId, posSyncAttemptNumber: Swift.Int16, noVoidCode: iSAF.NoVoidCode, requestDataFormat: Swift.Int32, requestData: Foundation.Data, parentRequestId: Swift.String, parentRequestIdType: iFCCCore.RequestIdType, initialResult: iSAF.SAFReplayResultData, reversalRequest: Swift.Bool)
+  public func logDescription() -> Swift.String
+  public static func == (a: iSAF.RecordCreationRequest, b: iSAF.RecordCreationRequest) -> Swift.Bool
+}
+public struct SAFReplayResultData : Swift.Equatable {
+  public init(responseStatus: iSAF.ResponseStatus, retryAfterInterval: Swift.Int = 0, responseData: Foundation.Data? = nil, responseDataFormat: Swift.Int32 = 0, realRequestId: Swift.String? = nil, isReversal: Swift.Bool = false)
+  public func validate() throws
+  public func validateForCreateRecord() throws
+  public func logDescription() -> Swift.String
+  public static func == (a: iSAF.SAFReplayResultData, b: iSAF.SAFReplayResultData) -> Swift.Bool
+}
+extension iSAF.SAFTransaction {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<iSAF.SAFTransaction>
+  @objc @NSManaged dynamic public var acknowledgeDate: Foundation.NSDate? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var createdDate: Foundation.NSDate {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var eventCounter: Swift.Int32 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var lockDate: Foundation.NSDate? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var lockStatusRawValue: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var noVoidCodeRawValue: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var parentRequestId: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var parentRequestIdTypeRawValue: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var poisonCount: Swift.Int32 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var posSyncAttemptNumber: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var posSyncId: Swift.String {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var rejectCount: Swift.Int32 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var replayDate: Foundation.NSDate? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var requestData: Foundation.NSData? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var requestDataFormat: Swift.Int32 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var requestIdTypeRawValue: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var requestTypeRawValue: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var responseStatusRawValue: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var retryAfterDate: Foundation.NSDate {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var reversalRequest: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var safRequestId: Swift.String {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var statusRawValue: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var updatedDate: Foundation.NSDate? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var url: Swift.String {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var chainGroupId: Swift.String {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var chainDepth: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var monetaryValue: Foundation.NSDecimalNumber {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var monetaryValueGroup: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var replayResult: iSAF.SAFTransactionResult? {
+    @objc get
+    @objc set
+  }
+}
+public struct LockHandle : Swift.Equatable, Swift.CustomStringConvertible {
+  public let date: Foundation.Date
+  public init(date: Foundation.Date = Date())
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: iSAF.LockHandle, b: iSAF.LockHandle) -> Swift.Bool
+}
+extension iSAF.SAFTimestamps {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<iSAF.SAFTimestamps>
+  @objc @NSManaged dynamic public var id: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var name: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var timestamp: Foundation.Date? {
+    @objc get
+    @objc set
+  }
+}
+@_hasMissingDesignatedInitializers public class OfflineUtils {
+  public static func isSAFRequestId(_ candidateRequestId: Swift.String) -> Swift.Bool
+  public static func createOfflineRequestId() -> Swift.String
+  @objc deinit
+}
+extension iSAF.OfflineUtils {
+  public static func shouldSaveOffline(request: iFCCCore.FreeWayRequestData, offlineConfig: iSAF.SAFEngineContext, safMetadata: any iSAF.SAFMetadata) -> iFCCCore.OfflineMessage
+  public static func createOfflineApprovalResponse(request: iFCCCore.FreeWayRequestData, offlineRequestId: Swift.String? = nil, posStored: Swift.Bool = false) -> iFCCCore.FreeWayResponsePayload
+  public static func createOfflineDeclineResponse(request: iFCCCore.FreeWayRequestData, decision: Swift.String = FreeWayDecisionConstants.rejectDecision, reasonCode: Swift.String = FreeWayReasonCodeConstants.offlineDecline, offlineMessage: iFCCCore.OfflineMessage? = .other) -> iFCCCore.FreeWayResponsePayload
+}
+extension iSAF.SAFTimestamp : Swift.Equatable {}
+extension iSAF.SAFTimestamp : Swift.Hashable {}
+extension iSAF.ResponseStatus : Swift.Equatable {}
+extension iSAF.ResponseStatus : Swift.Hashable {}
+extension iSAF.ResponseStatus : Swift.RawRepresentable {}
+extension iSAF.LockStatus : Swift.Equatable {}
+extension iSAF.LockStatus : Swift.Hashable {}
+extension iSAF.LockStatus : Swift.RawRepresentable {}
+extension iSAF.CompletionStatus : Swift.Equatable {}
+extension iSAF.CompletionStatus : Swift.Hashable {}
+extension iSAF.CompletionStatus : Swift.RawRepresentable {}
+extension iSAF.NoVoidCode : Swift.Equatable {}
+extension iSAF.NoVoidCode : Swift.Hashable {}
+extension iSAF.NoVoidCode : Swift.RawRepresentable {}
+extension iSAF.SAFErrorCode : Swift.Equatable {}
+extension iSAF.SAFErrorCode : Swift.Hashable {}
+extension iSAF.SAFErrorCode : Swift.RawRepresentable {}
+extension iSAF.DataFormat : Swift.Equatable {}
+extension iSAF.DataFormat : Swift.Hashable {}
+extension iSAF.DataFormat : Swift.RawRepresentable {}
+extension iSAF.RequestType : Swift.Equatable {}
+extension iSAF.RequestType : Swift.Hashable {}
+extension iSAF.RequestType : Swift.RawRepresentable {}

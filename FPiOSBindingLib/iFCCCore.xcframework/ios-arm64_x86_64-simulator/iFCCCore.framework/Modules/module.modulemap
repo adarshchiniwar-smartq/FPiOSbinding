@@ -1,0 +1,11 @@
+framework module iFCCCore {
+  umbrella header "iFCCCore.h"
+  export *
+
+  module * { export * }
+}
+
+module iFCCCore.Swift {
+  header "iFCCCore-Swift.h"
+  requires objc
+}

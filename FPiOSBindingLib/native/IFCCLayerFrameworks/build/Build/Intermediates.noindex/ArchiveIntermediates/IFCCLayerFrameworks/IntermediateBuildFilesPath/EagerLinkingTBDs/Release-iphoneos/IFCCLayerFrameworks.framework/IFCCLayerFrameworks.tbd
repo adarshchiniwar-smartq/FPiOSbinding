@@ -1,0 +1,107 @@
+{
+  "main_library": {
+    "exported_symbols": [
+      {
+        "data": {
+          "global": [
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC15deviceConnected4laneySS_tFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC17operationApproved8response0F10Identifier6inLaney7iFCCKit11POSResponse_p_AH013iFCCOperationI0_pSStFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC18operationCompleted22forOperationIdentifier6inLaney7iFCCKit013iFCCOperationJ0_p_SStFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC23firmwareUpdateSucceeded4laneySS_tFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC18deviceReconnecting4laneySS_tFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC20firmwareUpdateFailed6inLane5errorySS_s5Error_ptFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC18deviceDisconnected4laneySS_tFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC36deviceDisconnectedWhileBackgrounding4laneySS_tFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC11deviceError4lane5errorySS_s0G0_ptFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC9getString02myG0S2S_tFZ",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC20deviceResetSucceeded4laneySS_tFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC022firmwareUpdateProgressG015progressMessage6inLaneySS_SStFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC23cardReadOperationResult8response19operationIdentifier6inLaney7iFCCKit04CardG8Response_p_AH013iFCCOperationL0_pSStFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC16InitializeLogger4port9ipAddressySi_SStFZ",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC022firmwareUpdateProgressG015progressMessage6inLaneySS_SStFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC18operationCompleted22forOperationIdentifier6inLaney7iFCCKit013iFCCOperationJ0_p_SStFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC17operationDeclined8response0F10Identifier6inLaney7iFCCKit11POSResponse_p_AH013iFCCOperationI0_pSStFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC23operationProgressUpdate22forOperationIdentifier6inLane12progressTypey7iFCCKit013iFCCOperationK0_p_SSAH0jgO0OtFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC36deviceDisconnectedWhileBackgrounding4laneySS_tFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingCMo",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC23cardReadOperationResult8response19operationIdentifier6inLaney7iFCCKit04CardG8Response_p_AH013iFCCOperationL0_pSStFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC20deviceResetSucceeded4laneySS_tFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC20firmwareUpdateFailed6inLane5errorySS_s5Error_ptFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC23initializationCompletedyyFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC25deinitializationCompletedyyFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC16onDeviceAttached6devicey7iFCCKit014iFCCCardReaderG0_p_tFTq",
+            "_IFCCLayerFrameworksVersionNumber",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC12onLaneOpened6devicey7iFCCKit20iFCCCardReaderDevice_p_tFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC26requestBatteryStatusFailed5error6inLaneys5Error_p_SStFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC15operationFailed22forOperationIdentifier6inLane5errory7iFCCKit013iFCCOperationJ0_p_SSs5Error_ptFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingCACycfC",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC15operationFailed22forOperationIdentifier6inLane5errory7iFCCKit013iFCCOperationJ0_p_SSs5Error_ptFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC12onLaneOpened6devicey7iFCCKit20iFCCCardReaderDevice_p_tFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC25deinitializationCompletedyyFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC18deviceReconnecting4laneySS_tFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC19onAttachDeviceError13deviceOptions5errory7iFCCKit014iFCCCardReaderhK0_p_s0I0_ptFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC19onAttachDeviceError13deviceOptions5errory7iFCCKit014iFCCCardReaderhK0_p_s0I0_ptFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC15deviceConnected4laneySS_tFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC23firmwareUpdateSucceeded4laneySS_tFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC29requestBatteryStatusSucceeded07batteryH06inLaney7iFCCKit06DevicegH0_p_SStFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC17deviceResetFailed4lane5errorySS_s5Error_ptFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC22firmwareUpdateCanceled6inLaneySS_tFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC11deviceError4lane5errorySS_s0G0_ptFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC20initializationFailed5errorys5Error_p_tFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC26requestBatteryStatusFailed5error6inLaneys5Error_p_SStFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC17deviceResetFailed4lane5errorySS_s5Error_ptFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC25firmwareUpdateModeEntered4laneySS_tFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC25firmwareUpdateModeEntered4laneySS_tFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC17operationApproved8response0F10Identifier6inLaney7iFCCKit11POSResponse_p_AH013iFCCOperationI0_pSStFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC23initializationCompletedyyFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC12onLaneClosed6laneIdySS_tFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC21laneDelegateReleasing0F0ySS_tFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingCMn",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingCfD",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC22firmwareUpdateCanceled6inLaneySS_tFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingCN",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingCMa",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingCMu",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC18deviceDisconnected4laneySS_tFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC29requestBatteryStatusSucceeded07batteryH06inLaney7iFCCKit06DevicegH0_p_SStFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC17operationDeclined8response0F10Identifier6inLaney7iFCCKit11POSResponse_p_AH013iFCCOperationI0_pSStFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC20initializationFailed5errorys5Error_p_tFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC23operationProgressUpdate22forOperationIdentifier6inLane12progressTypey7iFCCKit013iFCCOperationK0_p_SSAH0jgO0OtFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingCACycfc",
+            "_IFCCLayerFrameworksVersionString",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC12onLaneClosed6laneIdySS_tFTq",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC16onDeviceAttached6devicey7iFCCKit014iFCCCardReaderG0_p_tFTj",
+            "_$s19IFCCLayerFrameworks16DotnetNewBindingC21laneDelegateReleasing0F0ySS_tFTj"
+          ],
+          "objc_class": [
+            "DotnetNewBinding"
+          ]
+        }
+      }
+    ],
+    "flags": [
+      {
+        "attributes": [
+          "not_app_extension_safe"
+        ]
+      }
+    ],
+    "install_names": [
+      {
+        "name": "@rpath/IFCCLayerFrameworks.framework/IFCCLayerFrameworks"
+      }
+    ],
+    "swift_abi": [
+      {
+        "abi": 7
+      }
+    ],
+    "target_info": [
+      {
+        "min_deployment": "15.6",
+        "target": "arm64-ios"
+      }
+    ]
+  },
+  "tapi_tbd_version": 5
+}

@@ -1,0 +1,1283 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "IFCCLayerFrameworks",
+    "printedName": "IFCCLayerFrameworks",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "IFCCLayerFrameworks",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "iFCCKit",
+        "printedName": "iFCCKit",
+        "declKind": "Import",
+        "moduleName": "IFCCLayerFrameworks"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "IFCCLayerFrameworks"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "IFCCLayerFrameworks",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "FPLoggerKit",
+        "printedName": "FPLoggerKit",
+        "declKind": "Import",
+        "moduleName": "IFCCLayerFrameworks"
+      },
+      {
+        "kind": "Import",
+        "name": "iFCCKit",
+        "printedName": "iFCCKit",
+        "declKind": "Import",
+        "moduleName": "IFCCLayerFrameworks"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "DotnetNewBinding",
+        "printedName": "DotnetNewBinding",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "onLaneOpened",
+            "printedName": "onLaneOpened(device:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "iFCCCardReaderDevice",
+                "printedName": "any iFCCKit.iFCCCardReaderDevice",
+                "usr": "c:@M@iFCCKit@objc(pl)iFCCCardReaderDevice"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)onLaneOpenedWithDevice:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC12onLaneOpened6devicey7iFCCKit20iFCCCardReaderDevice_p_tF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "onLaneOpenedWithDevice:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onLaneClosed",
+            "printedName": "onLaneClosed(laneId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)onLaneClosedWithLaneId:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC12onLaneClosed6laneIdySS_tF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "onLaneClosedWithLaneId:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "operationProgressUpdate",
+            "printedName": "operationProgressUpdate(forOperationIdentifier:inLane:progressType:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "iFCCOperationIdentifier",
+                "printedName": "any iFCCKit.iFCCOperationIdentifier",
+                "usr": "c:@M@iFCCKit@objc(pl)iFCCOperationIdentifier"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "OperationProgressType",
+                "printedName": "iFCCKit.OperationProgressType",
+                "usr": "c:@M@iFCCKit@E@OperationProgressType"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)operationProgressUpdateForOperationIdentifier:inLane:progressType:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC23operationProgressUpdate22forOperationIdentifier6inLane12progressTypey7iFCCKit013iFCCOperationK0_p_SSAH0jgO0OtF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "operationProgressUpdateForOperationIdentifier:inLane:progressType:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "operationApproved",
+            "printedName": "operationApproved(response:operationIdentifier:inLane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "POSResponse",
+                "printedName": "any iFCCKit.POSResponse",
+                "usr": "c:@M@iFCCKit@objc(pl)POSResponse"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "iFCCOperationIdentifier",
+                "printedName": "any iFCCKit.iFCCOperationIdentifier",
+                "usr": "c:@M@iFCCKit@objc(pl)iFCCOperationIdentifier"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)operationApprovedWithResponse:operationIdentifier:inLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC17operationApproved8response0F10Identifier6inLaney7iFCCKit11POSResponse_p_AH013iFCCOperationI0_pSStF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "operationApprovedWithResponse:operationIdentifier:inLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "operationDeclined",
+            "printedName": "operationDeclined(response:operationIdentifier:inLane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "POSResponse",
+                "printedName": "any iFCCKit.POSResponse",
+                "usr": "c:@M@iFCCKit@objc(pl)POSResponse"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "iFCCOperationIdentifier",
+                "printedName": "any iFCCKit.iFCCOperationIdentifier",
+                "usr": "c:@M@iFCCKit@objc(pl)iFCCOperationIdentifier"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)operationDeclinedWithResponse:operationIdentifier:inLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC17operationDeclined8response0F10Identifier6inLaney7iFCCKit11POSResponse_p_AH013iFCCOperationI0_pSStF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "operationDeclinedWithResponse:operationIdentifier:inLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "operationFailed",
+            "printedName": "operationFailed(forOperationIdentifier:inLane:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "iFCCOperationIdentifier",
+                "printedName": "any iFCCKit.iFCCOperationIdentifier",
+                "usr": "c:@M@iFCCKit@objc(pl)iFCCOperationIdentifier"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)operationFailedForOperationIdentifier:inLane:error:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC15operationFailed22forOperationIdentifier6inLane5errory7iFCCKit013iFCCOperationJ0_p_SSs5Error_ptF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "operationFailedForOperationIdentifier:inLane:error:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "operationCompleted",
+            "printedName": "operationCompleted(forOperationIdentifier:inLane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "iFCCOperationIdentifier",
+                "printedName": "any iFCCKit.iFCCOperationIdentifier",
+                "usr": "c:@M@iFCCKit@objc(pl)iFCCOperationIdentifier"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)operationCompletedForOperationIdentifier:inLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC18operationCompleted22forOperationIdentifier6inLaney7iFCCKit013iFCCOperationJ0_p_SStF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "operationCompletedForOperationIdentifier:inLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deviceReconnecting",
+            "printedName": "deviceReconnecting(lane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)deviceReconnectingWithLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC18deviceReconnecting4laneySS_tF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "deviceReconnectingWithLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deviceError",
+            "printedName": "deviceError(lane:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)deviceErrorWithLane:error:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC11deviceError4lane5errorySS_s0G0_ptF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "deviceErrorWithLane:error:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deviceDisconnected",
+            "printedName": "deviceDisconnected(lane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)deviceDisconnectedWithLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC18deviceDisconnected4laneySS_tF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "deviceDisconnectedWithLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deviceDisconnectedWhileBackgrounding",
+            "printedName": "deviceDisconnectedWhileBackgrounding(lane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)deviceDisconnectedWhileBackgroundingWithLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC36deviceDisconnectedWhileBackgrounding4laneySS_tF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "deviceDisconnectedWhileBackgroundingWithLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deviceConnected",
+            "printedName": "deviceConnected(lane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)deviceConnectedWithLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC15deviceConnected4laneySS_tF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "deviceConnectedWithLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "requestBatteryStatusSucceeded",
+            "printedName": "requestBatteryStatusSucceeded(batteryStatus:inLane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "DeviceBatteryStatus",
+                "printedName": "any iFCCKit.DeviceBatteryStatus",
+                "usr": "c:@M@iFCCKit@objc(pl)DeviceBatteryStatus"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)requestBatteryStatusSucceededWithBatteryStatus:inLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC29requestBatteryStatusSucceeded07batteryH06inLaney7iFCCKit06DevicegH0_p_SStF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "requestBatteryStatusSucceededWithBatteryStatus:inLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "requestBatteryStatusFailed",
+            "printedName": "requestBatteryStatusFailed(error:inLane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)requestBatteryStatusFailedWithError:inLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC26requestBatteryStatusFailed5error6inLaneys5Error_p_SStF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "requestBatteryStatusFailedWithError:inLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deviceResetSucceeded",
+            "printedName": "deviceResetSucceeded(lane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)deviceResetSucceededWithLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC20deviceResetSucceeded4laneySS_tF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "deviceResetSucceededWithLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deviceResetFailed",
+            "printedName": "deviceResetFailed(lane:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)deviceResetFailedWithLane:error:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC17deviceResetFailed4lane5errorySS_s5Error_ptF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "deviceResetFailedWithLane:error:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "firmwareUpdateModeEntered",
+            "printedName": "firmwareUpdateModeEntered(lane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)firmwareUpdateModeEnteredWithLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC25firmwareUpdateModeEntered4laneySS_tF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "firmwareUpdateModeEnteredWithLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "firmwareUpdateProgressUpdate",
+            "printedName": "firmwareUpdateProgressUpdate(progressMessage:inLane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)firmwareUpdateProgressUpdateWithProgressMessage:inLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC022firmwareUpdateProgressG015progressMessage6inLaneySS_SStF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "firmwareUpdateProgressUpdateWithProgressMessage:inLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "firmwareUpdateSucceeded",
+            "printedName": "firmwareUpdateSucceeded(lane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)firmwareUpdateSucceededWithLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC23firmwareUpdateSucceeded4laneySS_tF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "firmwareUpdateSucceededWithLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "firmwareUpdateFailed",
+            "printedName": "firmwareUpdateFailed(inLane:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)firmwareUpdateFailedInLane:error:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC20firmwareUpdateFailed6inLane5errorySS_s5Error_ptF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "firmwareUpdateFailedInLane:error:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "firmwareUpdateCanceled",
+            "printedName": "firmwareUpdateCanceled(inLane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)firmwareUpdateCanceledInLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC22firmwareUpdateCanceled6inLaneySS_tF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "firmwareUpdateCanceledInLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "cardReadOperationResult",
+            "printedName": "cardReadOperationResult(response:operationIdentifier:inLane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CardReadResponse",
+                "printedName": "any iFCCKit.CardReadResponse",
+                "usr": "c:@M@iFCCKit@objc(pl)CardReadResponse"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "iFCCOperationIdentifier",
+                "printedName": "any iFCCKit.iFCCOperationIdentifier",
+                "usr": "c:@M@iFCCKit@objc(pl)iFCCOperationIdentifier"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)cardReadOperationResultWithResponse:operationIdentifier:inLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC23cardReadOperationResult8response19operationIdentifier6inLaney7iFCCKit04CardG8Response_p_AH013iFCCOperationL0_pSStF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "cardReadOperationResultWithResponse:operationIdentifier:inLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "laneDelegateReleasing",
+            "printedName": "laneDelegateReleasing(lane:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)laneDelegateReleasingWithLane:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC21laneDelegateReleasing0F0ySS_tF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "laneDelegateReleasingWithLane:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onDeviceAttached",
+            "printedName": "onDeviceAttached(device:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "iFCCCardReaderDevice",
+                "printedName": "any iFCCKit.iFCCCardReaderDevice",
+                "usr": "c:@M@iFCCKit@objc(pl)iFCCCardReaderDevice"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)onDeviceAttachedWithDevice:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC16onDeviceAttached6devicey7iFCCKit014iFCCCardReaderG0_p_tF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "onDeviceAttachedWithDevice:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "onAttachDeviceError",
+            "printedName": "onAttachDeviceError(deviceOptions:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "iFCCCardReaderDeviceOptions",
+                "printedName": "any iFCCKit.iFCCCardReaderDeviceOptions",
+                "usr": "c:@M@iFCCKit@objc(pl)iFCCCardReaderDeviceOptions"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)onAttachDeviceErrorWithDeviceOptions:error:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC19onAttachDeviceError13deviceOptions5errory7iFCCKit014iFCCCardReaderhK0_p_s0I0_ptF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "onAttachDeviceErrorWithDeviceOptions:error:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "initializationCompleted",
+            "printedName": "initializationCompleted()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)initializationCompleted",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC23initializationCompletedyyF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "initializationCompleted",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "initializationFailed",
+            "printedName": "initializationFailed(error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)initializationFailedWithError:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC20initializationFailed5errorys5Error_p_tF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "initializationFailedWithError:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deinitializationCompleted",
+            "printedName": "deinitializationCompleted()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)deinitializationCompleted",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC25deinitializationCompletedyyF",
+            "moduleName": "IFCCLayerFrameworks",
+            "objc_name": "deinitializationCompleted",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "getString",
+            "printedName": "getString(myString:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(cm)getStringWithMyString:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC9getString02myG0S2S_tFZ",
+            "moduleName": "IFCCLayerFrameworks",
+            "static": true,
+            "objc_name": "getStringWithMyString:",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "InitializeLogger",
+            "printedName": "InitializeLogger(port:ipAddress:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(cm)InitializeLoggerWithPort:ipAddress:",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC16InitializeLogger4port9ipAddressySi_SStFZ",
+            "moduleName": "IFCCLayerFrameworks",
+            "static": true,
+            "objc_name": "InitializeLoggerWithPort:ipAddress:",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "DotnetNewBinding",
+                "printedName": "IFCCLayerFrameworks.DotnetNewBinding",
+                "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding(im)init",
+            "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingCACycfc",
+            "moduleName": "IFCCLayerFrameworks",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@IFCCLayerFrameworks@objc(cs)DotnetNewBinding",
+        "mangledName": "$s19IFCCLayerFrameworks16DotnetNewBindingC",
+        "moduleName": "IFCCLayerFrameworks",
+        "objc_name": "DotnetNewBinding",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "iFCCInitializationDelegate",
+            "printedName": "iFCCInitializationDelegate",
+            "usr": "c:@M@iFCCKit@objc(pl)iFCCInitializationDelegate",
+            "mangledName": "$s7iFCCKit26iFCCInitializationDelegateP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "AttachDeviceDelegate",
+            "printedName": "AttachDeviceDelegate",
+            "usr": "c:@M@iFCCKit@objc(pl)AttachDeviceDelegate",
+            "mangledName": "$s7iFCCKit20AttachDeviceDelegateP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "iFCCLaneDelegate",
+            "printedName": "iFCCLaneDelegate",
+            "usr": "c:@M@iFCCKit@objc(pl)iFCCLaneDelegate",
+            "mangledName": "$s7iFCCKit16iFCCLaneDelegateP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "LaneStatusDelegate",
+            "printedName": "LaneStatusDelegate",
+            "usr": "c:@M@iFCCKit@objc(pl)LaneStatusDelegate",
+            "mangledName": "$s7iFCCKit18LaneStatusDelegateP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Copyable",
+            "printedName": "Copyable",
+            "usr": "s:s8CopyableP",
+            "mangledName": "$ss8CopyableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Escapable",
+            "printedName": "Escapable",
+            "usr": "s:s9EscapableP",
+            "mangledName": "$ss9EscapableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "IFCCLayerFrameworks",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "iFCCKit",
+        "printedName": "iFCCKit",
+        "declKind": "Import",
+        "moduleName": "IFCCLayerFrameworks"
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 226,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 237,
+      "length": 12,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 259,
+      "length": 11,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 280,
+      "length": 14,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 346,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 357,
+      "length": 9,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 376,
+      "length": 18,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 404,
+      "length": 9,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 423,
+      "length": 11,
+      "value": "4"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 444,
+      "length": 12,
+      "value": "5"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 466,
+      "length": 12,
+      "value": "6"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 488,
+      "length": 6,
+      "value": "7"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 504,
+      "length": 7,
+      "value": "8"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 521,
+      "length": 7,
+      "value": "9"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 538,
+      "length": 11,
+      "value": "10"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/ApplicationState.swift",
+      "kind": "IntegerLiteral",
+      "offset": 559,
+      "length": 9,
+      "value": "11"
+    },
+    {
+      "filePath": "\/Users\/Adarsh.Chiniwar\/Downloads\/Old\/Murli\/IFCCLayerFrameworks\/IFCCLayerFrameworks\/FCCBaseViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 332,
+      "length": 3,
+      "value": "180"
+    }
+  ]
+}

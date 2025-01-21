@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "vFr+LBI9ZosmQ01ep2jsEJuMugTR2jsK8DOo0UMc52OmMRHBsCZr7znmP4ZRt9RzpiVB3C8IGYBbXB5+R8ztlA==",
+  "success": true,
+  "projectFilePath": "/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/FPiOSBindingLib.csproj",
+  "expectedPackageFiles": [
+    "/Users/Adarsh.Chiniwar/.nuget/packages/microsoft.net.illink.tasks/8.0.10/microsoft.net.illink.tasks.8.0.10.nupkg.sha512"
+  ],
+  "logs": []
+}

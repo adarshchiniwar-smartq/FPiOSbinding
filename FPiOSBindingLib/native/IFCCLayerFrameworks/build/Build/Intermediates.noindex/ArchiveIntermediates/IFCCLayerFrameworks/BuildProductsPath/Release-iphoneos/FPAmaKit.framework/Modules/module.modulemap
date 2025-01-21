@@ -1,0 +1,11 @@
+framework module FPAmaKit {
+  umbrella header "FPAmaKit.h"
+  export *
+
+  module * { export * }
+}
+
+module FPAmaKit.Swift {
+  header "FPAmaKit-Swift.h"
+  requires objc
+}

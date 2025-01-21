@@ -1,0 +1,11 @@
+framework module iSAF {
+  umbrella header "iSAF.h"
+  export *
+
+  module * { export * }
+}
+
+module iSAF.Swift {
+  header "iSAF-Swift.h"
+  requires objc
+}
