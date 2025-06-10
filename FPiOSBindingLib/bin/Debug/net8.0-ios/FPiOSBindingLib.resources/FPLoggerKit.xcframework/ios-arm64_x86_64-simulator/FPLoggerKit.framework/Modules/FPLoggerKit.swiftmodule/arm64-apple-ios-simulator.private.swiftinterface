@@ -1,0 +1,209 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target arm64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FPLoggerKit
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Foundation
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+import os
+@objc public protocol LoggingDetails {
+}
+@objc public protocol LoggingInfo {
+  @objc var type: FPLoggerKit.LogType { get }
+  @objc var details: (any FPLoggerKit.LoggingDetails)? { get }
+}
+@objc public protocol LoggingStatus {
+  @objc var info: [any FPLoggerKit.LoggingInfo] { get }
+}
+@objc public protocol Logger {
+  @objc func isCommsLoggingEnabled() -> Swift.Bool
+  @objc func isErrorEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc func error(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc func commsError(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc func isWarnEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc func warn(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc func commsWarn(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc func isInfoEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc func info(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc func commsInfo(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc func isDebugEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc func debug(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc func commsDebug(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc func isVerboseEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc func verbose(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc func commsVerbose(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc var loggingStatus: any FPLoggerKit.LoggingStatus { get }
+  @objc func force(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+}
+@_inheritsConvenienceInitializers @objc public class LoggerOutput : ObjectiveC.NSObject {
+  @objc public func setConsoleOutput()
+  @objc public func setFileOutput(fileOptions: FPLoggerKit.FileWriterOptions)
+  @objc public func setStreamOutput(outputStream: any FPLoggerKit.LoggerOutputStream)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class BobLoggerStatus : ObjectiveC.NSObject, FPLoggerKit.LoggingStatus {
+  @objc final public let info: [any FPLoggerKit.LoggingInfo]
+  @objc deinit
+}
+@objc public protocol LoggerMessageContext {
+  @objc var moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier { get }
+  @objc var className: Swift.String { get }
+}
+extension FPLoggerKit.LoggerMessageContext {
+  public func isEqual(to context: (any FPLoggerKit.LoggerMessageContext)?) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @objc public class LoggerManager : ObjectiveC.NSObject {
+  public static var initialized: Swift.Bool {
+    get
+  }
+  @objc public static func getLogger() -> any FPLoggerKit.Logger
+  @objc public static func initializeLogger(loggerOuput: FPLoggerKit.LoggerOutput, modules: [any FPLoggerKit.LoggerModule], logCommEvents: Swift.Bool)
+  @objc public static func deinitializeLogger()
+  @objc public static func getLoggingStatus() -> any FPLoggerKit.LoggingStatus
+  @objc public static func loggerMessageContext(for moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier, className: Swift.String) -> any FPLoggerKit.LoggerMessageContext
+  @objc public static func loggerModule(for moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier, name: Swift.String, logLevel: FPLoggerKit.LogLevel) -> any FPLoggerKit.LoggerModule
+  public static func getLoggerModules(logModuleIdentities: [any FPLoggerKit.LoggerModuleIdentity], defaultLevel: FPLoggerKit.LogLevel, customLevels: [Swift.String : FPLoggerKit.LogLevel]) -> [any FPLoggerKit.LoggerModule]
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol LoggerModuleIdentity {
+  func loggingModules(levels: [Swift.String : FPLoggerKit.LogLevel], defaultLevel: FPLoggerKit.LogLevel) -> [any FPLoggerKit.LoggerModule]
+}
+@_hasMissingDesignatedInitializers @objc public class LogMessageContext : ObjectiveC.NSObject, FPLoggerKit.LoggerMessageContext {
+  @objc final public let moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier
+  @objc final public let className: Swift.String
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class LoggerCodeConstants : ObjectiveC.NSObject {
+  @objc public static let loggerErrorDomain: Swift.String
+  @objc public static let loggerNotInitialized: Swift.Int
+  @objc public static let loggerAlreadyInitialized: Swift.Int
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class DevNullLoggerStatus : ObjectiveC.NSObject, FPLoggerKit.LoggingStatus {
+  @objc final public let info: [any FPLoggerKit.LoggingInfo]
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class DevNullLogger : ObjectiveC.NSObject, FPLoggerKit.Logger {
+  @objc public func isCommsLoggingEnabled() -> Swift.Bool
+  @objc public func isErrorEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc public func error(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc public func commsError(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc public func isWarnEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc public func warn(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc public func commsWarn(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc public func isInfoEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc public func info(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc public func commsInfo(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc public func isDebugEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc public func debug(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc public func commsDebug(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc public func isVerboseEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc public func verbose(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc public func commsVerbose(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc public var loggingStatus: any FPLoggerKit.LoggingStatus
+  @objc public func force(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers @objc public class FileLoggingDetails : ObjectiveC.NSObject, FPLoggerKit.LoggingDetails {
+  @objc public var fileLocation: Swift.String
+  @objc public var currentFileName: Swift.String
+  @objc public var archivedFileNames: [Swift.String]
+  @objc deinit
+}
+@objc public enum LogLevel : Swift.Int8, Swift.CustomStringConvertible {
+  case none = 0
+  case error = 1
+  case warn = 2
+  case info = 3
+  case debug = 4
+  case verbose = 5
+  public var description: Swift.String {
+    get
+  }
+  public static func fromString(_ string: Swift.String?) -> FPLoggerKit.LogLevel
+  public init?(rawValue: Swift.Int8)
+  public typealias RawValue = Swift.Int8
+  public var rawValue: Swift.Int8 {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class LogLevelBridge : ObjectiveC.NSObject {
+  @objc public class func logLevel(from name: Swift.String) -> FPLoggerKit.LogLevel
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc public class FileWriterOptions : ObjectiveC.NSObject {
+  final public let daysToInclude: Swift.Int
+  final public let daysToKeep: Swift.Int
+  final public let fileNamePrefix: Swift.String
+  final public let maximumFileSizeInBytes: Swift.UInt64
+  final public let fileLocation: Foundation.URL
+  @objc public init(fileLocation: Foundation.URL, daysToInclude: Swift.Int, daysToKeep: Swift.Int, fileNamePrefix: Swift.String, maximumFileSizeInBytes: Swift.UInt64)
+  @objc deinit
+}
+@objc public enum LogType : Swift.Int, Swift.CustomStringConvertible {
+  case console
+  case file
+  case stream
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol LoggerOutputStream {
+  @objc func write(_ string: Swift.String)
+}
+@_hasMissingDesignatedInitializers @objc public class BobLogger : ObjectiveC.NSObject {
+  @objc deinit
+}
+extension FPLoggerKit.BobLogger : FPLoggerKit.Logger {
+  @objc dynamic public var loggingStatus: any FPLoggerKit.LoggingStatus {
+    @objc get
+  }
+  @objc dynamic public func isCommsLoggingEnabled() -> Swift.Bool
+  @objc dynamic public func isErrorEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc dynamic public func error(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc dynamic public func commsError(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc dynamic public func isWarnEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc dynamic public func warn(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc dynamic public func commsWarn(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc dynamic public func isInfoEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc dynamic public func info(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc dynamic public func commsInfo(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc dynamic public func isDebugEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc dynamic public func debug(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc dynamic public func commsDebug(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc dynamic public func isVerboseEnabled(moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier) -> Swift.Bool
+  @objc dynamic public func verbose(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc dynamic public func commsVerbose(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+  @objc dynamic public func force(context: any FPLoggerKit.LoggerMessageContext, methodName: Swift.String?, message: Swift.String)
+}
+public typealias LoggerModuleIdentifier = Foundation.UUID
+@objc public protocol LoggerModule {
+  @objc var moduleIdentifier: FPLoggerKit.LoggerModuleIdentifier { get }
+  @objc var logLevel: FPLoggerKit.LogLevel { get }
+  @objc var name: Swift.String { get }
+}
+@_hasMissingDesignatedInitializers @objc public class BobLoggerInfo : ObjectiveC.NSObject, FPLoggerKit.LoggingInfo {
+  @objc final public let type: FPLoggerKit.LogType
+  @objc final public let details: (any FPLoggerKit.LoggingDetails)?
+  @objc deinit
+}
+extension FPLoggerKit.LogLevel : Swift.Equatable {}
+extension FPLoggerKit.LogLevel : Swift.Hashable {}
+extension FPLoggerKit.LogLevel : Swift.RawRepresentable {}
+extension FPLoggerKit.LogType : Swift.Equatable {}
+extension FPLoggerKit.LogType : Swift.Hashable {}
+extension FPLoggerKit.LogType : Swift.RawRepresentable {}

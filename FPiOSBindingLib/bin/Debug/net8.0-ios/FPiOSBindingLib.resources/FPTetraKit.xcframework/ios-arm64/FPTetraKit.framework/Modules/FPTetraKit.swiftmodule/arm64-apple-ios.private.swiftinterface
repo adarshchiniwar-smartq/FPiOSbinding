@@ -1,0 +1,725 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target arm64-apple-ios15.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FPTetraKit
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import ExternalAccessory
+import FPLoggerKit
+import FPPOICore
+@_exported import FPTetraKit
+import Foundation
+import Swift
+import SwiftUI
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public struct UppMessageConstants {
+  public static let ACK: Swift.UInt8
+  public static let NAK: Swift.UInt8
+  public static let STX: Swift.UInt8
+  public static let ETX: Swift.UInt8
+  public static let EXTRA_MESSAGE_SPACE: Swift.Int
+  public static let MAX_MESSAGE_SIZE: Swift.Int
+  public static let MAX_PAYLOAD_SIZE: Swift.Int
+  public static let EMPTY_PAYLOAD: [Swift.UInt8]
+  public static let OFFLINE_CONNECT_PAYLOAD: [Swift.UInt8]
+  public static let DEFAULT_ONLINE_MESSAGE_PAYLOAD: [Swift.UInt8]
+  public static let HEARTBEAT_PAYLOAD: [Swift.UInt8]
+  public static let SOFT_RESET_STOP_ACTION_PAYLOAD: [Swift.UInt8]
+  public static let SOFT_RESET_CLEAR_LINE_ITEM_PAYLOAD: [Swift.UInt8]
+  public static let SOFT_RESET_CANCEL_TRANSACTION_KEEP_SCREEN: [Swift.UInt8]
+  public static let TRANS_TYPE_SALE_PAYLOAD: [Swift.UInt8]
+  public static let TRANS_TYPE_SALE_VOID_PAYLOAD: [Swift.UInt8]
+  public static let TRANS_TYPE_SALE_RETURN_PAYLOAD: [Swift.UInt8]
+  public static let TRANS_TYPE_SALE_VOID_RETURN_PAYLOAD: [Swift.UInt8]
+  public static let TERMS_AND_CONDITIONS_SIGNATURE_PAYLOAD: [Swift.UInt8]
+  public static let TERMS_AND_CONDITIONS_NO_SIGNATURE_PAYLOAD: [Swift.UInt8]
+  public static let PIN_ENTRY_DEFAULT: [Swift.UInt8]
+  public static let PIN_ENTRY_AMEX_DIRECT: [Swift.UInt8]
+  public static let CUSTOM_TIP_PAYLOAD: [Swift.UInt8]
+  public static let P2PE_ENABLE_PAYLOAD: [Swift.UInt8]
+  public static let BARCODE_ON: [Swift.UInt8]
+  public static let ENABLE_VAS: [Swift.UInt8]
+  public static let DISABLE_VAS: [Swift.UInt8]
+  public static let VAS_ONLY_MODE: [Swift.UInt8]
+  public static let DUAL_VAS_MODE: [Swift.UInt8]
+  public static let PAY_ONLY_VAS_MODE: [Swift.UInt8]
+  public static let SINGLE_VAS_MODE: [Swift.UInt8]
+  public static let READ_VAS_DATA: [Swift.UInt8]
+  public static let CLEAR_MERCHANT_LIST_RBA: [Swift.UInt8]
+  public static let CLEAR_MERCHANT_LIST_UPP: [Swift.UInt8]
+}
+public enum BlockId : Swift.UInt16, Swift.CaseIterable, Swift.CustomStringConvertible {
+  case CASHBACK
+  case MSR
+  case PIN
+  case MAIN_FLOW
+  case CLESS
+  case ADVERTISING
+  case CARDS
+  case COMPATIBILITY
+  case USER_VARIABLE
+  case BARCODE
+  case EMV
+  case EMV_AID
+  case SECURITY
+  public var value: Swift.UInt16 {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.UInt16)
+  public typealias AllCases = [FPTetraKit.BlockId]
+  public typealias RawValue = Swift.UInt16
+  public static var allCases: [FPTetraKit.BlockId] {
+    get
+  }
+  public var rawValue: Swift.UInt16 {
+    get
+  }
+}
+public class TetraLibLoggerModuleIdentity : FPLoggerKit.LoggerModuleIdentity {
+  public func loggingModules(levels: [Swift.String : FPLoggerKit.LogLevel], defaultLevel: FPLoggerKit.LogLevel) -> [any FPLoggerKit.LoggerModule]
+  public init()
+  @objc deinit
+}
+public class BaseUppDevice {
+  public var features: any FPPOICore.PoiDeviceFeatures {
+    get
+  }
+  public func updateSupportsBarcodeScanning(_ supportsBarcodeScanning: Swift.Bool)
+  public func updateSupportsVasReads(_ supportsVasReads: Swift.Bool)
+  public func updateSupportsLineItems(_ supportsLineItems: Swift.Bool)
+  public func updateSupportsPosAidSelection(_ supportsPosAidSelection: Swift.Bool)
+  public func updateSupportsSignatureCapture(_ supportsSignatureCapture: Swift.Bool)
+  public func updateSupportsEmvQuickChip(_ supportsEmvQuickChip: Swift.Bool)
+  public func updateSupportsClessQuickChip(_ supportsClessQuickChip: Swift.Bool)
+  public func updateSupportsUtf8Encoding(_ supportsUtf8Encoding: Swift.Bool)
+  public init(logger: any FPLoggerKit.Logger)
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class UppBluetoothHelper {
+  public static func connectToDevice(deviceIdentifier: Swift.String, protocolName: Swift.String) throws -> FPTetraKit.UppBluetoothChannel
+  @objc deinit
+}
+public protocol AccountSelectionDelegate {
+  func onAccountSelectionError(message: Swift.String, errorCode: FPPOICore.ErrorCode) throws
+  func onAccountSelectionDone(type: FPPOICore.PoiCardType) throws
+  func onAccountSelectionCancelled() throws
+}
+public enum UppBarcodeDeviceType : Swift.Int {
+  case NONE
+  case RBA_LASER_SCANNER
+  case UPP_LASER_SCANNER
+  case UPP_CAMERA_SCANNER
+  public static func get(_ i: Swift.String?) -> FPTetraKit.UppBarcodeDeviceType
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class UppIpDeviceProperties : FPTetraKit.UppDeviceProperties {
+  final public let host: Swift.String
+  final public let port: Swift.String
+  final public let heartbeatDelayMillis: Swift.Int
+  convenience public init(host: Swift.String, port: Swift.String)
+  public init(host: Swift.String, port: Swift.String, heartbeatDelayMillis: Swift.Int)
+  override public var name: Swift.String {
+    get
+  }
+  override public var connectionType: FPPOICore.PoiDeviceConnectionType {
+    get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class UppBluetoothDeviceProperties : FPTetraKit.UppDeviceProperties {
+  final public let deviceIdentifier: Swift.String
+  final public let heartbeatDelayMillis: Swift.Int
+  final public let protocolName: Swift.String
+  convenience public init(deviceIdentifier: Swift.String)
+  public init(deviceIdentifier: Swift.String, heartbeatDelayMillis: Swift.Int)
+  override public var name: Swift.String {
+    get
+  }
+  override public var connectionType: FPPOICore.PoiDeviceConnectionType {
+    get
+  }
+  @objc deinit
+}
+public enum CardSourceByte : Swift.UInt8, Swift.CaseIterable {
+  case CONTACTLESS_READER
+  case EMV_CONTACTLESS
+  case MANUAL_ENTRY
+  case MSR
+  case QUICK_CHIP
+  case SMART_CARD_OR_EMV
+  case WIC_CARD
+  case COUPON_CARD
+  case MOBILE
+  case INVALID
+  case LANGUAGE_SELECTION
+  case MSR_OR_SCR_READ_FAILED_IN_COMBO_READER
+  public static func get(_ rawValue: Swift.UInt8) throws -> FPTetraKit.CardSourceByte
+  public func getAsEntryModeString() -> Swift.String
+  public init?(rawValue: Swift.UInt8)
+  public typealias AllCases = [FPTetraKit.CardSourceByte]
+  public typealias RawValue = Swift.UInt8
+  public static var allCases: [FPTetraKit.CardSourceByte] {
+    get
+  }
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+final public class EmvStatusMessage : Swift.CustomStringConvertible {
+  final public let statusCode: Swift.String
+  final public let currentPacketNum: Swift.String
+  final public let packetType: Swift.String
+  final public let transCode: Swift.String
+  final public let chipCardStatus: Swift.String
+  final public let emvStarted: Swift.String
+  final public let emvCompleted: Swift.String
+  final public let languageSelected: Swift.String
+  final public let applicationSelected: Swift.String
+  final public let applicationConfirmed: Swift.String
+  final public let rewardsRequest: Swift.String
+  final public let paymentTypeRequest: Swift.String
+  final public let amountConfirmed: Swift.String
+  final public let lastPinTry: Swift.String
+  final public let offlinePinEntered: Swift.String
+  final public let accountTypeSelected: Swift.String
+  final public let authRequestSent: Swift.String
+  final public let authResponseReceived: Swift.String
+  final public let confirmationResponseSent: Swift.String
+  final public let transactionCancelled: Swift.String
+  final public let invalidCardData: Swift.String
+  final public let blockDetected: Swift.String
+  final public let error: Swift.String
+  final public let prematureCardRemoval: Swift.String
+  final public let cardNotSupported: Swift.String
+  final public let macVerifyRequired: Swift.String
+  final public let postConfirmWaitStarted: Swift.String
+  final public let sigRequestStarted: Swift.String
+  final public let transPrepSent: Swift.String
+  final public let emvFlowSuspended: Swift.String
+  final public let onlinePinRequested: Swift.String
+  final public let currentEmvStep: Swift.String
+  final public let reserved1: Swift.String
+  final public let reserved2: Swift.String
+  final public let cashback: Swift.String
+  final public let clessStatus: Swift.String
+  final public let clessError: Swift.String
+  public init(buffer: FPPOICore.ImmutableByteBuffer) throws
+  final public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public struct HealthCheckResponse : Swift.Encodable {
+  public let msrSwipes: Swift.String
+  public let badTrack1Reads: Swift.String
+  public let badTrack2Reads: Swift.String
+  public let badTrack3Reads: Swift.String
+  public let numSignatures: Swift.String
+  public let numReboots: Swift.String
+  public let terminalName: Swift.String
+  public let unitSerialNum: Swift.String
+  public let osVersion: Swift.String
+  public let appVersion: Swift.String
+  public let secLibVersion: Swift.String
+  public let tdaVersion: Swift.String
+  public let eftlVersion: Swift.String
+  public let eftpVersion: Swift.String
+  public let ramKbSize: Swift.String
+  public let flashMemoryKbSize: Swift.String
+  public let manufactureDate: Swift.String
+  public let cpemType: Swift.String
+  public let penStatus: Swift.String
+  public let appName: Swift.String
+  public let manufacturerId: Swift.String
+  public let digitizerVersion: Swift.String
+  public let manufacturingSerialNumber: Swift.String
+  public let pciVersion: Swift.String
+  public static func parse(messagePayload: FPPOICore.ImmutableByteBuffer, isRba: Swift.Bool) -> FPTetraKit.HealthCheckResponse
+  public var isSignatureCaptureSupported: Swift.Bool {
+    mutating get
+    set
+  }
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public enum UppPinReadStatus : Swift.UInt8 {
+  case PIN_ENTERED
+  case CANCELLED_OR_INVALID_FORM
+  case INVALID_LENGTH
+  case INVALID_INDEX
+  case PIN_KEY_PRESSED
+  case INVALID_PROMPT
+  case PAN_DOES_NOT_MATCH
+  case REQUEST_DECLINED
+  public static func getStatus(_ asciiValue: Swift.UInt8) -> FPTetraKit.UppPinReadStatus?
+  public init?(rawValue: Swift.UInt8)
+  public typealias RawValue = Swift.UInt8
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+public class UppBluetoothDevice : FPTetraKit.BaseUppDevice, FPPOICore.PoiDevice {
+  public var properties: any FPPOICore.PoiDeviceProperties {
+    get
+  }
+  public init(deviceProperties: any FPPOICore.PoiDeviceProperties, logger: any FPLoggerKit.Logger)
+  public func cleanup()
+  public func getDeviceDriver() throws -> any FPPOICore.PoiDeviceDriver
+  @objc deinit
+}
+extension FPTetraKit.UppBluetoothDevice : FPTetraKit.BluetoothChannelDelegate {
+  public func onDisconnected()
+}
+public struct CardReadMetadata : Swift.Equatable {
+  public let cardSourceByte: FPTetraKit.CardSourceByte?
+  public let readExitTypeByte: FPTetraKit.ReadExitTypeByte?
+  public init(cardSourceByte: FPTetraKit.CardSourceByte?, readExitTypeByte: FPTetraKit.ReadExitTypeByte?)
+  public func isManualEntry() -> Swift.Bool
+  public static func == (a: FPTetraKit.CardReadMetadata, b: FPTetraKit.CardReadMetadata) -> Swift.Bool
+}
+@_hasMissingDesignatedInitializers final public class PaymentTypeRequestHelper {
+  public static func createPayload(cardType: FPPOICore.PoiCardType, amount: Foundation.Decimal?) throws -> [Swift.UInt8]
+  public static func createConditionalDebitPayload() -> [Swift.UInt8]
+  public static func createUnconditionalDebitPayload() -> [Swift.UInt8]
+  public static func createUnconditionalCreditPayload() -> [Swift.UInt8]
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class AmountFormatter {
+  public static func formatAmount(_ decimal: Foundation.Decimal?) throws -> Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class UppDeviceProperties : FPPOICore.PoiDeviceProperties {
+  public var name: Swift.String {
+    get
+  }
+  public var connectionType: FPPOICore.PoiDeviceConnectionType {
+    get
+  }
+  public var driverVersion: Swift.String {
+    get
+  }
+  public var driverName: Swift.String {
+    get
+  }
+  public var firmwareVersion: Swift.String {
+    get
+  }
+  public var manufacturerName: Swift.String {
+    get
+  }
+  public var productName: Swift.String {
+    get
+  }
+  public var serialNumber: Swift.String {
+    get
+  }
+  public var serialNumber2: Swift.String {
+    get
+  }
+  public func getDefaultLabel(labelIndex: Swift.Int) -> Swift.String?
+  public var extraDeviceData: (any FPPOICore.PoiDeviceData)? {
+    get
+  }
+  public var additionalConfigurations: [FPPOICore.Configuration]? {
+    get
+  }
+  public var profileId: Swift.String? {
+    get
+  }
+  @objc deinit
+}
+public struct UppFileWriteOptions {
+  public let unpack: Swift.Bool
+  public let isFastDownload: Swift.Bool
+  public let isFirmware: Swift.Bool
+  public let fileName: Swift.String
+  public let fileNameBytes: [Swift.UInt8]
+  public init(fileName: Swift.String, unpack: Swift.Bool, isFastDownload: Swift.Bool, isFirmware: Swift.Bool) throws
+}
+public enum KnownVariableId : Swift.UInt16 {
+  case USER_VARIABLE_1
+  case USER_VARIABLE_2
+  case USER_VARIABLE_3
+  case USER_VARIABLE_4
+  case USER_VARIABLE_5
+  case USER_VARIABLE_6
+  case USER_VARIABLE_7
+  case USER_VARIABLE_8
+  case USER_VARIABLE_9
+  case USER_VARIABLE_10
+  case SCROLLING_LINE_DISPLAY
+  case SCROLLING_LINE_DISPLAY_LINE_1
+  case SCROLLING_LINE_DISPLAY_LINE_2
+  case SCROLLING_LINE_DISPLAY_LINE_3
+  case SCROLLING_LINE_DISPLAY_LINE_4
+  case SCROLLING_LINE_DISPLAY_LINE_5
+  case SCROLLING_LINE_DISPLAY_LINE_6
+  case SCROLLING_LINE_DISPLAY_LINE_7
+  case SCROLLING_LINE_DISPLAY_LINE_8
+  case SCROLLING_LINE_DISPLAY_LINE_9
+  case SCROLLING_LINE_DISPLAY_BOTTOM
+  case CASH_REGISTER_NUMBER
+  case TIME_HHMMSS
+  case DATE_MMDDYY
+  case NUMBER_OF_TICKS_SINCE_BOOT
+  case APPLICATION_NAME
+  case APPLICATION_VERSION
+  case ORIGINAL_APP_NAME
+  case ORIGINAL_VERSION_NUMBER
+  case TERMINAL_REFERENCE_ID
+  case RKI_VERSION
+  case AMOUNT_DUE
+  case CASHBACK_LIMIT
+  case CASHBACK_AMOUNT
+  case TOTAL_AMOUNT
+  case LAST_CARD_READ_SERVICE_CODE
+  case CARD_DATA_ENCRYPTION_STATUS
+  case LAST_CARD_READ_ACCOUNT_NUMBER
+  case LAST_CARD_READ_ACCOUNT_NAME
+  case LAST_CARD_READ_EXP_DATE
+  case DEFAULT_LANGUAGE
+  case CURRENT_LANGUAGE
+  case MASTER_SESSION_KCV1
+  case MASTER_SESSION_KCV2
+  case MASTER_SESSION_KCV3
+  case MASTER_SESSION_KCV4
+  case MASTER_SESSION_KCV5
+  case MASTER_SESSION_KCV6
+  case MASTER_SESSION_KCV7
+  case MASTER_SESSION_KCV8
+  case MASTER_SESSION_KCV9
+  case MASTER_SESSION_KCV10
+  case ESSP_NAME
+  case ESSP_ID
+  case ESSP_FILE_VERSION
+  case ESSP_ESTATE_OWNER_ID
+  case DUKPT_KCV1
+  case DUKPT_KCV2
+  case DUKPT_KCV3
+  case DUKPT_KCV4
+  case DUKPT_KCV5
+  case DUKPT_KCV6
+  case DUKPT_KCV7
+  case DUKPT_KCV8
+  case DUKPT_KCV9
+  case DUKPT_KCV10
+  case SECONDS_LEFT_UNTIL_RESET
+  case EMV_CONTACT_FILE
+  case EMV_CONTACTLESS_FILE
+  case SIGNATURE_BLOCK_1
+  case SIGNATURE_BLOCK_2
+  case SIGNATURE_BLOCK_3
+  case SIGNATURE_BLOCK_4
+  case SIGNATURE_BLOCK_5
+  case SIGNATURE_BLOCK_6
+  case SIGNATURE_BLOCK_7
+  case SIGNATURE_BLOCK_8
+  case SIGNATURE_BLOCK_9
+  case SIGNATURE_BLOCK_10
+  case MAXIMUM_SIGNATURE_SIZE
+  case SIGNATURE_SIZE_IN_BLOCKS
+  case SIGNATURE_SIZE_IN_BYTES
+  case HOST_IP_ADDRESS
+  case HOST_PORT_NUMBER
+  case SMID_STATUS
+  public init?(rawValue: Swift.UInt16)
+  public typealias RawValue = Swift.UInt16
+  public var rawValue: Swift.UInt16 {
+    get
+  }
+}
+public enum UppCardReaders {
+  case MSR
+  case EMV
+  case CLESS
+  public static func buildReadersString(readers: [FPTetraKit.UppCardReaders]) -> Swift.String?
+  public static func == (a: FPTetraKit.UppCardReaders, b: FPTetraKit.UppCardReaders) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class UppDeviceConfiguration : FPPOICore.DeviceConfiguration, Swift.Encodable {
+  final public let poiDeviceIdentifier: Swift.String
+  final public let libraryVersion: Swift.String
+  final public let deviceDetails: FPPOICore.DeviceDetail
+  final public let files: [FPPOICore.PoiDeviceFile]
+  public func encode(to encoder: any Swift.Encoder) throws
+  public func toJson() -> Swift.String
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class PaymentTransactionTypeConverter {
+  public static func toBytes(_ type: FPPOICore.PaymentTransactionType?) throws -> [Swift.UInt8]
+  @objc deinit
+}
+public class UppIpDevice : FPTetraKit.BaseUppDevice, FPPOICore.PoiDevice {
+  public var properties: any FPPOICore.PoiDeviceProperties {
+    get
+  }
+  public init(deviceProperties: any FPPOICore.PoiDeviceProperties, logger: any FPLoggerKit.Logger)
+  public func getDeviceDriver() throws -> any FPPOICore.PoiDeviceDriver
+  @objc deinit
+}
+public enum UppSupportedLanguage : Swift.String {
+  case ENGLISH
+  case SPANISH
+  case FRENCH
+  public static func getLanguageByIndex(_ index: Swift.Int) -> FPTetraKit.UppSupportedLanguage
+  public var code: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum ReadExitTypeByte : Swift.UInt8, Swift.CustomStringConvertible, Swift.CaseIterable {
+  case GOOD_READ
+  case BAD_READ
+  case CANCELLED
+  case BUTTON_PRESSED
+  case CLESS_BRAND_TRANS_LIMIT_EXCEEDED
+  case MAX_CLESS_TRANS_LIMIT_EXCEEDED
+  case INVALID_PROMPT
+  case ENCRYPTION_FAILED
+  case BAD_KEY_CARD
+  case BAD_FORMAT_OR_NOT_ALLOWED
+  case APPLICATION_BLOCKED
+  case CONTACTLESS_COLLISION
+  case INVALID_FORM
+  case INTERFACE_SWITCH_REQUESTED
+  case BAD_AID
+  case READER_DISABLED
+  case TOO_MANY_TAPS
+  case CARD_BLOCKED
+  public func isRecoverableBadRead() -> Swift.Bool
+  public func isUnrecoverableBadRead() -> Swift.Bool
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.UInt8)
+  public typealias AllCases = [FPTetraKit.ReadExitTypeByte]
+  public typealias RawValue = Swift.UInt8
+  public static var allCases: [FPTetraKit.ReadExitTypeByte] {
+    get
+  }
+  public var rawValue: Swift.UInt8 {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class UppDeviceDriver : FPPOICore.PoiDeviceDriver {
+  public var state: FPPOICore.PoiDeviceState {
+    get
+  }
+  final public let stateMachine: FPPOICore.DeviceStateMachine
+  public var underlyingDevice: any FPPOICore.PoiDevice {
+    get
+  }
+  public func setLogger(logger: any FPLoggerKit.Logger)
+  public func loadKeys(keyData: FPPOICore.HostResponseData?)
+  public func attachEventListener(listener: (any FPPOICore.PoiEventListener)?, clearPending: Swift.Bool)
+  public func attachProgressListener(listener: (any FPPOICore.PoiDeviceProgressListener)?)
+  public func removeEventListener()
+  public func setDeviceDelegate(delegate: (any FPPOICore.PoiDeviceDelegate)?)
+  public func setLocalFilesDirectory(filesDirectoryPath: Swift.String)
+  public func setEmvLocale(emvLocale: FPPOICore.EmvLocale)
+  public func setEmvConfigs(emvContact: Swift.String, emvCless: Swift.String) throws
+  public func openLane(skipConfiguration: Swift.Bool = false)
+  public func closeLane()
+  public func rebootDevice()
+  public func pollDevice(options: FPPOICore.PollDeviceOptions?)
+  public func deviceRemoved()
+  public func readDeviceInfo()
+  public func cancel()
+  public func cardRead(options: FPPOICore.CardReadOptions) throws
+  public func beginPayment(options: FPPOICore.PaymentOptions) throws
+  public func continuePayment(data: FPPOICore.ModifiedPaymentData) throws
+  public func authorize(data: FPPOICore.HostResponseData) throws
+  public func config(request: FPPOICore.ConfigWriteRequest) throws
+  public func readConfig(request: FPPOICore.ConfigReadRequest) throws
+  public func writeFile(fileWriteRequest: FPPOICore.FileWriteRequest) throws
+  public func promptForTip(tipRequest: FPPOICore.PromptForTipRequest) throws
+  public func promptDcc(dccRates: any FPPOICore.DccRatesData) throws
+  public func displayForm(request: FPPOICore.FormDisplayRequest) throws
+  public func lineDisplayRequest(request: FPPOICore.LineDisplayRequest) throws
+  public func getPoiDeviceFiles(request: FPPOICore.PoiDeviceFilesRequest) throws
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class VersionUtil {
+  public static var sharedInstance: FPTetraKit.VersionUtil
+  public var version: Swift.String {
+    get
+    set
+  }
+  public var versionName: Swift.String {
+    get
+    set
+  }
+  @objc deinit
+}
+final public class UppAid : FPPOICore.Aid {
+  public init(tag: FPPOICore.ChipTag)
+  final public func getUppTag() -> Swift.String?
+  final public func getAidTag() -> FPPOICore.ChipTag?
+  final public func getApplicationTag() -> FPPOICore.ChipTag?
+  final public func getLabelTag() -> FPPOICore.ChipTag?
+  final public func getPreferredNameTag() -> FPPOICore.ChipTag?
+  final public func getCodeTableIndexTag() -> FPPOICore.ChipTag?
+  final public func getLanguagePrefTag() -> FPPOICore.ChipTag?
+  final public func getIssuerIdentificationNumTag() -> FPPOICore.ChipTag?
+  final public func getTagMap() -> [Swift.Int : FPPOICore.ChipTag]
+  final public func addTag(tag: FPPOICore.ChipTag)
+  final public func getApplicationLabel() -> Swift.String?
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers final public class UppChipDataHelper {
+  public static func serializeToUppTagBytes(tags: [FPPOICore.ChipTag]) -> [Swift.UInt8]
+  public static func parseTags(tagHolder: FPPOICore.ChipTagHolder, buffer: FPPOICore.ImmutableByteBuffer) throws
+  public static func parseAids(buffer: FPPOICore.ImmutableByteBuffer) throws -> [FPTetraKit.UppAid]
+  @objc deinit
+}
+public enum UppForms : Swift.String {
+  case AD1
+  case AD2
+  case AD3
+  case AD4
+  case AD5
+  case AD6
+  case AD7
+  case AD8
+  case AD9
+  case AD10
+  case AD11
+  case AD12
+  case AD13
+  case ALPHA
+  case ALPHALND
+  case ALPHANEW
+  case AMTV
+  case APPDAPP
+  case BOOT
+  case BTMSG
+  case BTMSGCAN
+  case BTOPTIONS
+  case BTPAIRPIN
+  case CASHB
+  case CASHBA
+  case CASHBO
+  case CASHBV
+  case CCOD
+  case CELSWIPE
+  case CESWIPE
+  case CHECKBOX
+  case CLESS
+  case CLSWIPE
+  case COD
+  case CPLSWIPE
+  case CPSWIPE
+  case CSWIPE
+  case EACCOUNT
+  case ECONFIRM
+  case ELANG
+  case ELSWIPE
+  case EMV_TEST
+  case ESWIPE
+  case INPUT
+  case LANG
+  case LISTBOX
+  case LNDISP
+  case LSWIPE
+  case MENU
+  case MENUCMD
+  case MGRPWD
+  case MSG
+  case MSGTHICK
+  case OFFLINE
+  case OFFLINEVID
+  case PAY1
+  case PIN
+  case PLSWIPE
+  case PPERLIST
+  case PPERVIEW
+  case PPOFFLINE
+  case PPWAIT
+  case PRESIGN
+  case PSWIPE
+  case RADIO
+  case SIGN
+  case SIGNLND
+  case SMCINSERT
+  case SMCMSG
+  case SMCUPDATE
+  case SURSWIPE
+  case SWIPE
+  case TC
+  case TCSIGN
+  case VIDEO
+  public var name: Swift.String {
+    get
+  }
+  public var fileName: Swift.String {
+    get
+  }
+  public var fullPath: Swift.String {
+    get
+  }
+  public var buttonType: FPPOICore.FormButtonType {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public protocol BluetoothChannelDelegate : AnyObject {
+  func onDisconnected()
+}
+@objc final public class UppBluetoothChannel : ObjectiveC.NSObject {
+  final public var input: Foundation.InputStream? {
+    get
+  }
+  final public var output: Foundation.OutputStream? {
+    get
+  }
+  public init(connectionId: Swift.Int, session: ExternalAccessory.EASession)
+  @objc deinit
+  final public func setDelegate(_ delegate: any FPTetraKit.BluetoothChannelDelegate)
+}
+extension FPTetraKit.UppBluetoothChannel : ExternalAccessory.EAAccessoryDelegate {
+  @objc final public func accessoryDidDisconnect(_ accessory: ExternalAccessory.EAAccessory)
+}
+extension FPTetraKit.BlockId : Swift.Equatable {}
+extension FPTetraKit.BlockId : Swift.Hashable {}
+extension FPTetraKit.BlockId : Swift.RawRepresentable {}
+extension FPTetraKit.UppBarcodeDeviceType : Swift.Equatable {}
+extension FPTetraKit.UppBarcodeDeviceType : Swift.Hashable {}
+extension FPTetraKit.UppBarcodeDeviceType : Swift.RawRepresentable {}
+extension FPTetraKit.CardSourceByte : Swift.Equatable {}
+extension FPTetraKit.CardSourceByte : Swift.Hashable {}
+extension FPTetraKit.CardSourceByte : Swift.RawRepresentable {}
+extension FPTetraKit.UppPinReadStatus : Swift.Equatable {}
+extension FPTetraKit.UppPinReadStatus : Swift.Hashable {}
+extension FPTetraKit.UppPinReadStatus : Swift.RawRepresentable {}
+extension FPTetraKit.KnownVariableId : Swift.Equatable {}
+extension FPTetraKit.KnownVariableId : Swift.Hashable {}
+extension FPTetraKit.KnownVariableId : Swift.RawRepresentable {}
+extension FPTetraKit.UppCardReaders : Swift.Equatable {}
+extension FPTetraKit.UppCardReaders : Swift.Hashable {}
+extension FPTetraKit.UppSupportedLanguage : Swift.Equatable {}
+extension FPTetraKit.UppSupportedLanguage : Swift.Hashable {}
+extension FPTetraKit.UppSupportedLanguage : Swift.RawRepresentable {}
+extension FPTetraKit.ReadExitTypeByte : Swift.Equatable {}
+extension FPTetraKit.ReadExitTypeByte : Swift.Hashable {}
+extension FPTetraKit.ReadExitTypeByte : Swift.RawRepresentable {}
+extension FPTetraKit.UppForms : Swift.Equatable {}
+extension FPTetraKit.UppForms : Swift.Hashable {}
+extension FPTetraKit.UppForms : Swift.RawRepresentable {}

@@ -1,0 +1,1042 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!-- 
+All changes must be made to values and expanded comments 
+When in doubt rerun this through the EMV XML Decoder 
+CVM: Signature 
+Designation: IUSDS 
+2018.08.07 Updated Supported Languages to include English, Spanish, and French 
+2018.09.06 Replaced American Express Test CAP Keys with the Production CAP Keys 
+2018.09.20 Updated TAC Codes for American Express, Corrected Terminal Type 
+2019.11.11 Removed 1101 CAPK 
+2023.02.08 USER STORY 93263 Moby ROAM EMV Files 
+-->
+<tlvtree ver="1.0">
+    <node tag="0x0">
+        <node tag="0x1000">
+            <node tag="0x1001">
+                <node tag="0x9F06">07A0000000031010</node>               <!-- AID / RID -->
+                                                                         <!-- VISA -->
+                <node tag="0x5F2A">0840</node>                           <!-- Terminal Currency Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x5F36">02</node>                             <!-- Terminal Currency Exponent -->
+                <node tag="0x9F09">0096</node>                           <!-- EMV Application Version Number -->
+                <node tag="0x9F1A">0840</node>                           <!-- Terminal Country Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x9F1B">00000000</node>                       <!-- Terminal Floor Limit -->
+                <node tag="0x9F8124">9F3704</node>                       <!-- Default DDOL (Dynamic Data Authentication Data Object List) -->
+                <node tag="0x9F8125">9F020695055F2A029A039C019F3704</node> <!-- Default TDOL (Transaction Certificate Data Object List) -->
+                <node tag="0x9F8126">00</node>                           <!-- Maximum target percentage to be used for biased random selection -->
+                <node tag="0x9F8127">00</node>                           <!-- Target Percentage to be Used for Random Selection -->
+                <node tag="0x9F8128">DC4000A800</node>                   <!-- TAC (Terminal Action Code) - Default -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline data authentication was not performed -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline static data authentication failed -->
+                                                                         <!-- 0 | Reject if unable to process online and if ICC data missing -->
+                                                                         <!-- 1 | Reject if unable to process online and if Card appears on terminal exception file -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline dynamic data authentication failed -->
+                                                                         <!-- 1 | Reject if unable to process online and if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Reject if unable to process online and if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if ICC and terminal have different application versions -->
+                                                                         <!-- 1 | Reject if unable to process online and if Expired application -->
+                                                                         <!-- 0 | Reject if unable to process online and if Application not yet effective -->
+                                                                         <!-- 0 | Reject if unable to process online and if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Reject if unable to process online and if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Reject if unable to process online and if Unrecognised CVM -->
+                                                                         <!-- 0 | Reject if unable to process online and if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Reject if unable to process online and if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 0 | Reject if unable to process online and if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 0 | Reject if unable to process online and if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Reject if unable to process online and if Transaction exceeds floor limit -->
+                                                                         <!-- 0 | Reject if unable to process online and if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Reject if unable to process online and if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Reject if unable to process online and if Transaction selected randomly for online processing -->
+                                                                         <!-- 1 | Reject if unable to process online and if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if Default TDOL used -->
+                                                                         <!-- 0 | Reject if unable to process online and if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Reject if unable to process online and if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Reject if unable to process online and if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F8129">0010000000</node>                   <!-- TAC (Terminal Action Code) - Denial -->
+                                                                         <!-- 0 | Decline if Offline data authentication was not performed -->
+                                                                         <!-- 0 | Decline if Offline static data authentication failed -->
+                                                                         <!-- 0 | Decline if ICC data missing -->
+                                                                         <!-- 0 | Decline if Card appears on terminal exception file -->
+                                                                         <!-- 0 | Decline if Offline dynamic data authentication failed -->
+                                                                         <!-- 0 | Decline if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Decline if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if ICC and terminal have different application versions -->
+                                                                         <!-- 0 | Decline if Expired application -->
+                                                                         <!-- 0 | Decline if Application not yet effective -->
+                                                                         <!-- 1 | Decline if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Decline if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Decline if Unrecognised CVM -->
+                                                                         <!-- 0 | Decline if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Decline if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 0 | Decline if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 0 | Decline if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Transaction exceeds floor limit -->
+                                                                         <!-- 0 | Decline if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Decline if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Decline if Transaction selected randomly for online processing -->
+                                                                         <!-- 0 | Decline if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Default TDOL used -->
+                                                                         <!-- 0 | Decline if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Decline if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Decline if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F812A">DC4004F800</node>                   <!-- TAC (Terminal Action Code) - Online -->
+                                                                         <!-- 1 | Go online if Offline data authentication was not performed -->
+                                                                         <!-- 1 | Go online if Offline static data authentication failed -->
+                                                                         <!-- 0 | Go online if ICC data missing -->
+                                                                         <!-- 1 | Go online if Card appears on terminal exception file -->
+                                                                         <!-- 1 | Go online if Offline dynamic data authentication failed -->
+                                                                         <!-- 1 | Go online if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Go online if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Go online if ICC and terminal have different application versions -->
+                                                                         <!-- 1 | Go online if Expired application -->
+                                                                         <!-- 0 | Go online if Application not yet effective -->
+                                                                         <!-- 0 | Go online if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Go online if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Go online if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Go online if Unrecognised CVM -->
+                                                                         <!-- 0 | Go online if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Go online if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 0 | Go online if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 1 | Go online if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Go online if Transaction exceeds floor limit -->
+                                                                         <!-- 1 | Go online if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Go online if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Go online if Transaction selected randomly for online processing -->
+                                                                         <!-- 1 | Go online if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Go online if Default TDOL used -->
+                                                                         <!-- 0 | Go online if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Go online if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Go online if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F812B">00000000</node>                     <!-- Threshold value for biased random selection -->
+                <node tag="0x9F841D">01</node>                           <!-- Allow Partial Name Selection (Application Selection Indicator) -->
+                <node tag="0x9FFF00">56495341</node>                     <!-- User Defined Name of Application -->
+                                                                         <!-- VISA -->
+            </node>
+            <node tag="0x1002">
+                <node tag="0x9F06">07A0000000041010</node>               <!-- AID / RID -->
+                                                                         <!-- MasterCard -->
+                <node tag="0x5F2A">0840</node>                           <!-- Terminal Currency Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x5F36">02</node>                             <!-- Terminal Currency Exponent -->
+                <node tag="0x9F09">0002</node>                           <!-- EMV Application Version Number -->
+                <node tag="0x9F1A">0840</node>                           <!-- Terminal Country Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x9F1B">00000000</node>                       <!-- Terminal Floor Limit -->
+                <node tag="0x9F8124">9F3704</node>                       <!-- Default DDOL (Dynamic Data Authentication Data Object List) -->
+                <node tag="0x9F8125">9F020695055F2A029A039C019F3704</node> <!-- Default TDOL (Transaction Certificate Data Object List) -->
+                <node tag="0x9F8126">00</node>                           <!-- Maximum target percentage to be used for biased random selection -->
+                <node tag="0x9F8127">00</node>                           <!-- Target Percentage to be Used for Random Selection -->
+                <node tag="0x9F8128">FC50A8A000</node>                   <!-- TAC (Terminal Action Code) - Default -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline data authentication was not performed -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline static data authentication failed -->
+                                                                         <!-- 1 | Reject if unable to process online and if ICC data missing -->
+                                                                         <!-- 1 | Reject if unable to process online and if Card appears on terminal exception file -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline dynamic data authentication failed -->
+                                                                         <!-- 1 | Reject if unable to process online and if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Reject if unable to process online and if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if ICC and terminal have different application versions -->
+                                                                         <!-- 1 | Reject if unable to process online and if Expired application -->
+                                                                         <!-- 0 | Reject if unable to process online and if Application not yet effective -->
+                                                                         <!-- 1 | Reject if unable to process online and if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Reject if unable to process online and if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Reject if unable to process online and if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Reject if unable to process online and if Unrecognised CVM -->
+                                                                         <!-- 1 | Reject if unable to process online and if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Reject if unable to process online and if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 1 | Reject if unable to process online and if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 0 | Reject if unable to process online and if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Reject if unable to process online and if Transaction exceeds floor limit -->
+                                                                         <!-- 0 | Reject if unable to process online and if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Reject if unable to process online and if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Reject if unable to process online and if Transaction selected randomly for online processing -->
+                                                                         <!-- 0 | Reject if unable to process online and if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if Default TDOL used -->
+                                                                         <!-- 0 | Reject if unable to process online and if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Reject if unable to process online and if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Reject if unable to process online and if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F8129">0000000000</node>                   <!-- TAC (Terminal Action Code) - Denial -->
+                <node tag="0x9F812A">FC50A8F800</node>                   <!-- TAC (Terminal Action Code) - Online -->
+                                                                         <!-- 1 | Go online if Offline data authentication was not performed -->
+                                                                         <!-- 1 | Go online if Offline static data authentication failed -->
+                                                                         <!-- 1 | Go online if ICC data missing -->
+                                                                         <!-- 1 | Go online if Card appears on terminal exception file -->
+                                                                         <!-- 1 | Go online if Offline dynamic data authentication failed -->
+                                                                         <!-- 1 | Go online if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Go online if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Go online if ICC and terminal have different application versions -->
+                                                                         <!-- 1 | Go online if Expired application -->
+                                                                         <!-- 0 | Go online if Application not yet effective -->
+                                                                         <!-- 1 | Go online if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Go online if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Go online if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Go online if Unrecognised CVM -->
+                                                                         <!-- 1 | Go online if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Go online if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 1 | Go online if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 0 | Go online if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Go online if Transaction exceeds floor limit -->
+                                                                         <!-- 1 | Go online if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Go online if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Go online if Transaction selected randomly for online processing -->
+                                                                         <!-- 1 | Go online if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Go online if Default TDOL used -->
+                                                                         <!-- 0 | Go online if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Go online if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Go online if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F812B">00000000</node>                     <!-- Threshold value for biased random selection -->
+                <node tag="0x9F841D">01</node>                           <!-- Allow Partial Name Selection (Application Selection Indicator) -->
+                <node tag="0x9FFF00">4D617374657243617264</node>         <!-- User Defined Name of Application -->
+                                                                         <!-- MasterCard -->
+            </node>
+            <node tag="0x1003">
+                <node tag="0x9F06">06A00000002501</node>                 <!-- AID / RID -->
+                                                                         <!-- American Express -->
+                <node tag="0x5F2A">0840</node>                           <!-- Terminal Currency Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x5F36">02</node>                             <!-- Terminal Currency Exponent -->
+                <node tag="0x9F09">0001</node>                           <!-- EMV Application Version Number -->
+                <node tag="0x9F1A">0840</node>                           <!-- Terminal Country Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x9F1B">00000000</node>                       <!-- Terminal Floor Limit -->
+                <node tag="0x9F8124">9F3704</node>                       <!-- Default DDOL (Dynamic Data Authentication Data Object List) -->
+                <node tag="0x9F8125">9F020695055F2A029A039C019F3704</node> <!-- Default TDOL (Transaction Certificate Data Object List) -->
+                <node tag="0x9F8126">00</node>                           <!-- Maximum target percentage to be used for biased random selection -->
+                <node tag="0x9F8127">00</node>                           <!-- Target Percentage to be Used for Random Selection -->
+                <node tag="0x9F8128">DC50FC9800</node>                   <!-- TAC Default -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline data authentication was not performed -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline static data authentication failed -->
+                                                                         <!-- 0 | Reject if unable to process online and if ICC data missing -->
+                                                                         <!-- 1 | Reject if unable to process online and if Card appears on terminal exception file -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline dynamic data authentication failed -->
+                                                                         <!-- 1 | Reject if unable to process online and if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Reject if unable to process online and if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if ICC and terminal have different application versions -->
+                                                                         <!-- 1 | Reject if unable to process online and if Expired application -->
+                                                                         <!-- 0 | Reject if unable to process online and if Application not yet effective -->
+                                                                         <!-- 1 | Reject if unable to process online and if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Reject if unable to process online and if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Reject if unable to process online and if Cardholder verification was not successful -->
+                                                                         <!-- 1 | Reject if unable to process online and if Unrecognised CVM -->
+                                                                         <!-- 1 | Reject if unable to process online and if PIN Try Limit exceeded -->
+                                                                         <!-- 1 | Reject if unable to process online and if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 1 | Reject if unable to process online and if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 1 | Reject if unable to process online and if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Reject if unable to process online and if Transaction exceeds floor limit -->
+                                                                         <!-- 0 | Reject if unable to process online and if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Reject if unable to process online and if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Reject if unable to process online and if Transaction selected randomly for online processing -->
+                                                                         <!-- 1 | Reject if unable to process online and if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if Default TDOL used -->
+                                                                         <!-- 0 | Reject if unable to process online and if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Reject if unable to process online and if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Reject if unable to process online and if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F8129">0010000000</node>                   <!-- TAC Denial -->
+                                                                         <!-- 0 | Decline if Offline data authentication was not performed -->
+                                                                         <!-- 0 | Decline if Offline static data authentication failed -->
+                                                                         <!-- 0 | Decline if ICC data missing -->
+                                                                         <!-- 0 | Decline if Card appears on terminal exception file -->
+                                                                         <!-- 0 | Decline if Offline dynamic data authentication failed -->
+                                                                         <!-- 0 | Decline if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Decline if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if ICC and terminal have different application versions -->
+                                                                         <!-- 0 | Decline if Expired application -->
+                                                                         <!-- 0 | Decline if Application not yet effective -->
+                                                                         <!-- 1 | Decline if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Decline if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Decline if Unrecognised CVM -->
+                                                                         <!-- 0 | Decline if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Decline if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 0 | Decline if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 0 | Decline if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Transaction exceeds floor limit -->
+                                                                         <!-- 0 | Decline if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Decline if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Decline if Transaction selected randomly for online processing -->
+                                                                         <!-- 0 | Decline if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Default TDOL used -->
+                                                                         <!-- 0 | Decline if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Decline if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Decline if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F812A">DE00FC9800</node>                   <!-- TAC Offline -->
+                                                                         <!-- 1 | Go online if Offline data authentication was not performed -->
+                                                                         <!-- 1 | Go online if Offline static data authentication failed -->
+                                                                         <!-- 0 | Go online if ICC data missing -->
+                                                                         <!-- 1 | Go online if Card appears on terminal exception file -->
+                                                                         <!-- 1 | Go online if Offline dynamic data authentication failed -->
+                                                                         <!-- 1 | Go online if Combined DDA/AC Generation failed -->
+                                                                         <!-- 1 | Go online if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Go online if ICC and terminal have different application versions -->
+                                                                         <!-- 0 | Go online if Expired application -->
+                                                                         <!-- 0 | Go online if Application not yet effective -->
+                                                                         <!-- 0 | Go online if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Go online if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Go online if Cardholder verification was not successful -->
+                                                                         <!-- 1 | Go online if Unrecognised CVM -->
+                                                                         <!-- 1 | Go online if PIN Try Limit exceeded -->
+                                                                         <!-- 1 | Go online if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 1 | Go online if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 1 | Go online if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Go online if Transaction exceeds floor limit -->
+                                                                         <!-- 0 | Go online if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Go online if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Go online if Transaction selected randomly for online processing -->
+                                                                         <!-- 1 | Go online if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Go online if Default TDOL used -->
+                                                                         <!-- 0 | Go online if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Go online if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Go online if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F812B">00000000</node>                     <!-- Threshold value for biased random selection -->
+                <node tag="0x9F841D">01</node>                           <!-- Allow Partial Name Selection (Application Selection Indicator) -->
+                <node tag="0x9FFF00">414D4558</node>                     <!-- User Defined Name of Application -->
+                                                                         <!-- AMEX -->
+            </node>
+            <node tag="0x1004">
+                <node tag="0x9F06">07A0000001523010</node>               <!-- AID / RID -->
+                                                                         <!-- Discover -->
+                <node tag="0x5F2A">0840</node>                           <!-- Terminal Currency Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x5F36">02</node>                             <!-- Terminal Currency Exponent -->
+                <node tag="0x9F09">0001</node>                           <!-- EMV Application Version Number -->
+                <node tag="0x9F1A">0840</node>                           <!-- Terminal Country Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x9F1B">00000000</node>                       <!-- Terminal Floor Limit -->
+                <node tag="0x9F8124">9F3704</node>                       <!-- Default DDOL (Dynamic Data Authentication Data Object List) -->
+                <node tag="0x9F8125">9F020695055F2A029A039C019F3704</node> <!-- Default TDOL (Transaction Certificate Data Object List) -->
+                <node tag="0x9F8126">00</node>                           <!-- Maximum target percentage to be used for biased random selection -->
+                <node tag="0x9F8127">00</node>                           <!-- Target Percentage to be Used for Random Selection -->
+                <node tag="0x9F8128">DC00002000</node>                   <!-- TAC (Terminal Action Code) - Default -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline data authentication was not performed -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline static data authentication failed -->
+                                                                         <!-- 0 | Reject if unable to process online and if ICC data missing -->
+                                                                         <!-- 1 | Reject if unable to process online and if Card appears on terminal exception file -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline dynamic data authentication failed -->
+                                                                         <!-- 1 | Reject if unable to process online and if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Reject if unable to process online and if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if ICC and terminal have different application versions -->
+                                                                         <!-- 0 | Reject if unable to process online and if Expired application -->
+                                                                         <!-- 0 | Reject if unable to process online and if Application not yet effective -->
+                                                                         <!-- 0 | Reject if unable to process online and if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Reject if unable to process online and if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Reject if unable to process online and if Unrecognised CVM -->
+                                                                         <!-- 0 | Reject if unable to process online and if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Reject if unable to process online and if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 0 | Reject if unable to process online and if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 0 | Reject if unable to process online and if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if Transaction exceeds floor limit -->
+                                                                         <!-- 0 | Reject if unable to process online and if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Reject if unable to process online and if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Reject if unable to process online and if Transaction selected randomly for online processing -->
+                                                                         <!-- 0 | Reject if unable to process online and if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if Default TDOL used -->
+                                                                         <!-- 0 | Reject if unable to process online and if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Reject if unable to process online and if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Reject if unable to process online and if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F8129">0010000000</node>                   <!-- TAC (Terminal Action Code) - Denial -->
+                                                                         <!-- 0 | Decline if Offline data authentication was not performed -->
+                                                                         <!-- 0 | Decline if Offline static data authentication failed -->
+                                                                         <!-- 0 | Decline if ICC data missing -->
+                                                                         <!-- 0 | Decline if Card appears on terminal exception file -->
+                                                                         <!-- 0 | Decline if Offline dynamic data authentication failed -->
+                                                                         <!-- 0 | Decline if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Decline if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if ICC and terminal have different application versions -->
+                                                                         <!-- 0 | Decline if Expired application -->
+                                                                         <!-- 0 | Decline if Application not yet effective -->
+                                                                         <!-- 1 | Decline if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Decline if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Decline if Unrecognised CVM -->
+                                                                         <!-- 0 | Decline if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Decline if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 0 | Decline if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 0 | Decline if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Transaction exceeds floor limit -->
+                                                                         <!-- 0 | Decline if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Decline if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Decline if Transaction selected randomly for online processing -->
+                                                                         <!-- 0 | Decline if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Default TDOL used -->
+                                                                         <!-- 0 | Decline if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Decline if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Decline if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F812A">FCE09CF800</node>                   <!-- TAC (Terminal Action Code) - Online -->
+                                                                         <!-- 1 | Go online if Offline data authentication was not performed -->
+                                                                         <!-- 1 | Go online if Offline static data authentication failed -->
+                                                                         <!-- 1 | Go online if ICC data missing -->
+                                                                         <!-- 1 | Go online if Card appears on terminal exception file -->
+                                                                         <!-- 1 | Go online if Offline dynamic data authentication failed -->
+                                                                         <!-- 1 | Go online if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Go online if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Go online if ICC and terminal have different application versions -->
+                                                                         <!-- 1 | Go online if Expired application -->
+                                                                         <!-- 1 | Go online if Application not yet effective -->
+                                                                         <!-- 0 | Go online if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Go online if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Go online if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Go online if Unrecognised CVM -->
+                                                                         <!-- 0 | Go online if PIN Try Limit exceeded -->
+                                                                         <!-- 1 | Go online if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 1 | Go online if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 1 | Go online if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Go online if Transaction exceeds floor limit -->
+                                                                         <!-- 1 | Go online if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Go online if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Go online if Transaction selected randomly for online processing -->
+                                                                         <!-- 1 | Go online if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Go online if Default TDOL used -->
+                                                                         <!-- 0 | Go online if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Go online if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Go online if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F812B">00000000</node>                     <!-- Threshold value for biased random selection -->
+                <node tag="0x9F841D">01</node>                           <!-- Allow Partial Name Selection (Application Selection Indicator) -->
+                <node tag="0x9FFF00">446973636F766572</node>             <!-- User Defined Name of Application -->
+                                                                         <!-- Discover -->
+            </node>
+            <node tag="0x1005">
+                <node tag="0x9F06">07A0000000651010</node>               <!-- AID / RID -->
+                                                                         <!-- JCB -->
+                <node tag="0x5F2A">0840</node>                           <!-- Terminal Currency Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x5F36">02</node>                             <!-- Terminal Currency Exponent -->
+                <node tag="0x9F09">0200</node>                           <!-- EMV Application Version Number -->
+                <node tag="0x9F1A">0840</node>                           <!-- Terminal Country Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x9F1B">00000000</node>                       <!-- Terminal Floor Limit -->
+                <node tag="0x9F8124">9F3704</node>                       <!-- Default DDOL (Dynamic Data Authentication Data Object List) -->
+                <node tag="0x9F8125">9F020695055F2A029A039C019F3704</node> <!-- Default TDOL (Transaction Certificate Data Object List) -->
+                <node tag="0x9F8126">99</node>                           <!-- Maximum target percentage to be used for biased random selection -->
+                <node tag="0x9F8127">99</node>                           <!-- Target Percentage to be Used for Random Selection -->
+                <node tag="0x9F8128">FC6024A800</node>                   <!-- TAC (Terminal Action Code) - Default -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline data authentication was not performed -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline static data authentication failed -->
+                                                                         <!-- 1 | Reject if unable to process online and if ICC data missing -->
+                                                                         <!-- 1 | Reject if unable to process online and if Card appears on terminal exception file -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline dynamic data authentication failed -->
+                                                                         <!-- 1 | Reject if unable to process online and if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Reject if unable to process online and if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if ICC and terminal have different application versions -->
+                                                                         <!-- 1 | Reject if unable to process online and if Expired application -->
+                                                                         <!-- 1 | Reject if unable to process online and if Application not yet effective -->
+                                                                         <!-- 0 | Reject if unable to process online and if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Reject if unable to process online and if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Reject if unable to process online and if Unrecognised CVM -->
+                                                                         <!-- 1 | Reject if unable to process online and if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Reject if unable to process online and if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 0 | Reject if unable to process online and if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 1 | Reject if unable to process online and if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Reject if unable to process online and if Transaction exceeds floor limit -->
+                                                                         <!-- 0 | Reject if unable to process online and if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Reject if unable to process online and if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Reject if unable to process online and if Transaction selected randomly for online processing -->
+                                                                         <!-- 1 | Reject if unable to process online and if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if Default TDOL used -->
+                                                                         <!-- 0 | Reject if unable to process online and if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Reject if unable to process online and if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Reject if unable to process online and if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F8129">0010000000</node>                   <!-- TAC (Terminal Action Code) - Denial -->
+                                                                         <!-- 0 | Decline if Offline data authentication was not performed -->
+                                                                         <!-- 0 | Decline if Offline static data authentication failed -->
+                                                                         <!-- 0 | Decline if ICC data missing -->
+                                                                         <!-- 0 | Decline if Card appears on terminal exception file -->
+                                                                         <!-- 0 | Decline if Offline dynamic data authentication failed -->
+                                                                         <!-- 0 | Decline if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Decline if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if ICC and terminal have different application versions -->
+                                                                         <!-- 0 | Decline if Expired application -->
+                                                                         <!-- 0 | Decline if Application not yet effective -->
+                                                                         <!-- 1 | Decline if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Decline if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Decline if Unrecognised CVM -->
+                                                                         <!-- 0 | Decline if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Decline if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 0 | Decline if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 0 | Decline if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Transaction exceeds floor limit -->
+                                                                         <!-- 0 | Decline if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Decline if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Decline if Transaction selected randomly for online processing -->
+                                                                         <!-- 0 | Decline if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Default TDOL used -->
+                                                                         <!-- 0 | Decline if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Decline if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Decline if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F812A">FC60ACF800</node>                   <!-- TAC (Terminal Action Code) - Online -->
+                                                                         <!-- 1 | Go online if Offline data authentication was not performed -->
+                                                                         <!-- 1 | Go online if Offline static data authentication failed -->
+                                                                         <!-- 1 | Go online if ICC data missing -->
+                                                                         <!-- 1 | Go online if Card appears on terminal exception file -->
+                                                                         <!-- 1 | Go online if Offline dynamic data authentication failed -->
+                                                                         <!-- 1 | Go online if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Go online if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Go online if ICC and terminal have different application versions -->
+                                                                         <!-- 1 | Go online if Expired application -->
+                                                                         <!-- 1 | Go online if Application not yet effective -->
+                                                                         <!-- 0 | Go online if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Go online if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Go online if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Go online if Unrecognised CVM -->
+                                                                         <!-- 1 | Go online if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Go online if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 1 | Go online if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 1 | Go online if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Go online if Transaction exceeds floor limit -->
+                                                                         <!-- 1 | Go online if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Go online if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Go online if Transaction selected randomly for online processing -->
+                                                                         <!-- 1 | Go online if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Go online if Default TDOL used -->
+                                                                         <!-- 0 | Go online if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Go online if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Go online if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F812B">00000000</node>                     <!-- Threshold value for biased random selection -->
+                <node tag="0x9F841D">01</node>                           <!-- Allow Partial Name Selection (Application Selection Indicator) -->
+                <node tag="0x9FFF00">4A4342</node>                       <!-- User Defined Name of Application -->
+                                                                         <!-- JCB -->
+            </node>
+            <node tag="0x1006">
+                <node tag="0x9F06">07A0000003330101</node>               <!-- AID / RID -->
+                                                                         <!-- UnionPay -->
+                <node tag="0x5F2A">0840</node>                           <!-- Terminal Currency Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x5F36">02</node>                             <!-- Terminal Currency Exponent -->
+                <node tag="0x9F09">0020</node>                           <!-- EMV Application Version Number -->
+                <node tag="0x9F1A">0840</node>                           <!-- Terminal Country Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x9F1B">00000000</node>                       <!-- Terminal Floor Limit -->
+                <node tag="0x9F8124">9F3704</node>                       <!-- Default DDOL (Dynamic Data Authentication Data Object List) -->
+                <node tag="0x9F8125">9F020695055F2A029A039C019F3704</node> <!-- Default TDOL (Transaction Certificate Data Object List) -->
+                <node tag="0x9F8126">00</node>                           <!-- Maximum target percentage to be used for biased random selection -->
+                <node tag="0x9F8127">00</node>                           <!-- Target Percentage to be Used for Random Selection -->
+                <node tag="0x9F8128">D84000A800</node>                   <!-- TAC (Terminal Action Code) - Default -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline data authentication was not performed -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline static data authentication failed -->
+                                                                         <!-- 0 | Reject if unable to process online and if ICC data missing -->
+                                                                         <!-- 1 | Reject if unable to process online and if Card appears on terminal exception file -->
+                                                                         <!-- 1 | Reject if unable to process online and if Offline dynamic data authentication failed -->
+                                                                         <!-- 0 | Reject if unable to process online and if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Reject if unable to process online and if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if ICC and terminal have different application versions -->
+                                                                         <!-- 1 | Reject if unable to process online and if Expired application -->
+                                                                         <!-- 0 | Reject if unable to process online and if Application not yet effective -->
+                                                                         <!-- 0 | Reject if unable to process online and if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Reject if unable to process online and if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Reject if unable to process online and if Unrecognised CVM -->
+                                                                         <!-- 0 | Reject if unable to process online and if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Reject if unable to process online and if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 0 | Reject if unable to process online and if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 0 | Reject if unable to process online and if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Reject if unable to process online and if Transaction exceeds floor limit -->
+                                                                         <!-- 0 | Reject if unable to process online and if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Reject if unable to process online and if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Reject if unable to process online and if Transaction selected randomly for online processing -->
+                                                                         <!-- 1 | Reject if unable to process online and if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Reject if unable to process online and if Default TDOL used -->
+                                                                         <!-- 0 | Reject if unable to process online and if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Reject if unable to process online and if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Reject if unable to process online and if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F8129">0010000000</node>                   <!-- TAC (Terminal Action Code) - Denial -->
+                                                                         <!-- 0 | Decline if Offline data authentication was not performed -->
+                                                                         <!-- 0 | Decline if Offline static data authentication failed -->
+                                                                         <!-- 0 | Decline if ICC data missing -->
+                                                                         <!-- 0 | Decline if Card appears on terminal exception file -->
+                                                                         <!-- 0 | Decline if Offline dynamic data authentication failed -->
+                                                                         <!-- 0 | Decline if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Decline if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if ICC and terminal have different application versions -->
+                                                                         <!-- 0 | Decline if Expired application -->
+                                                                         <!-- 0 | Decline if Application not yet effective -->
+                                                                         <!-- 1 | Decline if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Decline if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Decline if Unrecognised CVM -->
+                                                                         <!-- 0 | Decline if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Decline if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 0 | Decline if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 0 | Decline if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Transaction exceeds floor limit -->
+                                                                         <!-- 0 | Decline if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Decline if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 0 | Decline if Transaction selected randomly for online processing -->
+                                                                         <!-- 0 | Decline if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Decline if Default TDOL used -->
+                                                                         <!-- 0 | Decline if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Decline if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Decline if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F812A">D84004F800</node>                   <!-- TAC (Terminal Action Code) - Online -->
+                                                                         <!-- 1 | Go online if Offline data authentication was not performed -->
+                                                                         <!-- 1 | Go online if Offline static data authentication failed -->
+                                                                         <!-- 0 | Go online if ICC data missing -->
+                                                                         <!-- 1 | Go online if Card appears on terminal exception file -->
+                                                                         <!-- 1 | Go online if Offline dynamic data authentication failed -->
+                                                                         <!-- 0 | Go online if Combined DDA/AC Generation failed -->
+                                                                         <!-- 0 | Go online if SDA selected -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Go online if ICC and terminal have different application versions -->
+                                                                         <!-- 1 | Go online if Expired application -->
+                                                                         <!-- 0 | Go online if Application not yet effective -->
+                                                                         <!-- 0 | Go online if Requested service not allowed for card product -->
+                                                                         <!-- 0 | Go online if New card -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Go online if Cardholder verification was not successful -->
+                                                                         <!-- 0 | Go online if Unrecognised CVM -->
+                                                                         <!-- 0 | Go online if PIN Try Limit exceeded -->
+                                                                         <!-- 0 | Go online if PIN entry required and PIN pad not present or not working -->
+                                                                         <!-- 0 | Go online if PIN entry required, PIN pad present, but PIN was not entered -->
+                                                                         <!-- 1 | Go online if Online PIN entered -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Go online if Transaction exceeds floor limit -->
+                                                                         <!-- 1 | Go online if Lower consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Go online if Upper consecutive offline limit exceeded -->
+                                                                         <!-- 1 | Go online if Transaction selected randomly for online processing -->
+                                                                         <!-- 1 | Go online if Merchant forced transaction online -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Go online if Default TDOL used -->
+                                                                         <!-- 0 | Go online if Issuer authentication was unsuccessful -->
+                                                                         <!-- 0 | Go online if Script processing failed before final GENERATE AC -->
+                                                                         <!-- 0 | Go online if Script processing failed after final GENERATE AC -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F812B">00000000</node>                     <!-- Threshold value for biased random selection -->
+                <node tag="0x9F841D">01</node>                           <!-- Allow Partial Name Selection (Application Selection Indicator) -->
+                <node tag="0x9FFF00">556E696F6E506179</node>             <!-- User Defined Name of Application -->
+                                                                         <!-- UnionPay -->
+            </node>
+        </node>
+        <node tag="0x1100">
+            <node tag="0x1101">
+                <node tag="0x9F06">A000000025</node>                     <!-- AID / RID -->
+                                                                         <!-- American Express -->
+                <node tag="0x9F22">0F</node>                             <!-- Index -->
+                <node tag="0x9F8121">A73472B3AB557493A9BC2179CC8014053B12BAB4</node> <!-- Check Sum -->
+                <node tag="0x9F8122">03</node>                           <!-- Exponent -->
+                <node tag="0x9F8123">C8D5AC27A5E1FB89978C7C6479AF993AB3800EB243996FBB2AE26B67B23AC482C4B746005A51AFA7D2D83E894F591A2357B30F85B85627FF15DA12290F70F05766552BA11AD34B7109FA49DE29DCB0109670875A17EA95549E92347B948AA1F045756DE56B707E3863E59A6CBE99C1272EF65FB66CBB4CFF070F36029DD76218B21242645B51CA752AF37E70BE1A84FF31079DC0048E928883EC4FADD497A719385C2BBBEBC5A66AA5E5655D18034EC5</node> <!-- null -->
+            </node>
+            <node tag="0x1102">
+                <node tag="0x9F06">A000000025</node>                     <!-- AID / RID -->
+                                                                         <!-- American Express -->
+                <node tag="0x9F22">10</node>                             <!-- Index -->
+                <node tag="0x9F8121">C729CF2FD262394ABC4CC173506502446AA9B9FD</node> <!-- Check Sum -->
+                <node tag="0x9F8122">03</node>                           <!-- Exponent -->
+                <node tag="0x9F8123">CF98DFEDB3D3727965EE7797723355E0751C81D2D3DF4D18EBAB9FB9D49F38C8C4A826B99DC9DEA3F01043D4BF22AC3550E2962A59639B1332156422F788B9C16D40135EFD1BA94147750575E636B6EBC618734C91C1D1BF3EDC2A46A43901668E0FFC136774080E888044F6A1E65DC9AAA8928DACBEB0DB55EA3514686C6A732CEF55EE27CF877F110652694A0E3484C855D882AE191674E25C296205BBB599455176FDD7BBC549F27BA5FE35336F7E29E68D783973199436633C67EE5A680F05160ED12D1665EC83D1997F10FD05BBDBF9433E8F797AEE3E9F02A34228ACE927ABE62B8B9281AD08D3DF5C7379685045D7BA5FCDE58637</node> <!-- null -->
+            </node>
+            <node tag="0x1103">
+                <node tag="0x9F06">A000000333</node>                     <!-- AID / RID -->
+                                                                         <!-- China Union Pay -->
+                <node tag="0x9F22">03</node>                             <!-- Index -->
+                <node tag="0x9F8121">87F0CD7C0E86F38F89A66F8C47071A8B88586F26</node> <!-- Check Sum -->
+                <node tag="0x9F8122">03</node>                           <!-- Exponent -->
+                <node tag="0x9F8123">B0627DEE87864F9C18C13B9A1F025448BF13C58380C91F4CEBA9F9BCB214FF8414E9B59D6ABA10F941C7331768F47B2127907D857FA39AAF8CE02045DD01619D689EE731C551159BE7EB2D51A372FF56B556E5CB2FDE36E23073A44CA215D6C26CA68847B388E39520E0026E62294B557D6470440CA0AEFC9438C923AEC9B2098D6D3A1AF5E8B1DE36F4B53040109D89B77CAFAF70C26C601ABDF59EEC0FDC8A99089140CD2E817E335175B03B7AA33D</node> <!-- null -->
+            </node>
+            <node tag="0x1104">
+                <node tag="0x9F06">A000000333</node>                     <!-- AID / RID -->
+                                                                         <!-- China Union Pay -->
+                <node tag="0x9F22">04</node>                             <!-- Index -->
+                <node tag="0x9F8121">F527081CF371DD7E1FD4FA414A665036E0F5E6E5</node> <!-- Check Sum -->
+                <node tag="0x9F8122">03</node>                           <!-- Exponent -->
+                <node tag="0x9F8123">BC853E6B5365E89E7EE9317C94B02D0ABB0DBD91C05A224A2554AA29ED9FCB9D86EB9CCBB322A57811F86188AAC7351C72BD9EF196C5A01ACEF7A4EB0D2AD63D9E6AC2E7836547CB1595C68BCBAFD0F6728760F3A7CA7B97301B7E0220184EFC4F653008D93CE098C0D93B45201096D1ADFF4CF1F9FC02AF759DA27CD6DFD6D789B099F16F378B6100334E63F3D35F3251A5EC78693731F5233519CDB380F5AB8C0F02728E91D469ABD0EAE0D93B1CC66CE127B29C7D77441A49D09FCA5D6D9762FC74C31BB506C8BAE3C79AD6C2578775B95956B5370D1D0519E37906B384736233251E8F09AD79DFBE2C6ABFADAC8E4D8624318C27DAF1</node> <!-- null -->
+            </node>
+            <node tag="0x1105">
+                <node tag="0x9F06">A000000152</node>                     <!-- AID / RID -->
+                                                                         <!-- Discover -->
+                <node tag="0x9F22">04</node>                             <!-- Index -->
+                <node tag="0x9F8121">17F971CAF6B708E5B9165331FBA91593D0C0BF66</node> <!-- Check Sum -->
+                <node tag="0x9F8122">03</node>                           <!-- Exponent -->
+                <node tag="0x9F8123">8EEEC0D6D3857FD558285E49B623B109E6774E06E9476FE1B2FB273685B5A235E955810ADDB5CDCC2CB6E1A97A07089D7FDE0A548BDC622145CA2DE3C73D6B14F284B3DC1FA056FC0FB2818BCD7C852F0C97963169F01483CE1A63F0BF899D412AB67C5BBDC8B4F6FB9ABB57E95125363DBD8F5EBAA9B74ADB93202050341833DEE8E38D28BD175C83A6EA720C262682BEABEA8E955FE67BD9C2EFF7CB9A9F45DD5BDA4A1EEFB148BC44FFF68D9329FD</node> <!-- null -->
+            </node>
+            <node tag="0x1106">
+                <node tag="0x9F06">A000000152</node>                     <!-- AID / RID -->
+                                                                         <!-- Discover -->
+                <node tag="0x9F22">05</node>                             <!-- Index -->
+                <node tag="0x9F8121">12BCD407B6E627A750FDF629EE8C2C9CC7BA636A</node> <!-- Check Sum -->
+                <node tag="0x9F8122">03</node>                           <!-- Exponent -->
+                <node tag="0x9F8123">E1200E9F4428EB71A526D6BB44C957F18F27B20BACE978061CCEF23532DBEBFAF654A149701C14E6A2A7C2ECAC4C92135BE3E9258331DDB0967C3D1D375B996F25B77811CCCC06A153B4CE6990A51A0258EA8437EDBEB701CB1F335993E3F48458BC1194BAD29BF683D5F3ECB984E31B7B9D2F6D947B39DEDE0279EE45B47F2F3D4EEEF93F9261F8F5A571AFBFB569C150370A78F6683D687CB677777B2E7ABEFCFC8F5F93501736997E8310EE0FD87AFAC5DA772BA277F88B44459FCA563555017CD0D66771437F8B6608AA1A665F88D846403E4C41AFEEDB9729C2B2511CFE228B50C1B152B2A60BBF61D8913E086210023A3AA499E423</node> <!-- null -->
+            </node>
+            <node tag="0x1107">
+                <node tag="0x9F06">A000000065</node>                     <!-- AID / RID -->
+                                                                         <!-- JCB -->
+                <node tag="0x9F22">12</node>                             <!-- Index -->
+                <node tag="0x9F8121">874B379B7F607DC1CAF87A19E400B6A9E25163E8</node> <!-- Check Sum -->
+                <node tag="0x9F8122">03</node>                           <!-- Exponent -->
+                <node tag="0x9F8123">ADF05CD4C5B490B087C3467B0F3043750438848461288BFEFD6198DD576DC3AD7A7CFA07DBA128C247A8EAB30DC3A30B02FCD7F1C8167965463626FEFF8AB1AA61A4B9AEF09EE12B009842A1ABA01ADB4A2B170668781EC92B60F605FD12B2B2A6F1FE734BE510F60DC5D189E401451B62B4E06851EC20EBFF4522AACC2E9CDC89BC5D8CDE5D633CFD77220FF6BBD4A9B441473CC3C6FEFC8D13E57C3DE97E1269FA19F655215B23563ED1D1860D8681</node> <!-- null -->
+            </node>
+            <node tag="0x1108">
+                <node tag="0x9F06">A000000065</node>                     <!-- AID / RID -->
+                                                                         <!-- JCB -->
+                <node tag="0x9F22">14</node>                             <!-- Index -->
+                <node tag="0x9F8121">C0D15F6CD957E491DB56DCDD1CA87A03EBE06B7B</node> <!-- Check Sum -->
+                <node tag="0x9F8122">03</node>                           <!-- Exponent -->
+                <node tag="0x9F8123">AEED55B9EE00E1ECEB045F61D2DA9A66AB637B43FB5CDBDB22A2FBB25BE061E937E38244EE5132F530144A3F268907D8FD648863F5A96FED7E42089E93457ADC0E1BC89C58A0DB72675FBC47FEE9FF33C16ADE6D341936B06B6A6F5EF6F66A4EDD981DF75DA8399C3053F430ECA342437C23AF423A211AC9F58EAF09B0F837DE9D86C7109DB1646561AA5AF0289AF5514AC64BC2D9D36A179BB8A7971E2BFA03A9E4B847FD3D63524D43A0E8003547B94A8A75E519DF3177D0A60BC0B4BAB1EA59A2CBB4D2D62354E926E9C7D3BE4181E81BA60F8285A896D17DA8C3242481B6C405769A39D547C74ED9FF95A70A796046B5EFF36682DC29</node> <!-- null -->
+            </node>
+            <node tag="0x1109">
+                <node tag="0x9F06">A000000004</node>                     <!-- AID / RID -->
+                                                                         <!-- MasterCard -->
+                <node tag="0x9F22">05</node>                             <!-- Index -->
+                <node tag="0x9F8121">EBFA0D5D06D8CE702DA3EAE890701D45E274C845</node> <!-- Check Sum -->
+                <node tag="0x9F8122">03</node>                           <!-- Exponent -->
+                <node tag="0x9F8123">B8048ABC30C90D976336543E3FD7091C8FE4800DF820ED55E7E94813ED00555B573FECA3D84AF6131A651D66CFF4284FB13B635EDD0EE40176D8BF04B7FD1C7BACF9AC7327DFAA8AA72D10DB3B8E70B2DDD811CB4196525EA386ACC33C0D9D4575916469C4E4F53E8E1C912CC618CB22DDE7C3568E90022E6BBA770202E4522A2DD623D180E215BD1D1507FE3DC90CA310D27B3EFCCD8F83DE3052CAD1E48938C68D095AAC91B5F37E28BB49EC7ED597</node> <!-- null -->
+            </node>
+            <node tag="0x110A">
+                <node tag="0x9F06">A000000004</node>                     <!-- AID / RID -->
+                                                                         <!-- MasterCard -->
+                <node tag="0x9F22">06</node>                             <!-- Index -->
+                <node tag="0x9F8121">F910A1504D5FFB793D94F3B500765E1ABCAD72D9</node> <!-- Check Sum -->
+                <node tag="0x9F8122">03</node>                           <!-- Exponent -->
+                <node tag="0x9F8123">CB26FC830B43785B2BCE37C81ED334622F9622F4C89AAE641046B2353433883F307FB7C974162DA72F7A4EC75D9D657336865B8D3023D3D645667625C9A07A6B7A137CF0C64198AE38FC238006FB2603F41F4F3BB9DA1347270F2F5D8C606E420958C5F7D50A71DE30142F70DE468889B5E3A08695B938A50FC980393A9CBCE44AD2D64F630BB33AD3F5F5FD495D31F37818C1D94071342E07F1BEC2194F6035BA5DED3936500EB82DFDA6E8AFB655B1EF3D0D7EBF86B66DD9F29F6B1D324FE8B26CE38AB2013DD13F611E7A594D675C4432350EA244CC34F3873CBA06592987A1D7E852ADC22EF5A2EE28132031E48F74037E3B34AB747F</node> <!-- null -->
+            </node>
+            <node tag="0x110B">
+                <node tag="0x9F06">A000000003</node>                     <!-- AID / RID -->
+                                                                         <!-- VISA -->
+                <node tag="0x9F22">08</node>                             <!-- Index -->
+                <node tag="0x9F8121">20D213126955DE205ADC2FD2822BD22DE21CF9A8</node> <!-- Check Sum -->
+                <node tag="0x9F8122">03</node>                           <!-- Exponent -->
+                <node tag="0x9F8123">D9FD6ED75D51D0E30664BD157023EAA1FFA871E4DA65672B863D255E81E137A51DE4F72BCC9E44ACE12127F87E263D3AF9DD9CF35CA4A7B01E907000BA85D24954C2FCA3074825DDD4C0C8F186CB020F683E02F2DEAD3969133F06F7845166ACEB57CA0FC2603445469811D293BFEFBAFAB57631B3DD91E796BF850A25012F1AE38F05AA5C4D6D03B1DC2E568612785938BBC9B3CD3A910C1DA55A5A9218ACE0F7A21287752682F15832A678D6E1ED0B</node> <!-- null -->
+            </node>
+            <node tag="0x110C">
+                <node tag="0x9F06">A000000003</node>                     <!-- AID / RID -->
+                                                                         <!-- VISA -->
+                <node tag="0x9F22">09</node>                             <!-- Index -->
+                <node tag="0x9F8121">1FF80A40173F52D7D27E0F26A146A1C8CCB29046</node> <!-- Check Sum -->
+                <node tag="0x9F8122">03</node>                           <!-- Exponent -->
+                <node tag="0x9F8123">9D912248DE0A4E39C1A7DDE3F6D2588992C1A4095AFBD1824D1BA74847F2BC4926D2EFD904B4B54954CD189A54C5D1179654F8F9B0D2AB5F0357EB642FEDA95D3912C6576945FAB897E7062CAA44A4AA06B8FE6E3DBA18AF6AE3738E30429EE9BE03427C9D64F695FA8CAB4BFE376853EA34AD1D76BFCAD15908C077FFE6DC5521ECEF5D278A96E26F57359FFAEDA19434B937F1AD999DC5C41EB11935B44C18100E857F431A4A5A6BB65114F174C2D7B59FDF237D6BB1DD0916E644D709DED56481477C75D95CDD68254615F7740EC07F330AC5D67BCD75BF23D28A140826C026DBDE971A37CD3EF9B8DF644AC385010501EFC6509D7A41</node> <!-- null -->
+            </node>
+        </node>
+        <node tag="0x1300">
+            <node tag="0x1301">
+                <node tag="0x5F2A">0840</node>                           <!-- Terminal Currency Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x9F1A">0840</node>                           <!-- Terminal Country Code -->
+                                                                         <!-- United States of America -->
+                <node tag="0x9F1C">3132333431323334</node>               <!-- Terminal Identification -->
+                <node tag="0x9F33">E028C8</node>                         <!-- Terminal Capabilities -->
+                                                                         <!-- 1 | Manual key entry -->
+                                                                         <!-- 1 | Magnetic stripe -->
+                                                                         <!-- 1 | IC with contacts -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Plaintext PIN for ICC verification -->
+                                                                         <!-- 1 | Enciphered PIN for online verification -->
+                                                                         <!-- 1 | Signature (paper) -->
+                                                                         <!-- 1 | Enciphered PIN for offline verification -->
+                                                                         <!-- 1 | No CVM required -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | SDA -->
+                                                                         <!-- 1 | DDA -->
+                                                                         <!-- 0 | Card capture -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | CDA -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                <node tag="0x9F35">22</node>                             <!-- Terminal Type -->
+                <node tag="0x9F39">81</node>                             <!-- Point-of-Service (POS) Entry Mode -->
+                <node tag="0x9F40">F000F0A001</node>                     <!-- Additional Terminal Capabilities -->
+                                                                         <!-- 1 | Cash -->
+                                                                         <!-- 1 | Goods -->
+                                                                         <!-- 1 | Services -->
+                                                                         <!-- 1 | Cashback -->
+                                                                         <!-- 0 | Inquiry -->
+                                                                         <!-- 0 | Transfer -->
+                                                                         <!-- 0 | Payment -->
+                                                                         <!-- 0 | Administrative -->
+                                                                         <!-- 0 | Cash Deposit -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Numeric Keys -->
+                                                                         <!-- 1 | Alphabetic and special characters keys -->
+                                                                         <!-- 1 | Command keys -->
+                                                                         <!-- 1 | Function keys -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 1 | Print, attendant -->
+                                                                         <!-- 0 | Print, cardholder -->
+                                                                         <!-- 1 | Display, attendant -->
+                                                                         <!-- 0 | Display, cardholder -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | RFU -->
+                                                                         <!-- 0 | Code table 10 -->
+                                                                         <!-- 0 | Code table 9 -->
+                                                                         <!-- 0 | Code table 8 -->
+                                                                         <!-- 0 | Code table 7 -->
+                                                                         <!-- 0 | Code table 6 -->
+                                                                         <!-- 0 | Code table 5 -->
+                                                                         <!-- 0 | Code table 4 -->
+                                                                         <!-- 0 | Code table 3 -->
+                                                                         <!-- 0 | Code table 2 -->
+                                                                         <!-- 1 | Code table 1 -->
+                <node tag="0x9F8142">01</node>                           <!-- Support PSE Selection Method -->
+                <node tag="0x9F8195">00</node>                           <!-- Support Alternative Option to PSE Algorithm -->
+                <node tag="0x9F840A">01</node>                           <!-- Support Bypass PIN Entry -->
+                <node tag="0x9F840B">00</node>                           <!-- Support Online Advice -->
+                <node tag="0x9F840E">01</node>                           <!-- Transaction Forced Online Capability -->
+                <node tag="0x9F840F">01</node>                           <!-- Transaction Forced Acceptance Capability -->
+                <node tag="0x9F841E">00</node>                           <!-- Always Perform Terminal Risk Management -->
+                <node tag="0x9F8431">656E65736672</node>                 <!-- List of Supported Languages -->
+                <node tag="0x9F8440">00</node>                           <!-- Display AIDs in Preferred Order -->
+                <node tag="0x9F8441">01</node>                           <!-- Support Multiple Languages -->
+                <node tag="0x9F8442">01</node>                           <!-- Support Certification Revocation (Not Currently Used) -->
+                <node tag="0x9F8443">01</node>                           <!-- Amount is Known Before CVM Process -->
+                <node tag="0x9F8444">01</node>                           <!-- Support Transaction Log (Not Currently Used) -->
+                <node tag="0x9F8445">01</node>                           <!-- Support Issuer Referral -->
+                <node tag="0x9F8446">00</node>                           <!-- Support Card Referral -->
+                <node tag="0x9F8447">00</node>                           <!-- Support Batch Data Capture (Not Currently Used) -->
+                <node tag="0x9F8448">00</node>                           <!-- Support Online Data Capture -->
+                <node tag="0x9F8449">00</node>                           <!-- Terminal Equipped with External PINPad -->
+                <node tag="0x9F844A">01</node>                           <!-- Amount and PIN Entered on Same Key Pad -->
+                <node tag="0x9F844B">01</node>                           <!-- Support Cardholder Confirmation -->
+                <node tag="0x9F844C">01</node>                           <!-- Support Exception File (Not Currently Used) -->
+                <node tag="0x9F844D">01</node>                           <!-- Support Get Data for PIN Try Counter -->
+                <node tag="0x9F844E">01</node>                           <!-- Support POS Entry Mode -->
+                <node tag="0x9F8450">44454641554C5420434F4E464947</node> <!-- User Defined Name for ICS Parameters -->
+                <node tag="0x9F8452">01</node>                           <!-- Support a Default DDOL -->
+                <node tag="0x9F8453">01</node>                           <!-- Perform Terminal Floor Limit Checking According to Terminal Type -->
+                <node tag="0x9F8454">01</node>                           <!-- Perform Random Transaction Selection According to Terminal Type -->
+                <node tag="0x9F8455">01</node>                           <!-- Perform Velocity Checking According to Terminal Type -->
+                <node tag="0x9f8456">01</node>                           <!-- Support a Default TDOL -->
+                <node tag="0x9F8458">01</node>                           <!-- Perform Offline Data Authentication According to Terminal Type -->
+                <node tag="0x9F8459">00</node>                           <!-- Select Account Type -->
+                <node tag="0x9F845A">01</node>                           <!-- Skip TAC/IAC – Default Processing for Online Only Terminal -->
+                <node tag="0x9F845B">01</node>                           <!-- Skip TAC/IAC – Online Processing for Offline Only Terminal -->
+                <node tag="0x9F845C">01</node>                           <!-- Detect CDA Failure Before Terminal Action Anaylsis -->
+                <node tag="0x9F845D">00</node>                           <!-- Request CDA for ARQC -->
+                <node tag="0x9F845E">00</node>                           <!-- Request CDA for TC in Second GENERATE AC -->
+                <node tag="0x9F8460">01</node>                           <!-- When Selecting to Bypass a PIN Method, all Other PIN Methods are Considered Bypassed -->
+            </node>
+        </node>
+    </node>
+</tlvtree>

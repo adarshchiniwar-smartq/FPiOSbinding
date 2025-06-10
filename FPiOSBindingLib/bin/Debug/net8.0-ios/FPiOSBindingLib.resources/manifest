@@ -1,0 +1,134 @@
+﻿<BindingAssembly>
+	<NativeReference Name="FPAmaKit.xcframework">
+		<ForceLoad>True</ForceLoad>
+		<Frameworks></Frameworks>
+		<IdentityWithoutPathSeparatorSuffix>FPAmaKit.xcframework</IdentityWithoutPathSeparatorSuffix>
+		<IsCxx></IsCxx>
+		<Kind>Framework</Kind>
+		<LinkerFlags></LinkerFlags>
+		<LinkWithSwiftSystemLibraries></LinkWithSwiftSystemLibraries>
+		<NeedsGccExceptionHandling></NeedsGccExceptionHandling>
+		<SmartLink>False</SmartLink>
+		<WeakFrameworks></WeakFrameworks>
+	</NativeReference>
+	<NativeReference Name="FPLoggerKit.xcframework">
+		<ForceLoad>True</ForceLoad>
+		<Frameworks></Frameworks>
+		<IdentityWithoutPathSeparatorSuffix>FPLoggerKit.xcframework</IdentityWithoutPathSeparatorSuffix>
+		<IsCxx></IsCxx>
+		<Kind>Framework</Kind>
+		<LinkerFlags></LinkerFlags>
+		<LinkWithSwiftSystemLibraries></LinkWithSwiftSystemLibraries>
+		<NeedsGccExceptionHandling></NeedsGccExceptionHandling>
+		<SmartLink>False</SmartLink>
+		<WeakFrameworks></WeakFrameworks>
+	</NativeReference>
+	<NativeReference Name="FPPOICore.xcframework">
+		<ForceLoad>True</ForceLoad>
+		<Frameworks></Frameworks>
+		<IdentityWithoutPathSeparatorSuffix>FPPOICore.xcframework</IdentityWithoutPathSeparatorSuffix>
+		<IsCxx></IsCxx>
+		<Kind>Framework</Kind>
+		<LinkerFlags></LinkerFlags>
+		<LinkWithSwiftSystemLibraries></LinkWithSwiftSystemLibraries>
+		<NeedsGccExceptionHandling></NeedsGccExceptionHandling>
+		<SmartLink>False</SmartLink>
+		<WeakFrameworks></WeakFrameworks>
+	</NativeReference>
+	<NativeReference Name="FPRuaKit.xcframework">
+		<ForceLoad>True</ForceLoad>
+		<Frameworks></Frameworks>
+		<IdentityWithoutPathSeparatorSuffix>FPRuaKit.xcframework</IdentityWithoutPathSeparatorSuffix>
+		<IsCxx></IsCxx>
+		<Kind>Framework</Kind>
+		<LinkerFlags></LinkerFlags>
+		<LinkWithSwiftSystemLibraries></LinkWithSwiftSystemLibraries>
+		<NeedsGccExceptionHandling></NeedsGccExceptionHandling>
+		<SmartLink>False</SmartLink>
+		<WeakFrameworks></WeakFrameworks>
+	</NativeReference>
+	<NativeReference Name="FPTetraKit.xcframework">
+		<ForceLoad>True</ForceLoad>
+		<Frameworks></Frameworks>
+		<IdentityWithoutPathSeparatorSuffix>FPTetraKit.xcframework</IdentityWithoutPathSeparatorSuffix>
+		<IsCxx></IsCxx>
+		<Kind>Framework</Kind>
+		<LinkerFlags></LinkerFlags>
+		<LinkWithSwiftSystemLibraries></LinkWithSwiftSystemLibraries>
+		<NeedsGccExceptionHandling></NeedsGccExceptionHandling>
+		<SmartLink>False</SmartLink>
+		<WeakFrameworks></WeakFrameworks>
+	</NativeReference>
+	<NativeReference Name="iFCCCore.xcframework">
+		<ForceLoad>True</ForceLoad>
+		<Frameworks></Frameworks>
+		<IdentityWithoutPathSeparatorSuffix>iFCCCore.xcframework</IdentityWithoutPathSeparatorSuffix>
+		<IsCxx></IsCxx>
+		<Kind>Framework</Kind>
+		<LinkerFlags></LinkerFlags>
+		<LinkWithSwiftSystemLibraries></LinkWithSwiftSystemLibraries>
+		<NeedsGccExceptionHandling></NeedsGccExceptionHandling>
+		<SmartLink>False</SmartLink>
+		<WeakFrameworks></WeakFrameworks>
+	</NativeReference>
+	<NativeReference Name="iFCCKit.xcframework">
+		<ForceLoad>True</ForceLoad>
+		<Frameworks>CoreBluetooth ExternalAccessory</Frameworks>
+		<IdentityWithoutPathSeparatorSuffix>iFCCKit.xcframework</IdentityWithoutPathSeparatorSuffix>
+		<IsCxx></IsCxx>
+		<Kind>Framework</Kind>
+		<LinkerFlags></LinkerFlags>
+		<LinkWithSwiftSystemLibraries></LinkWithSwiftSystemLibraries>
+		<NeedsGccExceptionHandling></NeedsGccExceptionHandling>
+		<SmartLink>False</SmartLink>
+		<WeakFrameworks></WeakFrameworks>
+	</NativeReference>
+	<NativeReference Name="IFCCLayerFrameworks.xcframework">
+		<ForceLoad>True</ForceLoad>
+		<Frameworks>CoreBluetooth ExternalAccessory</Frameworks>
+		<IdentityWithoutPathSeparatorSuffix>IFCCLayerFrameworks.xcframework</IdentityWithoutPathSeparatorSuffix>
+		<IsCxx></IsCxx>
+		<Kind>Framework</Kind>
+		<LinkerFlags></LinkerFlags>
+		<LinkWithSwiftSystemLibraries></LinkWithSwiftSystemLibraries>
+		<NeedsGccExceptionHandling></NeedsGccExceptionHandling>
+		<SmartLink>False</SmartLink>
+		<WeakFrameworks></WeakFrameworks>
+	</NativeReference>
+	<NativeReference Name="iSAF.xcframework">
+		<ForceLoad>True</ForceLoad>
+		<Frameworks></Frameworks>
+		<IdentityWithoutPathSeparatorSuffix>iSAF.xcframework</IdentityWithoutPathSeparatorSuffix>
+		<IsCxx></IsCxx>
+		<Kind>Framework</Kind>
+		<LinkerFlags></LinkerFlags>
+		<LinkWithSwiftSystemLibraries></LinkWithSwiftSystemLibraries>
+		<NeedsGccExceptionHandling></NeedsGccExceptionHandling>
+		<SmartLink>False</SmartLink>
+		<WeakFrameworks></WeakFrameworks>
+	</NativeReference>
+	<NativeReference Name="RUA_MFI.xcframework">
+		<ForceLoad>True</ForceLoad>
+		<Frameworks></Frameworks>
+		<IdentityWithoutPathSeparatorSuffix>RUA_MFI.xcframework</IdentityWithoutPathSeparatorSuffix>
+		<IsCxx></IsCxx>
+		<Kind>Framework</Kind>
+		<LinkerFlags></LinkerFlags>
+		<LinkWithSwiftSystemLibraries></LinkWithSwiftSystemLibraries>
+		<NeedsGccExceptionHandling></NeedsGccExceptionHandling>
+		<SmartLink>False</SmartLink>
+		<WeakFrameworks></WeakFrameworks>
+	</NativeReference>
+	<NativeReference Name="TemLibrary.xcframework">
+		<ForceLoad>True</ForceLoad>
+		<Frameworks></Frameworks>
+		<IdentityWithoutPathSeparatorSuffix>TemLibrary.xcframework</IdentityWithoutPathSeparatorSuffix>
+		<IsCxx></IsCxx>
+		<Kind>Framework</Kind>
+		<LinkerFlags></LinkerFlags>
+		<LinkWithSwiftSystemLibraries></LinkWithSwiftSystemLibraries>
+		<NeedsGccExceptionHandling></NeedsGccExceptionHandling>
+		<SmartLink>False</SmartLink>
+		<WeakFrameworks></WeakFrameworks>
+	</NativeReference>
+</BindingAssembly>

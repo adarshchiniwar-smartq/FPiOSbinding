@@ -1,2 +1,14 @@
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/bin/Debug/net8.0-ios/FPiOSBindingLib.resources.stamp
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/bin/Debug/net8.0-ios/FPiOSBindingLib.dll
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/bin/Debug/net8.0-ios/FPiOSBindingLib.pdb
 /Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/Debug/net8.0-ios/_ProcessedBundleResourcesPath.items
 /Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/Debug/net8.0-ios/_ProcessedContentPath.items
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/Debug/net8.0-ios/FPiOSBindingLib.GeneratedMSBuildEditorConfig.editorconfig
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/Debug/net8.0-ios/FPiOSBindingLib.AssemblyInfoInputs.cache
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/Debug/net8.0-ios/FPiOSBindingLib.AssemblyInfo.cs
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/Debug/net8.0-ios/FPiOSBindingLib.csproj.CoreCompileInputs.cache
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/Debug/net8.0-ios/FPiOSBindingLib.sourcelink.json
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/Debug/net8.0-ios/FPiOSBindingLib.dll
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/Debug/net8.0-ios/refint/FPiOSBindingLib.dll
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/Debug/net8.0-ios/FPiOSBindingLib.pdb
+/Users/Adarsh.Chiniwar/Downloads/ios FP/FPiOSBindingLib/FPiOSBindingLib/obj/Debug/net8.0-ios/ref/FPiOSBindingLib.dll

@@ -2,7 +2,7 @@
   "version": 3,
   "targets": {
     "net8.0-ios18.0": {
-      "Microsoft.NET.ILLink.Tasks/8.0.10": {
+      "Microsoft.NET.ILLink.Tasks/8.0.14": {
         "type": "package",
         "build": {
           "build/Microsoft.NET.ILLink.Tasks.props": {}
@@ -11,10 +11,10 @@
     }
   },
   "libraries": {
-    "Microsoft.NET.ILLink.Tasks/8.0.10": {
-      "sha512": "xT8jYjlroY7SLbGtoV9vUTVW/TPgodL4Egc31a444Xe0TMytLZ3UlKQ0kxMZsy/CrWsFB6wtKnSG1SsXcWreew==",
+    "Microsoft.NET.ILLink.Tasks/8.0.14": {
+      "sha512": "4U2fd7PexNKrK5ZqfqIcXZj9/lRRjFsLgA/pxuFQTuGQuLYP/+7yACz/j7EmWbEj/fspOf4mafi/vHIy/rKDzQ==",
       "type": "package",
-      "path": "microsoft.net.illink.tasks/8.0.10",
+      "path": "microsoft.net.illink.tasks/8.0.14",
       "hasTools": true,
       "files": [
         ".nupkg.metadata",
@@ -28,7 +28,7 @@
         "build/Microsoft.NET.ILLink.Analyzers.props",
         "build/Microsoft.NET.ILLink.Tasks.props",
         "build/Microsoft.NET.ILLink.targets",
-        "microsoft.net.illink.tasks.8.0.10.nupkg.sha512",
+        "microsoft.net.illink.tasks.8.0.14.nupkg.sha512",
         "microsoft.net.illink.tasks.nuspec",
         "tools/net472/ILLink.Tasks.dll",
         "tools/net472/ILLink.Tasks.dll.config",
@@ -65,7 +65,7 @@
   },
   "projectFileDependencyGroups": {
     "net8.0-ios18.0": [
-      "Microsoft.NET.ILLink.Tasks >= 8.0.10"
+      "Microsoft.NET.ILLink.Tasks >= 8.0.14"
     ]
   },
   "packageFolders": {
@@ -89,6 +89,7 @@
       "sources": {
         "/usr/local/share/dotnet/library-packs": {},
         "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.devexpress.com/tvjSJFkDoQ2bEhusb8KZ9rWKI1NHd3TalP2uBBuXOJ6WaJDJGS/api/v3/index.json": {},
         "https://pkgs.dev.azure.com/xamarin/public/_packaging/maui-nativelibraryinterop/nuget/v3/index.json": {}
       },
       "frameworks": {
@@ -110,7 +111,7 @@
           "Microsoft.NET.ILLink.Tasks": {
             "suppressParent": "All",
             "target": "Package",
-            "version": "[8.0.10, )",
+            "version": "[8.0.14, )",
             "autoReferenced": true
           }
         },
@@ -133,7 +134,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.403/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.407/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

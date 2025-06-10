@@ -1,26 +1,55 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 6.0.3 effective-5.10 (swiftlang-6.0.3.1.10 clang-1600.0.30.1)
-// swift-module-flags: -target x86_64-apple-ios15.6-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name IFCCLayerFrameworks
+// swift-module-flags: -target x86_64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -Onone -enable-bare-slash-regex -module-name IFCCLayerFrameworks
 // swift-module-flags-ignorable: -no-verify-emitted-module-interface
 import FPLoggerKit
 import Foundation
 @_exported import IFCCLayerFrameworks
 import Swift
-import UIKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
 import iFCCKit
-@_inheritsConvenienceInitializers @objc(DotnetNewBinding) public class DotnetNewBinding : ObjectiveC.NSObject, iFCCKit.iFCCInitializationDelegate, iFCCKit.AttachDeviceDelegate, iFCCKit.iFCCLaneDelegate, iFCCKit.LaneStatusDelegate {
-  @objc public func onLaneOpened(device: any iFCCKit.iFCCCardReaderDevice)
-  @objc public func onLaneClosed(laneId: Swift.String)
+@objc @_inheritsConvenienceInitializers public class AttachDeviceDelegateImplementation : ObjectiveC.NSObject, iFCCKit.AttachDeviceDelegate {
+  @objc public func onDeviceAttached(device: any iFCCKit.iFCCCardReaderDevice)
+  @objc public func onAttachDeviceError(deviceOptions: any iFCCKit.iFCCCardReaderDeviceOptions, error: any Swift.Error)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class DeviceDetachedImplementation : ObjectiveC.NSObject, iFCCKit.DetachDeviceDelegate {
+  @objc public func onDeviceDetached(laneId: Swift.String)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc(FreedomPayiOSLib) public class FreedomPayiOSLib : ObjectiveC.NSObject, iFCCKit.iFCCInitializationDelegate {
+  @objc public func initializationCompleted()
+  @objc public func initializationFailed(error: any Swift.Error)
+  @objc public func deinitializationCompleted()
+  @objc public static func getString(myString: Swift.String) -> Swift.String
+  @objc public static func InitializeFCC() -> Swift.Bool
+  @objc public static func deInitializeFCC() -> Swift.Bool
+  @objc public static func AttachDevice() -> Swift.Bool
+  @objc public static func DetachDevice() -> Swift.Bool
+  @objc public static func OpenLane() -> Swift.Bool
+  public static func registerLaneDelegate()
+  @objc public static func InitiateSale()
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class IFCCInitializationDelegateImplamentation : iFCCKit.iFCCInitializationDelegate {
+  @objc public func initializationCompleted()
+  @objc public func initializationFailed(error: any Swift.Error)
+  @objc public func deinitializationCompleted()
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class IFCCLaneDelegateImplementation : iFCCKit.iFCCLaneDelegate {
   @objc public func operationProgressUpdate(forOperationIdentifier operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String, progressType: iFCCKit.OperationProgressType)
   @objc public func operationApproved(response: any iFCCKit.POSResponse, operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String)
   @objc public func operationDeclined(response: any iFCCKit.POSResponse, operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String)
   @objc public func operationFailed(forOperationIdentifier operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String, error: any Swift.Error)
   @objc public func operationCompleted(forOperationIdentifier operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String)
-  @objc public func deviceReconnecting(lane: Swift.String)
   @objc public func deviceError(lane: Swift.String, error: any Swift.Error)
+  @objc public func deviceReconnecting(lane: Swift.String)
   @objc public func deviceDisconnected(lane: Swift.String)
   @objc public func deviceDisconnectedWhileBackgrounding(lane: Swift.String)
   @objc public func deviceConnected(lane: Swift.String)
@@ -35,13 +64,11 @@ import iFCCKit
   @objc public func firmwareUpdateCanceled(inLane lane: Swift.String)
   @objc public func cardReadOperationResult(response: any iFCCKit.CardReadResponse, operationIdentifier: any iFCCKit.iFCCOperationIdentifier, inLane lane: Swift.String)
   @objc public func laneDelegateReleasing(lane: Swift.String)
-  @objc public func onDeviceAttached(device: any iFCCKit.iFCCCardReaderDevice)
-  @objc public func onAttachDeviceError(deviceOptions: any iFCCKit.iFCCCardReaderDeviceOptions, error: any Swift.Error)
-  @objc public func initializationCompleted()
-  @objc public func initializationFailed(error: any Swift.Error)
-  @objc public func deinitializationCompleted()
-  @objc public static func getString(myString: Swift.String) -> Swift.String
-  @objc public static func InitializeLogger(port: Swift.Int, ipAddress: Swift.String)
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class LaneStatusDelegateImplementation : ObjectiveC.NSObject, iFCCKit.LaneStatusDelegate {
+  @objc public func onLaneOpened(device: any iFCCKit.iFCCCardReaderDevice)
+  @objc public func onLaneClosed(laneId: Swift.String)
   @objc override dynamic public init()
   @objc deinit
 }

@@ -1,0 +1,11 @@
+framework module FPRuaKit {
+  umbrella header "FPRuaKit.h"
+  export *
+
+  module * { export * }
+}
+
+module FPRuaKit.Swift {
+  header "FPRuaKit-Swift.h"
+  requires objc
+}

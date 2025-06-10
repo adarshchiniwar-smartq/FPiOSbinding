@@ -22,6 +22,7 @@
         "sources": {
           "/usr/local/share/dotnet/library-packs": {},
           "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/tvjSJFkDoQ2bEhusb8KZ9rWKI1NHd3TalP2uBBuXOJ6WaJDJGS/api/v3/index.json": {},
           "https://pkgs.dev.azure.com/xamarin/public/_packaging/maui-nativelibraryinterop/nuget/v3/index.json": {}
         },
         "frameworks": {
@@ -43,7 +44,7 @@
             "Microsoft.NET.ILLink.Tasks": {
               "suppressParent": "All",
               "target": "Package",
-              "version": "[8.0.10, )",
+              "version": "[8.0.14, )",
               "autoReferenced": true
             }
           },
@@ -66,7 +67,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.403/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.407/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

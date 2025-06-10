@@ -1,0 +1,2282 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target arm64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name iFCCCore
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import Darwin
+import FPLoggerKit
+import Foundation
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_exported import iFCCCore
+public protocol VoidService : iFCCCore.FreeWayService {
+  var voidServiceData: iFCCCore.VoidServiceData { get }
+}
+public struct FCCMetaData : Swift.Equatable, Swift.Codable {
+  public let quickServeFloorLimit: Swift.Int
+  public let transactionTimeoutInSeconds: Swift.Int
+  public init(quickServeFloorLimit: Swift.Int, transactionTimeoutInSeconds: Swift.Int)
+  public static func == (a: iFCCCore.FCCMetaData, b: iFCCCore.FCCMetaData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct ReceiptDataXmlConstants {
+  public static let receiptMessages: Swift.String
+  public static let receiptMessage: Swift.String
+  public static let pan: Swift.String
+}
+public struct ReceiptInformation : Swift.Equatable, Swift.Codable, Swift.CustomDebugStringConvertible {
+  public var pan: Swift.String {
+    get
+  }
+  public var receiptMessages: [Swift.String] {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+  public static func == (a: iFCCCore.ReceiptInformation, b: iFCCCore.ReceiptInformation) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public protocol FollowupService {
+  var followupServiceData: iFCCCore.FollowupServiceData { get }
+}
+public struct PaymentAmounts : Swift.Equatable {
+  public var totalAmountInCents: Swift.Int {
+    get
+  }
+  public var currency: iFCCCore.CurrencyItem
+  public var tipAmountInCents: Swift.Int? {
+    get
+  }
+  public var taxAmountInCents: Swift.Int? {
+    get
+  }
+  public var cashbackAmountInCents: Swift.Int? {
+    get
+  }
+  public var baseAmount: Foundation.Decimal? {
+    get
+  }
+  public var tipAmount: Foundation.Decimal? {
+    get
+  }
+  public var taxAmount: Foundation.Decimal? {
+    get
+  }
+  public init(purchaseTotalsData: iFCCCore.PurchaseTotalsData)
+  public init(currency: iFCCCore.CurrencyItem, baseAmountInCents: Swift.Int? = nil, tipAmountInCents: Swift.Int? = nil, taxAmountInCents: Swift.Int? = nil, cashbackAmountInCents: Swift.Int? = nil)
+  public static func == (a: iFCCCore.PaymentAmounts, b: iFCCCore.PaymentAmounts) -> Swift.Bool
+}
+public enum TransactionType : Swift.Int, Swift.CustomStringConvertible {
+  case other
+  case freeWayOperation
+  case giftCardActivate
+  case giftCardDeactivate
+  case giftCardInquiry
+  case giftCardIssue
+  case giftCardCashout
+  case giftCardReload
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum OfflineMessage : Swift.CustomStringConvertible, Swift.Equatable {
+  case neverOnline
+  case maxOfflineTransactions
+  case maxDaysOffline
+  case unsupportedCardType(cardType: iFCCCore.CardType)
+  case cardExpired
+  case pinDataNotSupported
+  case dccNotSupported
+  case floorLimitExceeded
+  case approved
+  case other
+  case requestNotVoidable
+  case zeroAmountAuth
+  public var message: Swift.String {
+    get
+  }
+  public var shouldSaveOffline: Swift.Bool {
+    get
+  }
+  public var decision: Swift.String {
+    get
+  }
+  public var reasonCode: Swift.String {
+    get
+  }
+  public var serviceElementProcessorResponseMessage: Swift.String {
+    get
+  }
+  public var serviceElementProcessorReasonCode: Swift.String {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: iFCCCore.OfflineMessage, b: iFCCCore.OfflineMessage) -> Swift.Bool
+}
+public class ClientMetaData : Swift.Equatable, Swift.Codable, iFCCCore.XmlData {
+  public var rootElementName: Swift.String
+  final public let _clientApplication: Swift.String
+  final public let _clientApplicationUser: Swift.String
+  final public let _clientApplicationVersion: Swift.String
+  final public let _clientEnvironment: Swift.String
+  final public let sellingSystemName: Swift.String?
+  final public let sellingSystemVersion: Swift.String?
+  final public let sellingMiddlewareName: Swift.String?
+  final public let sellingMiddlewareVersion: Swift.String?
+  final public let workstationId: Swift.String?
+  final public let applicationUser: Swift.String?
+  final public let environment: Swift.String?
+  final public let library: Swift.String?
+  final public let libraryVersion: Swift.String?
+  final public let securityLibrary: Swift.String?
+  final public let securityLibraryVersion: Swift.String?
+  final public let testRun: Swift.String?
+  final public let testCase: Swift.String?
+  public var poiDeviceIdentifier: Swift.String?
+  public init(clientApplication: Swift.String, clientApplicationUser: Swift.String, clientApplicationVersion: Swift.String, clientEnvironment: Swift.String, sellingSystemName: Swift.String, sellingSystemVersion: Swift.String, sellingMiddlewareName: Swift.String, sellingMiddlewareVersion: Swift.String, workstationId: Swift.String? = nil, applicationUser: Swift.String? = nil, environment: Swift.String? = nil, library: Swift.String? = nil, libraryVersion: Swift.String? = nil, securityLibrary: Swift.String? = nil, securityLibraryVersion: Swift.String? = nil, testRun: Swift.String? = nil, testCase: Swift.String? = nil, poiDeviceIdentifier: Swift.String? = nil)
+  public static func == (lhs: iFCCCore.ClientMetaData, rhs: iFCCCore.ClientMetaData) -> Swift.Bool
+  required public init(from decoder: any Swift.Decoder) throws
+  public static var empty: iFCCCore.ClientMetaData {
+    get
+  }
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+public enum FollowOnResultType {
+  case localExecutor
+  case remoteExecutor
+  public static func == (a: iFCCCore.FollowOnResultType, b: iFCCCore.FollowOnResultType) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct FollowOnResult : Swift.Equatable {
+  public let parentRequestId: Swift.String
+  public let resultType: iFCCCore.FollowOnResultType
+  public init(parentRequestId: Swift.String, resultType: iFCCCore.FollowOnResultType)
+  public static func == (a: iFCCCore.FollowOnResult, b: iFCCCore.FollowOnResult) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers public class ShipFromData : iFCCCore.ContactInfoData {
+  override public var debugDescription: Swift.String {
+    get
+  }
+  override public init(contactInformation: any iFCCCore.ContactInformation)
+  override public init(company: Swift.String? = nil, title: Swift.String? = nil, firstName: Swift.String? = nil, middleName: Swift.String? = nil, lastName: Swift.String? = nil, suffix: Swift.String? = nil, street1: Swift.String? = nil, street2: Swift.String? = nil, street3: Swift.String? = nil, street4: Swift.String? = nil, city: Swift.String? = nil, state: Swift.String? = nil, postalCode: Swift.String? = nil, country: Swift.String? = nil, phoneNumber: Swift.String? = nil, faxNumber: Swift.String? = nil, email: Swift.String? = nil)
+  required public init(from decoder: any Swift.Decoder) throws
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class ResponseBundle {
+  final public let res: iFCCCore.TransactionResponse?
+  final public let errorType: iFCCCore.FreewayErrorType?
+  convenience public init(res: iFCCCore.TransactionResponse)
+  convenience public init(errorType: iFCCCore.FreewayErrorType)
+  public static func createFailureBundle(res: iFCCCore.TransactionResponse) -> iFCCCore.ResponseBundle
+  public var isFailureBundle: Swift.Bool {
+    get
+  }
+  @objc deinit
+}
+public struct InvoiceHeaderData : Swift.Equatable, Swift.Codable {
+  public let invoiceNumber: Swift.String?
+  public let invoiceDate: Foundation.Date?
+  public let customerPO: Swift.String?
+  public let purchaserOrderDate: Foundation.Date?
+  public let goodsIndicator: Swift.String?
+  public let businessDate: Foundation.Date?
+  public let purchaserCode: Swift.String?
+  public init(invoiceNumber: Swift.String? = nil, invoiceDate: Foundation.Date? = nil, customerPO: Swift.String? = nil, purchaserOrderDate: Foundation.Date? = nil, goodsIndicator: Swift.String? = nil, businessDate: Foundation.Date? = nil, purchaserCode: Swift.String? = nil)
+  public var debugDescription: Swift.String {
+    get
+  }
+  public static func == (a: iFCCCore.InvoiceHeaderData, b: iFCCCore.InvoiceHeaderData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum POSEntryMode : Swift.String, Swift.Codable, Swift.CustomStringConvertible {
+  case none
+  case icc
+  case swiped
+  case rfid
+  case ricc
+  case keyed
+  case scanned
+  public func receiptText(_ cardIssuer: Swift.String) -> Swift.String
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum POSFallbackReason : Swift.String, Swift.Codable {
+  case technical
+  case brand
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum MSRType : Swift.String, Swift.Codable, Swift.CustomStringConvertible {
+  case ingenico
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct POSDataConstants {
+  public static let onguardEncryptionMode: Swift.String
+}
+public struct POSData : iFCCCore.PaymentMethodData, Swift.Equatable, Swift.Codable {
+  public let ksn: Swift.String?
+  public let track1e: Swift.String?
+  public let track2e: Swift.String?
+  public let encryptionMode: Swift.String?
+  public let msrType: Swift.String?
+  public let chipData: iFCCCore.SecretString?
+  public let registerNumber: Swift.String?
+  public let entryMode: iFCCCore.POSEntryMode?
+  public let cardPresent: Swift.Bool?
+  public let fallbackReason: iFCCCore.POSFallbackReason?
+  public let nameOnCard: Swift.String?
+  public let cardType: iFCCCore.CardType
+  public let pinKSN: Swift.String?
+  public let pinBlock: Swift.String?
+  public let track2: Swift.String?
+  public let track1: Swift.String?
+  public let paymentDate: Swift.String?
+  public let accountType: Swift.String?
+  public let expirationMonth: Swift.String?
+  public let expirationYear: Swift.String?
+  public init(cardPresent: Swift.Bool?, ksn: Swift.String?, track1e: Swift.String?, track2e: Swift.String?, encryptionMode: Swift.String?, chipData: Swift.String?, registerNumber: Swift.String?, entryMode: iFCCCore.POSEntryMode?, msrType: Swift.String?, fallbackReason: iFCCCore.POSFallbackReason?, nameOnCard: Swift.String?, cardType: iFCCCore.CardType = .none, pinKSN: Swift.String?, pinBlock: Swift.String?, paymentDate: Swift.String? = nil, accountType: Swift.String? = nil, expirationMonth: Swift.String? = nil, expirationYear: Swift.String? = nil)
+  public init(cardPresent: Swift.Bool?, track1: Swift.String?, track2: Swift.String?, registerNumber: Swift.String?, entryMode: iFCCCore.POSEntryMode?, msrType: Swift.String?, fallbackReason: iFCCCore.POSFallbackReason?, nameOnCard: Swift.String?, cardType: iFCCCore.CardType = .none, pinKSN: Swift.String?, pinBlock: Swift.String?, paymentDate: Swift.String? = nil, accountType: Swift.String? = nil, expirationMonth: Swift.String? = nil, expirationYear: Swift.String? = nil)
+  public init(cardPresent: Swift.Bool)
+  public init(cardPresent: Swift.Bool, chipData: Swift.String)
+  public init(cardPresent: Swift.Bool, chipData: iFCCCore.SecretString)
+  public init(cardPresent: Swift.Bool, registerNumber: Swift.String)
+  public init(from decoder: any Swift.Decoder) throws
+  public var isEMVEntryMode: Swift.Bool {
+    get
+  }
+  public var hasPINData: Swift.Bool {
+    get
+  }
+  public func copyWithModifiedChipData(chipData: Swift.String) -> iFCCCore.POSData
+  public static func == (a: iFCCCore.POSData, b: iFCCCore.POSData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+@_hasMissingDesignatedInitializers public class FreeWayRequestJSONSerializer {
+  public static func decodeRequest(data: Foundation.Data, requestType: iFCCCore.FreeWayRequestType) throws -> iFCCCore.FreeWayRequestData?
+  public static func encodeRequest(freeWayRequestData: iFCCCore.FreeWayRequestData) throws -> Foundation.Data?
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class GiftCardCreditServiceRequest : iFCCCore.FreeWayRequestData, iFCCCore.CreditService {
+  final public let creditServiceData: iFCCCore.CreditServiceData
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension iFCCCore.GiftCardCreditServiceRequest : Swift.Equatable {
+  public static func == (lhs: iFCCCore.GiftCardCreditServiceRequest, rhs: iFCCCore.GiftCardCreditServiceRequest) -> Swift.Bool
+}
+public class TaxDetailItemData : Swift.Codable {
+  final public let type: Swift.String?
+  final public let amount: Swift.String?
+  public init(type: Swift.String, amount: Swift.String)
+  required public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+public class PurchaseTotalsData : iFCCCore.PurchaseTotalRequest, Swift.Equatable, Swift.Codable {
+  public var hasInitialAmount: Swift.Bool {
+    get
+  }
+  public var totalAmount: iFCCCore.AmountItem {
+    get
+  }
+  public var tipAmount: iFCCCore.AmountItem? {
+    get
+  }
+  final public let initialAmount: iFCCCore.AmountItem?
+  final public let taxAmount: iFCCCore.AmountItem?
+  final public let cashbackAmount: iFCCCore.AmountItem?
+  final public let currencyItem: iFCCCore.CurrencyItem
+  final public let discountAmount: iFCCCore.AmountItem?
+  final public let taxDetails: [iFCCCore.TaxDetailItemData]?
+  public var formattedPurchaseTotal: Swift.String {
+    get
+  }
+  public var actualPurchaseTotal: Swift.String {
+    get
+  }
+  public var purchaseTotal: Foundation.Decimal {
+    get
+  }
+  public var purchaseTotalInCents: Swift.Int {
+    get
+  }
+  public var otherAmountInCents: Swift.Int {
+    get
+  }
+  public var currencyCode: Swift.String {
+    get
+  }
+  public var currency: iFCCCore.CurrencyItem {
+    get
+  }
+  public init(amountData: (any iFCCCore.AmountData)?, currencyItem: iFCCCore.CurrencyItem)
+  public init(decimal: Foundation.Decimal, currencyItem: iFCCCore.CurrencyItem)
+  public init(decimal: Foundation.Decimal, taxAmount: Foundation.Decimal, discountAmount: Foundation.Decimal, taxDetails: Swift.Array<iFCCCore.TaxDetailItemData>?, currencyItem: iFCCCore.CurrencyItem)
+  required public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+  public func addTipAmount(_ amountInCents: Swift.UInt)
+  public func addTipPercentage(_ percentage: Swift.UInt)
+  public func addTipAmount(_ decimal: Foundation.Decimal)
+  public static func == (lhs: iFCCCore.PurchaseTotalsData, rhs: iFCCCore.PurchaseTotalsData) -> Swift.Bool
+  @objc deinit
+}
+public enum AuthorizationType : Swift.String, Swift.Codable {
+  case authorization
+  case adjustment
+  case verbal
+  case forced
+  case link
+  case reauth
+  case offline
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public enum AuthorizationServiceTransactionType : Swift.String, Swift.Codable, Swift.CustomStringConvertible {
+  case Purchase
+  case Verify
+  case Inquiry
+  case Deactivate
+  case Cashout
+  case Unfreeze
+  case Unlock
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public class AuthorizationServiceData : iFCCCore.ServiceData, Swift.Equatable {
+  final public let allowPartial: Swift.Bool?
+  final public let enableAVS: Swift.Bool?
+  final public let verbalAuthCode: Swift.String?
+  final public let origAuthAmount: Foundation.NSDecimalNumber?
+  final public let returnBalance: Swift.Bool?
+  final public let commerceIndicator: Swift.String?
+  final public let isRecurring: Swift.Bool?
+  final public let installmentCount: Foundation.NSNumber?
+  final public let installmentNumber: Foundation.NSNumber?
+  final public let industryDataType: Swift.String?
+  final public let authType: iFCCCore.AuthorizationType
+  final public let transactionType: iFCCCore.AuthorizationServiceTransactionType?
+  public init(transactionType: iFCCCore.AuthorizationServiceTransactionType, returnBalance: Swift.Bool? = true)
+  public init(authType: iFCCCore.AuthorizationType, transactionType: iFCCCore.AuthorizationServiceTransactionType? = nil, offline: Swift.Bool? = nil, allowPartial: Swift.Bool? = nil, enableAVS: Swift.Bool? = nil, returnBalance: Swift.Bool? = nil, verbalAuthCode: Swift.String? = nil, origAuthAmount: Foundation.NSDecimalNumber? = nil, commerceIndicator: Swift.String? = nil, isRecurring: Swift.Bool? = nil, installmentCount: Foundation.NSNumber? = nil, installmentNumber: Foundation.NSNumber? = nil, industryDataType: Swift.String? = nil)
+  required public init(from decoder: any Swift.Decoder) throws
+  public func goOffline()
+  public func setScaUpgrade()
+  public func encode(to encoder: any Swift.Encoder) throws
+  public static func == (lhs: iFCCCore.AuthorizationServiceData, rhs: iFCCCore.AuthorizationServiceData) -> Swift.Bool
+  @objc deinit
+}
+public protocol ServiceData : Swift.Decodable, Swift.Encodable {
+  var run: Swift.Bool { get }
+}
+extension iFCCCore.ServiceData {
+  public var run: Swift.Bool {
+    get
+  }
+}
+public protocol RemoteOperationIdentifier : Swift.CustomStringConvertible {
+  var value: Swift.String { get }
+  func isEqualTo(_ other: any iFCCCore.RemoteOperationIdentifier) -> Swift.Bool
+  func hashVal(into hasher: inout Swift.Hasher)
+  func asHashable() -> iFCCCore.AnyRemoteOperationIdentifier
+}
+extension iFCCCore.RemoteOperationIdentifier where Self : Swift.Hashable {
+  public func isEqualTo(_ other: any iFCCCore.RemoteOperationIdentifier) -> Swift.Bool
+  public func hashVal(into hasher: inout Swift.Hasher)
+  public func asHashable() -> iFCCCore.AnyRemoteOperationIdentifier
+}
+public typealias TransactionRequest = iFCCCore.FreeWayRequestData
+public class HotelDataData : Swift.Codable, Swift.Equatable {
+  public static func == (lhs: iFCCCore.HotelDataData, rhs: iFCCCore.HotelDataData) -> Swift.Bool
+  public init(expectedDuration: Swift.Int?, folioNumber: Swift.String, noShow: Swift.Bool?, checkinDate: Foundation.Date?, checkoutDate: Foundation.Date?, extraChargeTypes: Swift.String?, roomRate: Foundation.NSDecimalNumber?, roomTax: Foundation.NSDecimalNumber?, extraChargeTotal: Foundation.NSDecimalNumber?, renterName: Swift.String?)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+public protocol BillToRequest : Swift.Decodable, Swift.Encodable {
+  var billToData: iFCCCore.BillToData? { get }
+}
+public struct AmountItem : Swift.Equatable, Swift.Codable {
+  public var formattedAmount: Swift.String {
+    get
+  }
+  public var amountInCents: Swift.Int {
+    get
+  }
+  public var roundedAmount: Swift.Double {
+    get
+  }
+  public let amount: Foundation.Decimal
+  public init(amount: Foundation.Decimal, scale: Swift.Int = 2)
+  public init(amountInCents: Swift.Int, scale: Swift.Int = 2)
+  public static var zero: iFCCCore.AmountItem {
+    get
+  }
+  public static func == (a: iFCCCore.AmountItem, b: iFCCCore.AmountItem) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension Foundation.ProcessInfo {
+  public var isRunningTests: Swift.Bool {
+    get
+  }
+}
+@objc public enum FPCoreEMVTag : Swift.UInt32, Swift.CustomStringConvertible, Swift.CustomDebugStringConvertible, Swift.CaseIterable {
+  case unknown = 0x00
+  case issuerIdentificationNumber = 0x42
+  case applicationIdentifier = 0x4F
+  case applicationLabel = 0x50
+  case track1EquivalentData = 0x56
+  case track2EquivalentData = 0x57
+  case track3EquivalentData = 0x58
+  case pan = 0x5A
+  case issuerScriptTemplate1 = 0x71
+  case issuerScriptTemplate2 = 0x72
+  case applicationInterchangeProfile = 0x82
+  case dedicatedFileName = 0x84
+  case applicationPriorityIndicator = 0x87
+  case authorizationCode = 0x89
+  case authorizationResponseCode = 0x8A
+  case cvmList = 0x8E
+  case issuerAuthenticationData = 0x91
+  case applicationFileLocator = 0x94
+  case terminalVerificationResults = 0x95
+  case transactionDate = 0x9A
+  case transactionStatusInformation = 0x9B
+  case transactionType = 0x9C
+  case cardHolderName = 0x5F20
+  case expiryDate = 0x5F24
+  case applicationEffectiveDate = 0x5F25
+  case issuerCountryCode = 0x5F28
+  case transactionCurrencyCode = 0x5F2A
+  case preferredLanguages = 0x5F2D
+  case serviceCode = 0x5F30
+  case panSequenceNumber = 0x5F34
+  case transactionCurrencyExponent = 0x5F36
+  case bic = 0x5F54
+  case issuerCountryCode2 = 0x5F55
+  case issuerCountryCode3 = 0x5F56
+  case amountAuthorized = 0x9F02
+  case amountOther = 0x9F03
+  case terminalApplicationIdentifier = 0x9F06
+  case applicationUsageControl = 0x9F07
+  case applicationVersionNumberICC = 0x9F08
+  case applicationVersionNumberTerminal = 0x9F09
+  case cardholderNameExtended = 0x9F0B
+  case issuerActionCodeDefault = 0x9F0D
+  case issuerActionCodeDenial = 0x9F0E
+  case issuerActionCodeOnline = 0x9F0F
+  case issuerApplicationData = 0x9F10
+  case issuerCodeTableIndex = 0x9F11
+  case applicationPreferredName = 0x9F12
+  case lowerConsecutiveOfflineLimit = 0x9F14
+  case pinTryCount = 0x9F17
+  case terminalCountryCode = 0x9F1A
+  case terminalFloorLimit = 0x9F1B
+  case interfaceDeviceSerialNumber = 0x9F1E
+  case track1DiscretionaryData = 0x9F1F
+  case track2DiscretionaryData = 0x9F20
+  case transactionTime = 0x9F21
+  case paymentAccountReference = 0x9F24
+  case applicationCryptogram = 0x9F26
+  case cryptogramInformationData = 0x9F27
+  case terminalCapabilities = 0x9F33
+  case cvmResults = 0x9F34
+  case terminalType = 0x9F35
+  case applicationTransactionCounter = 0x9F36
+  case unpredictableNumber = 0x9F37
+  case posEntryMode = 0x9F39
+  case additionalTerminalCapabilities = 0x9F40
+  case transactionSequenceCounter = 0x9F41
+  case applicationCurrencyCode = 0x9F42
+  case applicationCurrencyExponent = 0x9F44
+  case applicationCurrencyCodeDRDO = 0x9F51
+  case transactionCategoryCode1Visa = 0x9F53
+  case transactionCategoryCode2Visa = 0x9F5B
+  case availableOfflineSpendingAmount = 0x9F5D
+  case terminalTransactionQualifiers = 0x9F66
+  case track2NATCorMSDOffset = 0x9F67
+  case track2DataMastercardOrCardCVMLimitOrTrack2DataBinary = 0x9F6B
+  case cardTransactionQualifiers = 0x9F6C
+  case emvProprietaryTag = 0x9F6D
+  case thirdPartyData = 0x9F6E
+  case protectedDataEnvelope2MobileCVMResults = 0x9F71
+  case customerExclusiveDataMerchantCustomData = 0x9F7C
+  case terminalActionCodeDefault = 0xDF03
+  case terminalActionCodeDenial = 0xDF04
+  case terminalActionCodeOnline = 0xDF05
+  case thresholdValue = 0xDF07
+  case targetPercentage = 0xDF08
+  case maxTargetPercentage = 0xDF09
+  case wrapperforIssuerScriptTagWithIncorrectLength = 0xDF0C
+  case issuerScriptResults = 0xDF11
+  case authorizationResponseCodeList = 0xDF16
+  case terminalDecisionafterGenerateAC = 0xDF31
+  case cvmoutResult = 0xDF38
+  case onlinePINBlock = 0xDF4F
+  case onlinePINSMID = 0xDF4E
+  case amexExpresspayPseudoTrack2 = 0xDF46
+  case discoverDpasPseudoTrack2 = 0xDF57
+  case payPassTransactionOutcome = 0xDF6D
+  case outcomeParameterSet = 0xDF8129
+  case transactionPINData = 0x99
+  case accountType = 0x1000
+  case pinEntryRequired = 0x1001
+  case signatureRequired = 0x1002
+  case confirmationResponseCode = 0x1003
+  case hostResponseAvailable = 0x1004
+  case transactionType2 = 0x1005
+  case authorizationResponseMAC = 0x1007
+  case authorizationResponseTerminalSerialNumber = 0x1008
+  case authorizationResponseBase24ResponseCode = 0x1009
+  case authorizationResponseApprovalCode = 0x100A
+  case authorizationResponseRetrievalCode = 0x100B
+  case authorizationResponseMACSessionKey = 0x100C
+  case authorizationResponsePINSessionKey = 0x100D
+  case selectedTransactionLanguge = 0x100E
+  case offlinePINEntrySuccess = 0x100F
+  case errorResponseCode = 0x1010
+  case specialCaseAuthorization = 0x1011
+  case contactlessTransactionOutcome = 0x1012
+  case contactlessProfileUsed = 0x1013
+  case cardPaymentType = 0x1014
+  case suncor = 0x1015
+  case commonAIDFlagUS = 0x1016
+  case msrTrack1 = 0x1017
+  case msrTrack2 = 0x1018
+  case msrTrack3 = 0x1019
+  case msrFallback = 0x101A
+  case contactlessOnlinePINCVM = 0x101B
+  case contactlessNoCVM = 0x101C
+  case contactlessMobilePINCVMPerformed = 0x101D
+  case contactlessMobileCVMResults = 0x101E
+  case merchantCouponData = 0x1020
+  case cardPaymentType2 = 0x9000
+  case cardEntryMode = 0x9001
+  case maskedPAN = 0xFF1D
+  case track1e = 0xFF1E
+  case track2e = 0xFF1F
+  case etb = 0xFF20
+  case track3e = 0xFF21
+  public var tagId: Swift.Int {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+  public var hex: Swift.String {
+    get
+  }
+  public var hexPrefixed: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.UInt32)
+  public typealias AllCases = [iFCCCore.FPCoreEMVTag]
+  public typealias RawValue = Swift.UInt32
+  public static var allCases: [iFCCCore.FPCoreEMVTag] {
+    get
+  }
+  public var rawValue: Swift.UInt32 {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class ExtendedFreeWayRequest : iFCCCore.FreeWayRequestData, iFCCCore.BillToRequest, iFCCCore.ShipToRequest, iFCCCore.ShipFromRequest, iFCCCore.LineItemsRequest, iFCCCore.HotelDataRequest {
+  final public let billToData: iFCCCore.BillToData?
+  final public let shipToData: iFCCCore.ShipToData?
+  final public let shipFromData: iFCCCore.ShipFromData?
+  final public let lineItemsData: iFCCCore.LineItemsData?
+  final public let hotelDataData: iFCCCore.HotelDataData?
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, requestId: Swift.String?, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, paymentMethodData: (any iFCCCore.PaymentMethodData)?, purchaseTotalsData: iFCCCore.PurchaseTotalsData?, tokenCreateServiceData: iFCCCore.TokenCreateServiceData?, clerkId: Swift.String, billToData: iFCCCore.BillToData?, shipToData: iFCCCore.ShipToData?, shipFromData: iFCCCore.ShipFromData?, lineItemsData: iFCCCore.LineItemsData?, hotelDataData: iFCCCore.HotelDataData?, networkData: iFCCCore.NetworkData?)
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class FreeWayRequestPropertyListSerializer {
+  public static func decodeRequest(data: Foundation.Data, requestType: iFCCCore.FreeWayRequestType) throws -> iFCCCore.FreeWayRequestData?
+  public static func encodeRequest(freeWayRequestData: iFCCCore.FreeWayRequestData) throws -> Foundation.Data?
+  @objc deinit
+}
+public protocol ShipToRequest : Swift.Decodable, Swift.Encodable {
+  var shipToData: iFCCCore.ShipToData? { get }
+}
+public protocol BaseRequestBundle {
+  var posSyncId: any iFCCCore.RemoteOperationIdentifier { get }
+  var posSyncAttemptNumber: Swift.Int16 { get }
+}
+public class TransactionResponse : Swift.CustomStringConvertible {
+  final public let response: iFCCCore.FreeWayResponsePayload
+  final public let isOffline: Swift.Bool
+  final public let offlineMessage: iFCCCore.OfflineMessage?
+  public var safData: iFCCCore.SafStorageData?
+  public var posStored: Swift.Bool
+  public var decision: Swift.String {
+    get
+    set
+  }
+  public var requestId: Swift.String {
+    get
+    set
+  }
+  public var isOfflineAccepted: Swift.Bool {
+    get
+    set
+  }
+  public var message: Swift.String {
+    get
+    set
+  }
+  public init(response: iFCCCore.FreeWayResponsePayload, isOffline: Swift.Bool, offlineMessage: iFCCCore.OfflineMessage? = nil)
+  public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public struct CCFollowupReplyXmlConstants {
+  public static let parentElement: Swift.String
+  public static let processorResponseCode: Swift.String
+  public static let processorResponseMessage: Swift.String
+}
+@_hasMissingDesignatedInitializers public class CCFollowupReply : Swift.Equatable, Swift.Codable {
+  public var processorResponseCode: Swift.String {
+    get
+  }
+  public var processorResponseMessage: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+  public static func == (lhs: iFCCCore.CCFollowupReply, rhs: iFCCCore.CCFollowupReply) -> Swift.Bool
+  public static func offlineReply(processorResponseCode: Swift.String, processorResponseMessage: Swift.String) -> iFCCCore.CCFollowupReply
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+public protocol TaxDetailEntry {
+  var type: Swift.String { get }
+  var amount: Foundation.NSNumber { get }
+}
+public protocol AmountData {
+  var total: Foundation.NSDecimalNumber { get }
+  var tip: Foundation.NSDecimalNumber? { get }
+  var taxTotal: Foundation.NSDecimalNumber? { get }
+  var discountTotal: Foundation.NSDecimalNumber? { get }
+  var taxDetails: [any iFCCCore.TaxDetailEntry]? { get }
+}
+public protocol PaymentMethodData {
+  var cardType: iFCCCore.CardType { get }
+}
+public protocol FreeWayService {
+}
+public protocol ShipFromRequest : Swift.Decodable, Swift.Encodable {
+  var shipFromData: iFCCCore.ShipFromData? { get }
+}
+@_hasMissingDesignatedInitializers public class DccRequest : iFCCCore.FreeWayRequestData, iFCCCore.DccService {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  final public let dccServiceData: iFCCCore.DccServiceData
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, clientMetaData: iFCCCore.ClientMetaData, bin: Swift.String, amount: Foundation.Decimal, encryptedTrack2: Swift.String?)
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension iFCCCore.DccRequest : Swift.Equatable {
+  public static func == (lhs: iFCCCore.DccRequest, rhs: iFCCCore.DccRequest) -> Swift.Bool
+}
+@objc public class FPCoreEMVData : ObjectiveC.NSObject {
+  @objc final public let chipData: [Swift.UInt32 : iFCCCore.FPCoreChipData]
+  @objc final public let ksn: Swift.String?
+  @objc final public let emvTlvData: Swift.String?
+  @objc final public let last4PanDigits: Swift.String?
+  @objc final public let redactedCardNumber: Swift.String?
+  @objc final public let track2e: Swift.String?
+  @objc public init(chipData: [iFCCCore.FPCoreChipData], ksn: Swift.String?, emvTlvData: Swift.String?, last4PanDigits: Swift.String?, redactedCardNumber: Swift.String?, track2e: Swift.String?)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc public var errorResponseCode: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+public protocol GroupDispatchingCreating {
+  func create() -> any iFCCCore.GroupDispatching
+}
+public struct LocalRequestId : Swift.CustomStringConvertible, Swift.Equatable {
+  public let requestId: Swift.String
+  public let type: iFCCCore.RequestIdType
+  public init(requestId: Swift.String, type: iFCCCore.RequestIdType)
+  public init()
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: iFCCCore.LocalRequestId, b: iFCCCore.LocalRequestId) -> Swift.Bool
+}
+public class GiftCardReloadRequestBuilder {
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, purchaseTotalsData: iFCCCore.PurchaseTotalsData, clerkId: Swift.String)
+  public func posRequestData(_ posRequestData: iFCCCore.POSData) -> iFCCCore.GiftCardReloadRequestBuilder
+  public func buildRequestData() -> iFCCCore.GiftCardReloadRequest
+  @objc deinit
+}
+public struct QueueDispatchingFactory : iFCCCore.QueueDispatchingCreating {
+  public init()
+  public func create(label: Swift.String) -> any iFCCCore.QueueDispatching
+  public func create(label: Swift.String, qos: Dispatch.DispatchQoS) -> any iFCCCore.QueueDispatching
+  public func create(label: Swift.String, attributes: Dispatch.DispatchQueue.Attributes) -> any iFCCCore.QueueDispatching
+  public var main: any iFCCCore.QueueDispatching {
+    get
+  }
+}
+extension Dispatch.DispatchQueue : iFCCCore.QueueDispatching {
+  public func async(execute work: @escaping @convention(block) () -> Swift.Void)
+  public func async(group: any iFCCCore.GroupDispatching, execute work: @escaping @convention(block) () -> Swift.Void)
+  public func asyncAfter(deadline: Dispatch.DispatchTime, execute work: @escaping @convention(block) () -> Swift.Void)
+}
+public protocol QueueDispatchingCreating {
+  func create(label: Swift.String) -> any iFCCCore.QueueDispatching
+  func create(label: Swift.String, qos: Dispatch.DispatchQoS) -> any iFCCCore.QueueDispatching
+  func create(label: Swift.String, attributes: Dispatch.DispatchQueue.Attributes) -> any iFCCCore.QueueDispatching
+  var main: any iFCCCore.QueueDispatching { get }
+}
+public struct ExpiryDate : Swift.Equatable, Swift.Codable, Swift.CustomDebugStringConvertible {
+  public let month: Swift.Int
+  public let year: Swift.Int
+  public var monthString: Swift.String {
+    get
+  }
+  public var yearString: Swift.String {
+    get
+  }
+  public init?(month: Swift.Int, year: Swift.Int)
+  public init?(month: Swift.String, year: Swift.String)
+  public var debugDescription: Swift.String {
+    get
+  }
+  public static func == (a: iFCCCore.ExpiryDate, b: iFCCCore.ExpiryDate) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+final public class AtomicEnum<A> : Swift.CustomStringConvertible where A : Swift.CaseIterable, A : Swift.CustomStringConvertible {
+  public init(_ value: A, dispatchQueueFactory: any iFCCCore.QueueDispatchingCreating = QueueDispatchingFactory())
+  final public var value: A {
+    get
+    set
+  }
+  final public var description: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public struct AnyRemoteOperationIdentifier : iFCCCore.RemoteOperationIdentifier {
+  public init(_ freeWayOperationIdentifier: any iFCCCore.RemoteOperationIdentifier)
+  public var value: Swift.String {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+}
+extension iFCCCore.AnyRemoteOperationIdentifier : Swift.Hashable {
+  public static func == (lhs: iFCCCore.AnyRemoteOperationIdentifier, rhs: iFCCCore.AnyRemoteOperationIdentifier) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public class GiftCardDeactivateRequestBuilder {
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, purchaseTotalsData: iFCCCore.PurchaseTotalsData, clerkId: Swift.String)
+  public func posRequestData(_ posRequestData: iFCCCore.POSData) -> iFCCCore.GiftCardDeactivateRequestBuilder
+  public func buildRequestData() -> iFCCCore.GiftCardDeactivateRequest
+  @objc deinit
+}
+public struct CaptureServiceData : iFCCCore.ServiceData, Swift.Equatable {
+  public let industryDataType: Swift.String?
+  public let isSplitTransaction: Swift.String?
+  public init(industryDataType: Swift.String? = nil, isSplitTransaction: Swift.String? = nil)
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+  public static func == (lhs: iFCCCore.CaptureServiceData, rhs: iFCCCore.CaptureServiceData) -> Swift.Bool
+}
+public enum CreditServiceTransactionType : Swift.String, Swift.Codable {
+  case Payment
+  case Return
+  case Issue
+  case Activate
+  case Reload
+  public var isGiftCardTransaction: Swift.Bool {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public class CreditServiceData : iFCCCore.ServiceData, Swift.Equatable {
+  final public let transactionType: iFCCCore.CreditServiceTransactionType
+  final public let industryDataType: Swift.String?
+  public init(transactionType: iFCCCore.CreditServiceTransactionType, industryDataType: Swift.String? = nil, isOffline: Swift.Bool = false)
+  public static func == (lhs: iFCCCore.CreditServiceData, rhs: iFCCCore.CreditServiceData) -> Swift.Bool
+  public func goOffline()
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+public enum VoidServiceReason : Swift.String, Swift.CustomStringConvertible, Swift.Codable {
+  case CANCEL
+  case ERROR
+  case LATE_RESPONSE
+  case BAD_MAC_ADDRESS
+  case CHIP_DECLINED
+  public var description: Swift.String {
+    get
+  }
+  public static func getDefault() -> iFCCCore.VoidServiceReason
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct VoidServiceData : iFCCCore.ServiceData, Swift.Equatable {
+  public let reason: iFCCCore.VoidServiceReason
+  public let offline: Swift.String?
+  public init(reason: iFCCCore.VoidServiceReason = VoidServiceReason.getDefault(), offline: Swift.String? = nil)
+  public static func == (a: iFCCCore.VoidServiceData, b: iFCCCore.VoidServiceData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public protocol AdminService : iFCCCore.FreeWayService {
+  var adminServiceData: iFCCCore.AdminServiceData { get }
+}
+public struct ExtendedPaymentParameters : Swift.Equatable {
+  public let terminalCapabilities: Swift.String
+  public let additionalTerminalCapabilities: Swift.String
+  public let terminalType: Swift.String
+  public let defaultValueForDDOL: Swift.String
+  public let authorizationResponseCodeList: Swift.String
+  public let terminalCountryCode: Swift.String
+  public let terminalIdentification: Swift.String
+  public let extraProgressMessageFlag: Swift.String
+  public let overallContactlessTransactionLimit: Swift.String
+  public let posEntryMode: Swift.String
+  public init(terminalCapabilities: Swift.String, additionalTerminalCapabilities: Swift.String, terminalType: Swift.String, defaultValueForDDOL: Swift.String, authorizationResponseCodeList: Swift.String, terminalCountryCode: Swift.String, terminalIdentification: Swift.String, extraProgressMessageFlag: Swift.String, overallContactlessTransactionLimit: Swift.String, posEntryMode: Swift.String)
+  public static func == (a: iFCCCore.ExtendedPaymentParameters, b: iFCCCore.ExtendedPaymentParameters) -> Swift.Bool
+}
+public protocol XMLElementData {
+  var name: Swift.String { get }
+  func toString(lineFeeds: Swift.Bool) -> Swift.String
+}
+public struct ValueXMLElementData : iFCCCore.XMLElementData {
+  public init(name: Swift.String, value: Swift.String, scrubbing: Swift.Bool = false)
+  public let name: Swift.String
+  public let value: Swift.String?
+  public func toString(lineFeeds: Swift.Bool) -> Swift.String
+}
+public class ParentXMLElementData : iFCCCore.XMLElementData {
+  public init(name: Swift.String)
+  final public let name: Swift.String
+  public var children: [any iFCCCore.XMLElementData] {
+    get
+  }
+  public func addChild(_ child: any iFCCCore.XMLElementData)
+  public subscript(key: Swift.String) -> (any iFCCCore.XMLElementData)? {
+    get
+  }
+  public func childValue(_ key: Swift.String) -> Swift.String?
+  public func childValues(_ key: Swift.String) -> [Swift.String]
+  public func childElement(_ key: Swift.String) -> iFCCCore.ParentXMLElementData?
+  public func toString(lineFeeds: Swift.Bool) -> Swift.String
+  @objc deinit
+}
+public class ShipToData : iFCCCore.ContactInfoData {
+  final public let shippingCompany: Swift.String?
+  final public let shippingMethod: Swift.String?
+  final public let trackingNumber: Swift.String?
+  public init(contactInformation: (any iFCCCore.ContactInformation)? = nil, shippingCompany: Swift.String? = nil, shippingMethod: Swift.String? = nil, trackingNumber: Swift.String? = nil)
+  public init(company: Swift.String? = nil, title: Swift.String? = nil, firstName: Swift.String? = nil, middleName: Swift.String? = nil, lastName: Swift.String? = nil, suffix: Swift.String? = nil, street1: Swift.String? = nil, street2: Swift.String? = nil, street3: Swift.String? = nil, street4: Swift.String? = nil, city: Swift.String? = nil, state: Swift.String? = nil, postalCode: Swift.String? = nil, country: Swift.String? = nil, phoneNumber: Swift.String? = nil, faxNumber: Swift.String? = nil, email: Swift.String? = nil, shippingCompany: Swift.String? = nil, shippingMethod: Swift.String? = nil, trackingNumber: Swift.String? = nil)
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func encode(to encoder: any Swift.Encoder) throws
+  override public var debugDescription: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public class XmlRequestBundle : iFCCCore.BaseRequestBundle {
+  final public let requestXml: Swift.String
+  final public let posSyncId: any iFCCCore.RemoteOperationIdentifier
+  final public let posSyncAttemptNumber: Swift.Int16
+  public init(requestXml: Swift.String, posSyncId: any iFCCCore.RemoteOperationIdentifier, posSyncAttemptNumber: Swift.Int16 = 1)
+  public var isReplay: Swift.Bool {
+    get
+  }
+  @objc deinit
+}
+public struct CompletePaymentParameters {
+  public let resultOfOnlineProcess: Swift.String
+  public let authorizationCode: Swift.String
+  public let authorizationResponseCode: Swift.String
+  public let issuerScript1: Swift.String?
+  public let issuerScript2: Swift.String?
+  public let wrapperForIssuerScriptTagWithIncorrectLength: Swift.String?
+  public let issuerAuthenticationData: Swift.String?
+  public let authorizationResponseCodeList: Swift.String?
+  public let generateACControl: Swift.String?
+  public init(resultOfOnlineProcess: Swift.String, authorizationCode: Swift.String, authorizationResponseCode: Swift.String, issuerScript1: Swift.String? = nil, issuerScript2: Swift.String? = nil, wrapperForIssuerScriptTagWithIncorrectLength: Swift.String? = nil, issuerAuthenticationData: Swift.String? = nil, authorizationResponseCodeList: Swift.String? = nil, generateACControl: Swift.String? = nil)
+}
+public struct MerchantCredentials : Swift.Equatable, Swift.Codable {
+  public let storeId: Swift.String
+  public let terminalId: Swift.String
+  public let esToken: Swift.String
+  public init(storeId: Swift.String, terminalId: Swift.String, esToken: Swift.String)
+  public static var empty: iFCCCore.MerchantCredentials {
+    get
+  }
+  public static func == (a: iFCCCore.MerchantCredentials, b: iFCCCore.MerchantCredentials) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public class LineItemData : Swift.Codable, Swift.Equatable {
+  public static func == (lhs: iFCCCore.LineItemData, rhs: iFCCCore.LineItemData) -> Swift.Bool
+  public init(productCode: Swift.String?, productUPC: Swift.String? = nil, productSKU: Swift.String? = nil, productName: Swift.String? = nil, productDescription: Swift.String, commodityCode: Swift.String? = nil, unitPrice: Foundation.NSDecimalNumber, quantity: Swift.Int, totalAmount: Foundation.NSDecimalNumber, taxIncludedFlag: Swift.Bool, taxAmount: Foundation.NSDecimalNumber?, unitOfMeasure: Swift.String?, saleCode: Swift.String, discountAmount: Foundation.NSDecimalNumber?, discountFlag: Swift.Bool?, productMake: Swift.String?, productModel: Swift.String?, productPartNumber: Swift.String?, productYear: Swift.String?, productSerial1: Swift.String?, productSerial2: Swift.String?, productSerial3: Swift.String?, customerAssetId: Swift.String?, promoCode: Swift.String?, freightAmount: Foundation.NSDecimalNumber?, customFormatId: Swift.String?, custom1: Swift.String?, custom2: Swift.String?, custom3: Swift.String?, custom4: Swift.String?, custom5: Swift.String?, custom6: Swift.String?, custom7: Swift.String?, custom8: Swift.String?, custom9: Swift.String?, payAlloc: Swift.String?, origUnitPrice: Foundation.NSDecimalNumber?, origTotalAmount: Foundation.NSDecimalNumber?, category: Swift.String?, subCategory: Swift.String?, eidIndicator: Swift.String?)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+public class LineItemsData : Swift.Codable {
+  public init(items: [iFCCCore.LineItemData])
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+public protocol IdentityInformation {
+  var firstName: Swift.String? { get }
+  var middleName: Swift.String? { get }
+  var lastName: Swift.String? { get }
+  var suffix: Swift.String? { get }
+}
+public class FreeWayResponsePayloadXmlSerializer {
+  public init(data: iFCCCore.FreeWayResponsePayload, logger: any FPLoggerKit.Logger, loggerModuleIdentifier: FPLoggerKit.LoggerModuleIdentifier)
+  public func serializeToXml() -> Swift.String
+  public func serializeToXml(scrubbing: Swift.Bool, lineFeeds: Swift.Bool) -> Swift.String
+  @objc deinit
+}
+public protocol AddressVerificationData {
+  var street1: Swift.String? { get }
+  var postalCode: Swift.String? { get }
+}
+public enum RequestIdType : Swift.Int16, Swift.CustomStringConvertible {
+  case unknown
+  case none
+  case real
+  case saf
+  case reversal
+  public static func fromInt(value: Swift.Int16) -> iFCCCore.RequestIdType
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int16)
+  public typealias RawValue = Swift.Int16
+  public var rawValue: Swift.Int16 {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class GiftCardDeactivateRequest : iFCCCore.FreeWayRequestData, iFCCCore.AuthorizationService, iFCCCore.CaptureService {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  final public let authorizationServiceData: iFCCCore.AuthorizationServiceData
+  final public let captureServiceData: iFCCCore.CaptureServiceData
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension iFCCCore.GiftCardDeactivateRequest : Swift.Equatable {
+  public static func == (lhs: iFCCCore.GiftCardDeactivateRequest, rhs: iFCCCore.GiftCardDeactivateRequest) -> Swift.Bool
+}
+@objc public enum LoggingModule : Swift.Int, Swift.CustomStringConvertible, Swift.CaseIterable {
+  case libraryInitialization
+  case deviceSetup
+  case deviceOperation
+  case freeWayOperation
+  case storeAndForward
+  case configurationUpdate
+  case devicePairing
+  case deviceMessaging
+  public var description: Swift.String {
+    get
+  }
+  public static func fromName(_ name: Swift.String) -> iFCCCore.LoggingModule?
+  public init?(rawValue: Swift.Int)
+  public typealias AllCases = [iFCCCore.LoggingModule]
+  public typealias RawValue = Swift.Int
+  public static var allCases: [iFCCCore.LoggingModule] {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @objc public class LoggingModuleBridge : ObjectiveC.NSObject {
+  @objc public class func name(_ module: iFCCCore.LoggingModule) -> Swift.String
+  @objc override dynamic public init()
+  @objc deinit
+}
+public protocol XmlData {
+  var rootElementName: Swift.String { get }
+}
+extension iFCCCore.XmlData {
+  public func getXml() -> Swift.String
+}
+public class TaskRepeater : iFCCCore.CoreRepeater {
+  public init(dispatchQueue: (any iFCCCore.QueueDispatching)? = nil, dispatchQueueFactory: any iFCCCore.QueueDispatchingCreating = QueueDispatchingFactory(), initialDelay: Swift.Double = 0.0, repeatSeconds: Swift.Int = 0, task: @escaping iFCCCore.RepeaterTask)
+  @objc deinit
+  public func resume()
+  public func suspend()
+}
+public protocol CardVerificationResponse {
+  var cvCode: Swift.String? { get }
+  var cvCodeRaw: Swift.String? { get }
+}
+public class GiftCardIssueRequestBuilder {
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, purchaseTotalsData: iFCCCore.PurchaseTotalsData, clerkId: Swift.String)
+  public func posRequestData(_ posRequestData: iFCCCore.POSData) -> iFCCCore.GiftCardIssueRequestBuilder
+  public func buildRequestData() -> iFCCCore.GiftCardIssueRequest
+  @objc deinit
+}
+public class GiftCardCashoutRequestBuilder {
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, purchaseTotalsData: iFCCCore.PurchaseTotalsData, clerkId: Swift.String)
+  public func posRequestData(_ posRequestData: iFCCCore.POSData) -> iFCCCore.GiftCardCashoutRequestBuilder
+  public func buildRequestData() -> iFCCCore.GiftCardCashoutRequest
+  @objc deinit
+}
+public protocol AddressVerificationResponse {
+  var avsCode: Swift.String? { get }
+  var avsCodeRaw: Swift.String? { get }
+}
+public protocol HotelDataRequest : Swift.Decodable, Swift.Encodable {
+  var hotelDataData: iFCCCore.HotelDataData? { get }
+}
+@_hasMissingDesignatedInitializers public class FreeWayRequestData : Swift.Codable {
+  final public let merchantCredentials: iFCCCore.MerchantCredentials
+  final public let clerkId: Swift.String
+  public var clientMetaData: iFCCCore.ClientMetaData
+  final public let merchantReferenceCode: Swift.String
+  final public let clientDeviceId: Swift.String?
+  final public let purchaseTotalsData: iFCCCore.PurchaseTotalsData?
+  final public let tokenCreateServiceData: iFCCCore.TokenCreateServiceData?
+  final public let tokenData: iFCCCore.TokenData?
+  final public let invoiceHeaderData: iFCCCore.InvoiceHeaderData?
+  public var networkData: iFCCCore.NetworkData? {
+    get
+  }
+  public var posData: iFCCCore.POSData? {
+    get
+  }
+  public var requestId: Swift.String? {
+    get
+  }
+  public var offlineControl: iFCCCore.OfflineControlData? {
+    get
+  }
+  public var dccPaymentRequestData: iFCCCore.DccPaymentRequestData? {
+    get
+  }
+  public var hasPINData: Swift.Bool {
+    get
+  }
+  public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  public func goOffline()
+  public func updateRequestId(_ updatedRequestId: Swift.String)
+  public func updateNetworkData(_ networkData: iFCCCore.NetworkData)
+  public func updatePosData(posData: iFCCCore.POSData)
+  public func addOfflineControl(dtk: Swift.Bool = true, retryCount: Swift.UInt)
+  final public func equals(_ object: Any?) -> Swift.Bool
+  public func setDccPaymentRequestData(_ data: iFCCCore.DccPaymentRequestData)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers public class FollowupRequest : iFCCCore.FreeWayRequestData, iFCCCore.FollowupService {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  final public let followupServiceData: iFCCCore.FollowupServiceData
+  public init(requestId: Swift.String, merchantCredentials: iFCCCore.MerchantCredentials, clientMetaData: iFCCCore.ClientMetaData, chipData: iFCCCore.SecretString)
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+public struct CardExpirationDate {
+  public let expirationMonth: Swift.Int
+  public let expirationYear: Swift.Int
+  public init(expirationMonth: Swift.Int, expirationYear: Swift.Int)
+  public init?(_ expiryDate: Swift.String)
+  public var dateString: Swift.String {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class GiftCardInquiryRequest : iFCCCore.FreeWayRequestData, iFCCCore.AuthorizationService {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  final public let authorizationServiceData: iFCCCore.AuthorizationServiceData
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension iFCCCore.GiftCardInquiryRequest : Swift.Equatable {
+  public static func == (lhs: iFCCCore.GiftCardInquiryRequest, rhs: iFCCCore.GiftCardInquiryRequest) -> Swift.Bool
+}
+public class FreeWayRequestXmlSerializer {
+  public init(data: iFCCCore.FreeWayRequestData, logger: any FPLoggerKit.Logger, loggerModuleIdentifier: FPLoggerKit.LoggerModuleIdentifier)
+  public func serializeToXml() -> Swift.String
+  public func serializeToXml(scrubbing: Swift.Bool, lineFeeds: Swift.Bool) -> Swift.String
+  @objc deinit
+}
+public struct DccServiceData : iFCCCore.ServiceData, Swift.Equatable {
+  public static let rootElementName: Swift.String
+  public static let binElementName: Swift.String
+  public static let amountElementName: Swift.String
+  public static let runAttributeName: Swift.String
+  public static let encryptedTrack2Name: Swift.String
+  public let bin: Swift.String
+  public let amount: Foundation.Decimal
+  public let encryptedTrack2: Swift.String?
+  public init(bin: Swift.String, amount: Foundation.Decimal, encryptedTrack2: Swift.String?)
+  public static func == (a: iFCCCore.DccServiceData, b: iFCCCore.DccServiceData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+extension iFCCCore.DccServiceData {
+  public func serializeToXml() -> Swift.String
+}
+public struct TokenData : iFCCCore.PaymentMethodData, Swift.Equatable, Swift.Codable {
+  public let accountNumber: Swift.String
+  public let cardType: iFCCCore.CardType
+  public let expiryDate: iFCCCore.ExpiryDate?
+  public init(token: Swift.String, expiryDate: iFCCCore.ExpiryDate?)
+  public var debugDescription: Swift.String {
+    get
+  }
+  public static func == (a: iFCCCore.TokenData, b: iFCCCore.TokenData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum CardType : Swift.String, Swift.Codable, Swift.CustomStringConvertible {
+  case none
+  case credit
+  case debit
+  case token
+  case cash
+  case storedValue
+  case mobile
+  case moniker
+  case giftCard
+  case ebtFood
+  case ebtCash
+  case freedomQR
+  public var description: Swift.String {
+    get
+  }
+  public var emvTransactionType: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public struct DccReply : Swift.Equatable, Swift.Codable, Swift.CustomStringConvertible, Swift.CustomDebugStringConvertible {
+  public let foreignAmount: Swift.String
+  public let foreignCurrency: Swift.String
+  public let foreignCurrencyAlpha: Swift.String
+  public let foreignCurrencyScale: Swift.String
+  public let hostData: Swift.String
+  public let margin: Swift.String
+  public let processorResponseCode: Swift.String
+  public let rate: Swift.String
+  public let rateLifetime: Swift.String
+  public let rateSource: Swift.String
+  public let rateTimestamp: Swift.String
+  public let reasonCode: Swift.Int
+  public let supported: Swift.Bool
+  public var description: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+  public static func == (lhs: iFCCCore.DccReply, rhs: iFCCCore.DccReply) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public class GiftCardInquiryRequestBuilder {
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, clerkId: Swift.String, currencyItem: iFCCCore.CurrencyItem)
+  public func posRequestData(_ posRequestData: iFCCCore.POSData) -> iFCCCore.GiftCardInquiryRequestBuilder
+  public func buildRequestData() -> iFCCCore.GiftCardInquiryRequest
+  @objc deinit
+}
+public protocol CaptureService : iFCCCore.FreeWayService {
+  var captureServiceData: iFCCCore.CaptureServiceData { get }
+}
+public class BillToData : iFCCCore.ContactInfoData, Swift.CustomDebugStringConvertible {
+  final public let customerId: Swift.String?
+  final public let ipAddress: Swift.String?
+  final public let ssnLastFour: iFCCCore.SecretString?
+  final public let dateOfBirth: iFCCCore.SecretString?
+  final public let driversLicenseNumber: iFCCCore.SecretString?
+  final public let driversLicenseState: iFCCCore.SecretString?
+  public init(contactInfomation: any iFCCCore.ContactInformation, customerId: Swift.String? = nil, ipAddress: Swift.String? = nil, dateOfBirth: Foundation.Date? = nil, driversLicenseNumber: Swift.String? = nil, driversLicenseState: Swift.String? = nil, ssnLastFour: Swift.String? = nil)
+  public init(customerId: Swift.String? = nil, company: Swift.String? = nil, title: Swift.String? = nil, firstName: Swift.String? = nil, middleName: Swift.String? = nil, lastName: Swift.String? = nil, suffix: Swift.String? = nil, street1: Swift.String? = nil, street2: Swift.String? = nil, street3: Swift.String? = nil, street4: Swift.String? = nil, city: Swift.String? = nil, state: Swift.String? = nil, postalCode: Swift.String? = nil, country: Swift.String? = nil, phoneNumber: Swift.String? = nil, faxNumber: Swift.String? = nil, email: Swift.String? = nil, ipAddress: Swift.String? = nil, dateOfBirth: Foundation.Date? = nil, driversLicenseNumber: Swift.String? = nil, driversLicenseState: Swift.String? = nil, ssnLastFour: Swift.String? = nil)
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func encode(to encoder: any Swift.Encoder) throws
+  override public var debugDescription: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public class AuthorizationRequest : iFCCCore.ExtendedFreeWayRequest, iFCCCore.AuthorizationService {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  final public let authorizationServiceData: iFCCCore.AuthorizationServiceData
+  public init(authorizationServiceData: iFCCCore.AuthorizationServiceData, merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, paymentMethodData: (any iFCCCore.PaymentMethodData)?, purchaseTotalsData: iFCCCore.PurchaseTotalsData, tokenCreateServiceData: iFCCCore.TokenCreateServiceData?, billToData: iFCCCore.BillToData?, shipToData: iFCCCore.ShipToData?, shipFromData: iFCCCore.ShipFromData?, lineItemsData: iFCCCore.LineItemsData?, hotelDataData: iFCCCore.HotelDataData?, networkData: iFCCCore.NetworkData?)
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func goOffline()
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension iFCCCore.AuthorizationRequest : Swift.Equatable {
+  public static func == (lhs: iFCCCore.AuthorizationRequest, rhs: iFCCCore.AuthorizationRequest) -> Swift.Bool
+}
+public protocol CoreRepeater {
+  func suspend()
+  func resume()
+}
+public enum FreewayErrorType : Swift.String {
+  case DID_NOT_ATTEMPT
+  case UNKNOWN_HOST
+  case TIMEOUT
+  case FAILURE
+  public static func isFailure(decision: Swift.String) -> Swift.Bool
+  public var requiresReversal: Swift.Bool {
+    get
+  }
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+public class AuthorizationRequestBuilder : iFCCCore.FreeWayRequestBuilder {
+  public init(authorizationServiceData: iFCCCore.AuthorizationServiceData, merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, purchaseTotalsData: iFCCCore.PurchaseTotalsData, tokenCreateServiceData: iFCCCore.TokenCreateServiceData?, billToData: iFCCCore.BillToData?, shipToData: iFCCCore.ShipToData?, shipFromData: iFCCCore.ShipFromData?, lineItemsData: iFCCCore.LineItemsData?, hotelDataData: iFCCCore.HotelDataData?)
+  public func buildRequestData() -> iFCCCore.AuthorizationRequest
+  public func posRequestData(_ posRequestData: iFCCCore.POSData) -> iFCCCore.AuthorizationRequestBuilder
+  public func tokenData(_ tokenData: iFCCCore.TokenData) -> iFCCCore.AuthorizationRequestBuilder
+  public func networkData(_ networkData: iFCCCore.NetworkData) -> iFCCCore.AuthorizationRequestBuilder
+  @objc deinit
+}
+public protocol GroupDispatching {
+  func activate()
+  func suspend()
+  func resume()
+  func enter()
+  func leave()
+  func notify(queue: any iFCCCore.QueueDispatching, work: @escaping @convention(block) () -> Swift.Void)
+}
+public class TokenCreateServiceData : iFCCCore.ServiceData {
+  final public let tokenType: Swift.Int
+  final public let dynamicExpiration: Swift.Bool
+  public init(tokenType: Swift.Int, dynamicExpiration: Swift.Bool)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+extension iFCCCore.TokenCreateServiceData : Swift.Equatable {
+  public static func == (lhs: iFCCCore.TokenCreateServiceData, rhs: iFCCCore.TokenCreateServiceData) -> Swift.Bool
+}
+public protocol ElectronicCheckServiceData {
+  var driversLicenseNumber: Swift.String? { get }
+  var driversLicenseState: Swift.String? { get }
+  var dateOfBirth: Foundation.Date? { get }
+  var ssnLastFour: Swift.String? { get }
+}
+public class RefundRequest : iFCCCore.ExtendedFreeWayRequest, iFCCCore.CreditService {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  final public let creditServiceData: iFCCCore.CreditServiceData
+  public init(creditServiceData: iFCCCore.CreditServiceData, merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, paymentMethodData: (any iFCCCore.PaymentMethodData)?, purchaseTotalsData: iFCCCore.PurchaseTotalsData, tokenCreateServiceData: iFCCCore.TokenCreateServiceData?, billToData: iFCCCore.BillToData?, shipToData: iFCCCore.ShipToData?, shipFromData: iFCCCore.ShipFromData?, lineItemsData: iFCCCore.LineItemsData?, hotelDataData: iFCCCore.HotelDataData?, networkData: iFCCCore.NetworkData?)
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension iFCCCore.RefundRequest : Swift.Equatable {
+  public static func == (lhs: iFCCCore.RefundRequest, rhs: iFCCCore.RefundRequest) -> Swift.Bool
+}
+public struct CurrencyItem : Swift.CustomStringConvertible, Swift.Equatable {
+  public let afterDecimalDigits: Swift.Int
+  public let code: Swift.String
+  public init(afterDecimalDigits: Swift.Int, code: Swift.String)
+  public var description: Swift.String {
+    get
+  }
+  public static var USD: iFCCCore.CurrencyItem {
+    get
+  }
+  public static func == (a: iFCCCore.CurrencyItem, b: iFCCCore.CurrencyItem) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class GiftCardReloadRequest : iFCCCore.GiftCardCreditServiceRequest {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  required public init(from decoder: any Swift.Decoder) throws
+  @objc deinit
+}
+public class FreeWayRequestBuilder {
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, purchaseTotalsData: iFCCCore.PurchaseTotalsData, tokenCreateServiceData: iFCCCore.TokenCreateServiceData?, billToData: iFCCCore.BillToData?, shipToData: iFCCCore.ShipToData?, shipFromData: iFCCCore.ShipFromData?, lineItemsData: iFCCCore.LineItemsData?, hotelDataData: iFCCCore.HotelDataData?)
+  @objc deinit
+}
+public struct POSSyncId : iFCCCore.RemoteOperationIdentifier, Swift.Hashable, Swift.Codable, Swift.CustomStringConvertible {
+  public var value: Swift.String {
+    get
+  }
+  public var encodedValue: Swift.String? {
+    get
+  }
+  public init(dateForTimeStamp: Foundation.Date, storeId: Swift.String, terminalId: Swift.String, seed: Foundation.UUID)
+  public init?(string: Swift.String)
+  public init(storeId: Swift.String, terminalId: Swift.String)
+  public static func == (lhs: iFCCCore.POSSyncId, rhs: iFCCCore.POSSyncId) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public static var empty: any iFCCCore.RemoteOperationIdentifier {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+public protocol DccService : iFCCCore.FreeWayService {
+  var dccServiceData: iFCCCore.DccServiceData { get }
+}
+@objc public enum AIDBrand : Swift.Int {
+  case mastercard = 1
+  case visa = 2
+  case interac = 3
+  case amex = 4
+  case discover = 5
+  case dnaUSDebit = 6
+  case unionPay = 7
+  case jcb = 8
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum DebitType : Swift.Int {
+  case nonDebitGlobalDebit = 0
+  case usCommonDebit = 1
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum ForceCashback : Swift.Int {
+  case prompt = 0
+  case force = 1
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum PINBypass : Swift.Int {
+  case notAllowed = 0
+  case enterKeyPINBypassAllowed = 1
+  case cancelKeyPINBypassAllowed = 2
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum ReturnOption : Swift.Int {
+  case partial = 0
+  case full = 1
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public class RequestBundle : iFCCCore.BaseRequestBundle {
+  final public let request: iFCCCore.FreeWayRequestData
+  final public let posSyncId: any iFCCCore.RemoteOperationIdentifier
+  public var posSyncAttemptNumber: Swift.Int16 {
+    get
+  }
+  public var isReversal: Swift.Bool {
+    get
+  }
+  public init(request: iFCCCore.FreeWayRequestData, posSyncId: any iFCCCore.RemoteOperationIdentifier, posSyncAttemptNumber: Swift.Int16 = 1, isReversal: Swift.Bool = false)
+  convenience public init(request: iFCCCore.FreeWayRequestData, posSyncAttemptNumber: Swift.Int16 = 1, isReversal: Swift.Bool = false)
+  public func copyWithModifiedTransactionData(request: iFCCCore.FreeWayRequestData) -> iFCCCore.RequestBundle
+  public var isFollowOn: Swift.Bool {
+    get
+  }
+  public var isReplay: Swift.Bool {
+    get
+  }
+  public func setReversal(_ reversal: Swift.Bool)
+  public func incrementPosSyncAttemptNum()
+  @objc deinit
+}
+public struct GiftCardData : iFCCCore.PaymentMethodData, Swift.Equatable, Swift.Codable {
+  public let cardType: iFCCCore.CardType
+  public init()
+  public var debugDescription: Swift.String {
+    get
+  }
+  public static func == (a: iFCCCore.GiftCardData, b: iFCCCore.GiftCardData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+@_hasMissingDesignatedInitializers public class TokenInformation : Swift.Equatable, Swift.Codable {
+  public var brand: Swift.String {
+    get
+  }
+  public var token: Swift.String {
+    get
+  }
+  public var accountNumberMasked: Swift.String {
+    get
+  }
+  public var cardExpirationMonth: Swift.String {
+    get
+  }
+  public var cardExpirationYear: Swift.String {
+    get
+  }
+  public var tokenExpiration: Swift.String {
+    get
+  }
+  public var cardIssuerName: Swift.String {
+    get
+  }
+  public var posCardType: Swift.String {
+    get
+  }
+  public var cardType: Swift.String {
+    get
+  }
+  public var posData: Swift.String {
+    get
+  }
+  public var newToken: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+  public static func == (lhs: iFCCCore.TokenInformation, rhs: iFCCCore.TokenInformation) -> Swift.Bool
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+public protocol QueueDispatching {
+  var label: Swift.String { get }
+  func sync(execute block: () -> Swift.Void)
+  func sync<T>(execute work: () throws -> T) rethrows -> T
+  func async(execute work: @escaping @convention(block) () -> Swift.Void)
+  func async(group: any iFCCCore.GroupDispatching, execute work: @escaping @convention(block) () -> Swift.Void)
+  func asyncAfter(deadline: Dispatch.DispatchTime, execute work: @escaping @convention(block) () -> Swift.Void)
+}
+public class GiftCardActivateRequestBuilder {
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, purchaseTotalsData: iFCCCore.PurchaseTotalsData, clerkId: Swift.String)
+  public func posRequestData(_ posRequestData: iFCCCore.POSData) -> iFCCCore.GiftCardActivateRequestBuilder
+  public func buildRequestData() -> iFCCCore.GiftCardActivateRequest
+  @objc deinit
+}
+public struct TransactionAmounts {
+  public let requestedAmountInCents: Swift.Int
+  public let otherAmountInCents: Swift.Int
+  public let currency: iFCCCore.CurrencyItem
+  public init(requestedAmountInCents: Swift.Int, otherAmountInCents: Swift.Int = 0, currency: iFCCCore.CurrencyItem)
+}
+public class RefundRequestBuilder : iFCCCore.FreeWayRequestBuilder {
+  public init(creditServiceData: iFCCCore.CreditServiceData, merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, purchaseTotalsData: iFCCCore.PurchaseTotalsData, tokenCreateServiceData: iFCCCore.TokenCreateServiceData?, billToData: iFCCCore.BillToData?, shipToData: iFCCCore.ShipToData?, shipFromData: iFCCCore.ShipFromData?, lineItemsData: iFCCCore.LineItemsData?, hotelDataData: iFCCCore.HotelDataData?)
+  public func buildRequestData() -> iFCCCore.RefundRequest
+  public func posRequestData(_ posRequestData: iFCCCore.POSData) -> iFCCCore.RefundRequestBuilder
+  public func tokenData(_ tokenData: iFCCCore.TokenData) -> iFCCCore.RefundRequestBuilder
+  public func networkData(_ networkData: iFCCCore.NetworkData) -> iFCCCore.RefundRequestBuilder
+  @objc deinit
+}
+public class SaleRequest : iFCCCore.ExtendedFreeWayRequest, iFCCCore.AuthorizationService, iFCCCore.CaptureService {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  final public let captureServiceData: iFCCCore.CaptureServiceData
+  final public let authorizationServiceData: iFCCCore.AuthorizationServiceData
+  public init(authorizationServiceData: iFCCCore.AuthorizationServiceData, captureServiceData: iFCCCore.CaptureServiceData, merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, paymentMethodData: (any iFCCCore.PaymentMethodData)?, purchaseTotalsData: iFCCCore.PurchaseTotalsData, tokenCreateServiceData: iFCCCore.TokenCreateServiceData?, billToData: iFCCCore.BillToData?, shipToData: iFCCCore.ShipToData?, shipFromData: iFCCCore.ShipFromData?, lineItemsData: iFCCCore.LineItemsData?, hotelDataData: iFCCCore.HotelDataData?, networkData: iFCCCore.NetworkData?)
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func goOffline()
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension iFCCCore.SaleRequest : Swift.Equatable {
+  public static func == (lhs: iFCCCore.SaleRequest, rhs: iFCCCore.SaleRequest) -> Swift.Bool
+}
+public struct DccPaymentRequestData : Swift.Equatable, Swift.Codable, Swift.CustomDebugStringConvertible {
+  public let enabled: Swift.String
+  public let exchangeRate: Swift.String
+  public let foreignAmount: Swift.String
+  public let foreignCurrency: Swift.String
+  public let hostData: Swift.String
+  public init(enabled: Swift.String, exchangeRate: Swift.String, foreignAmount: Swift.String, foreignCurrency: Swift.String, hostData: Swift.String)
+  public var debugDescription: Swift.String {
+    get
+  }
+  public var wasDccSelected: Swift.Bool {
+    get
+  }
+  public static func == (a: iFCCCore.DccPaymentRequestData, b: iFCCCore.DccPaymentRequestData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum PaymentType : Swift.Int, Swift.CustomStringConvertible {
+  case unknown
+  case purchase
+  case cashbackPurchase
+  case refund
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class GiftCardCashoutRequest : iFCCCore.FreeWayRequestData, iFCCCore.AuthorizationService, iFCCCore.CaptureService {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  final public let authorizationServiceData: iFCCCore.AuthorizationServiceData
+  final public let captureServiceData: iFCCCore.CaptureServiceData
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension iFCCCore.GiftCardCashoutRequest : Swift.Equatable {
+  public static func == (lhs: iFCCCore.GiftCardCashoutRequest, rhs: iFCCCore.GiftCardCashoutRequest) -> Swift.Bool
+}
+public class SaleRequestBuilder : iFCCCore.FreeWayRequestBuilder {
+  public init(authorizationServiceData: iFCCCore.AuthorizationServiceData, captureServiceData: iFCCCore.CaptureServiceData = CaptureServiceData(), merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clerkId: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, purchaseTotalsData: iFCCCore.PurchaseTotalsData, tokenCreateServiceData: iFCCCore.TokenCreateServiceData?, billToData: iFCCCore.BillToData?, shipToData: iFCCCore.ShipToData?, shipFromData: iFCCCore.ShipFromData?, lineItemsData: iFCCCore.LineItemsData?, hotelDataData: iFCCCore.HotelDataData?)
+  public func buildRequestData() -> iFCCCore.SaleRequest
+  public func posRequestData(_ posRequestData: iFCCCore.POSData) -> iFCCCore.SaleRequestBuilder
+  public func tokenData(_ tokenData: iFCCCore.TokenData) -> iFCCCore.SaleRequestBuilder
+  public func networkData(_ networkData: iFCCCore.NetworkData) -> iFCCCore.SaleRequestBuilder
+  @objc deinit
+}
+public struct OfflineControlData : Swift.Equatable, Swift.Codable, Swift.CustomStringConvertible {
+  public var dtk: Swift.Bool? {
+    get
+  }
+  public var retryCount: Swift.UInt? {
+    get
+  }
+  public var cao: Swift.Bool {
+    get
+  }
+  public init(dtk: Swift.Bool, retryCount: Swift.UInt, cao: Swift.Bool = true)
+  public init(cao: Swift.Bool = true)
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: iFCCCore.OfflineControlData, b: iFCCCore.OfflineControlData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public class AuthorizationUpdateRequest : iFCCCore.ExtendedFreeWayRequest, iFCCCore.AuthorizationService {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  final public let authorizationServiceData: iFCCCore.AuthorizationServiceData
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clientDeviceId: Swift.String?, requestId: Swift.String?, registerId: Swift.String, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, authorizationServiceData: iFCCCore.AuthorizationServiceData, purchaseTotalsData: iFCCCore.PurchaseTotalsData, clerkId: Swift.String, billToData: iFCCCore.BillToData?, shipToData: iFCCCore.ShipToData?, shipFromData: iFCCCore.ShipFromData?, lineItemsData: iFCCCore.LineItemsData?, hotelDataData: iFCCCore.HotelDataData?)
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func goOffline()
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension iFCCCore.AuthorizationUpdateRequest : Swift.Equatable {
+  public static func == (lhs: iFCCCore.AuthorizationUpdateRequest, rhs: iFCCCore.AuthorizationUpdateRequest) -> Swift.Bool
+}
+public struct SafStorageData : Swift.Equatable {
+  public let localRequestId: iFCCCore.LocalRequestId
+  public let offlineRequestId: Swift.String
+  public let requiresReversalOnFailure: Swift.Bool
+  public init(localRequestId: iFCCCore.LocalRequestId, offlineRequestId: Swift.String, requiresReversalOnFailure: Swift.Bool)
+  public static func == (a: iFCCCore.SafStorageData, b: iFCCCore.SafStorageData) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @objc public class FPCoreEMVTagUtil : ObjectiveC.NSObject {
+  @objc public static func tagFromRawValue(_ rawValue: Swift.UInt32) -> iFCCCore.FPCoreEMVTag
+  @objc public static func description(emvTag: iFCCCore.FPCoreEMVTag) -> Swift.String
+  @objc public static func isAmountDOLTag(_ tag: iFCCCore.FPCoreEMVTag) -> Swift.Bool
+  @objc public static func getAmountDOLTag(_ value: Swift.UInt32) -> iFCCCore.FPCoreEMVTag
+  @objc override dynamic public init()
+  @objc deinit
+}
+public class FollowOnRefundRequest : iFCCCore.ExtendedFreeWayRequest, iFCCCore.CreditService {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  final public let creditServiceData: iFCCCore.CreditServiceData
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, creditServiceData: iFCCCore.CreditServiceData, purchaseTotalsData: iFCCCore.PurchaseTotalsData, requestId: Swift.String, clientDeviceId: Swift.String?, clerkId: Swift.String, billToData: iFCCCore.BillToData?, shipToData: iFCCCore.ShipToData?, shipFromData: iFCCCore.ShipFromData?, lineItemsData: iFCCCore.LineItemsData?, hotelDataData: iFCCCore.HotelDataData?)
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func goOffline()
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension iFCCCore.FollowOnRefundRequest : Swift.Equatable {
+  public static func == (lhs: iFCCCore.FollowOnRefundRequest, rhs: iFCCCore.FollowOnRefundRequest) -> Swift.Bool
+}
+public protocol AuthorizationService : iFCCCore.FreeWayService {
+  var authorizationServiceData: iFCCCore.AuthorizationServiceData { get }
+}
+public struct SecretString : Swift.ExpressibleByStringLiteral, Swift.CustomStringConvertible, Swift.Codable, Swift.Equatable {
+  public init(stringLiteral value: Swift.String)
+  public init?(_ value: Swift.String?)
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: iFCCCore.SecretString, b: iFCCCore.SecretString) -> Swift.Bool
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias StringLiteralType = Swift.String
+  public typealias UnicodeScalarLiteralType = Swift.String
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct GroupDispatchingFactory : iFCCCore.GroupDispatchingCreating {
+  public init()
+  public func create() -> any iFCCCore.GroupDispatching
+}
+extension Dispatch.DispatchGroup : iFCCCore.GroupDispatching {
+  public func notify(queue: any iFCCCore.QueueDispatching, work: @escaping @convention(block) () -> Swift.Void)
+}
+public class CaptureRequest : iFCCCore.ExtendedFreeWayRequest, iFCCCore.CaptureService {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  final public let captureServiceData: iFCCCore.CaptureServiceData
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, requestId: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, captureServiceData: iFCCCore.CaptureServiceData, purchaseTotalsData: iFCCCore.PurchaseTotalsData, clerkId: Swift.String, billToData: iFCCCore.BillToData?, shipToData: iFCCCore.ShipToData?, shipFromData: iFCCCore.ShipFromData?, lineItemsData: iFCCCore.LineItemsData?, hotelDataData: iFCCCore.HotelDataData?)
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension iFCCCore.CaptureRequest : Swift.Equatable {
+  public static func == (lhs: iFCCCore.CaptureRequest, rhs: iFCCCore.CaptureRequest) -> Swift.Bool
+}
+@objc public class FPCoreChipData : ObjectiveC.NSObject, Swift.Comparable {
+  public static func < (lhs: iFCCCore.FPCoreChipData, rhs: iFCCCore.FPCoreChipData) -> Swift.Bool
+  @objc public var emvTag: iFCCCore.FPCoreEMVTag {
+    @objc get
+  }
+  @objc public var tagDescription: Swift.String {
+    @objc get
+  }
+  @objc final public let id: Swift.UInt32
+  @objc final public let value: Swift.String
+  @objc public init(emvTag: iFCCCore.FPCoreEMVTag, value: Swift.String)
+  @objc public init(id: Swift.UInt32, value: Swift.String)
+  @objc override dynamic public var debugDescription: Swift.String {
+    @objc get
+  }
+  @objc deinit
+}
+@_hasMissingDesignatedInitializers public class AdminRequest : iFCCCore.FreeWayRequestData, iFCCCore.AdminService {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  final public let adminServiceData: iFCCCore.AdminServiceData
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, clientMetaData: iFCCCore.ClientMetaData, networkData: iFCCCore.NetworkData?, adminServiceData: iFCCCore.AdminServiceData)
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension iFCCCore.AdminRequest : Swift.Equatable {
+  public static func == (lhs: iFCCCore.AdminRequest, rhs: iFCCCore.AdminRequest) -> Swift.Bool
+}
+public class VoidRequest : iFCCCore.ExtendedFreeWayRequest, iFCCCore.VoidService {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  final public let voidServiceData: iFCCCore.VoidServiceData
+  public init(merchantCredentials: iFCCCore.MerchantCredentials, merchantReferenceCode: Swift.String, clientDeviceId: Swift.String?, clientMetaData: iFCCCore.ClientMetaData, invoiceHeaderData: iFCCCore.InvoiceHeaderData?, voidServiceData: iFCCCore.VoidServiceData, paymentMethodData: (any iFCCCore.PaymentMethodData)?, requestId: Swift.String, clerkId: Swift.String, billToData: iFCCCore.BillToData?, shipToData: iFCCCore.ShipToData?, shipFromData: iFCCCore.ShipFromData?, networkData: iFCCCore.NetworkData? = nil)
+  required public init(from decoder: any Swift.Decoder) throws
+  override public func encode(to encoder: any Swift.Encoder) throws
+  @objc deinit
+}
+extension iFCCCore.VoidRequest : Swift.Equatable {
+  public static func == (lhs: iFCCCore.VoidRequest, rhs: iFCCCore.VoidRequest) -> Swift.Bool
+}
+public struct DeviceMetaData : Swift.Equatable, Swift.Codable {
+  public let transactionCurrencyCode: Swift.String
+  public init(transactionCurrencyCode: Swift.String)
+  public static func == (a: iFCCCore.DeviceMetaData, b: iFCCCore.DeviceMetaData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public class AdminRequestBuilder {
+  public init(request: iFCCCore.FreeWayRequestData, adminService: iFCCCore.AdminServiceData)
+  public func networkData(_ data: iFCCCore.NetworkData) -> iFCCCore.AdminRequestBuilder
+  public func buildRequestData() -> iFCCCore.AdminRequest
+  @objc deinit
+}
+public struct CCAuthReplyXmlConstants {
+  public static let authorizedDateTime: Swift.String
+  public static let avsCode: Swift.String
+  public static let avsCodeRaw: Swift.String
+  public static let cvCode: Swift.String
+  public static let cvCodeRaw: Swift.String
+}
+@_hasMissingDesignatedInitializers public class CCAuthReply : iFCCCore.CardBasedCCServiceReply, iFCCCore.AddressVerificationResponse, iFCCCore.CardVerificationResponse {
+  final public let authorizedDateTime: Swift.String
+  final public let avsCode: Swift.String?
+  final public let avsCodeRaw: Swift.String?
+  final public let cvCode: Swift.String?
+  final public let cvCodeRaw: Swift.String?
+  public init(authorizationCode: Swift.String = "", chipData: Swift.String? = nil, reconciliationId: Swift.String = "", processorResponseMessage: Swift.String = "", requestDateTime: Swift.String = "", processorResponseCode: Swift.String = "", amount: Swift.String = "", processorTransactionId: Swift.String = "", partialAmount: Swift.String = "", reasonCode: Swift.String = "", authorizedDateTime: Swift.String = "", avCode: Swift.String? = nil, avsCodeRaw: Swift.String? = nil, avsCode: Swift.String? = nil, cvCode: Swift.String? = nil, cvCodeRaw: Swift.String? = nil)
+  override public func encode(to encoder: any Swift.Encoder) throws
+  override public var debugDescription: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public struct NetworkDataXmlConstants {
+  public static let network: Swift.String
+  public static let mac: Swift.String
+  public static let macKey: Swift.String
+  public static let pinKey: Swift.String
+  public static let fieldKey: Swift.String
+  public static let hostControlData: Swift.String
+  public static let posSeqNum: Swift.String
+}
+public struct NetworkData : Swift.Equatable, Swift.Codable, Swift.CustomDebugStringConvertible {
+  public var network: Swift.String {
+    get
+  }
+  public var mac: Swift.String {
+    get
+  }
+  public var macKey: Swift.String {
+    get
+  }
+  public var pinKey: Swift.String {
+    get
+  }
+  public var fieldKey: Swift.String {
+    get
+  }
+  public var hostControlData: Swift.String {
+    get
+  }
+  public var posSeqNum: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+  public init(parsedXml: Swift.Dictionary<Swift.String, Any>)
+  public init(xmlElements: iFCCCore.ParentXMLElementData)
+  public static func hostControlRequest(_ hostControlData: Swift.String) -> iFCCCore.NetworkData
+  public static func interacData(_ macBlock: Swift.String, hostControlData: Swift.String?, posSeqNumber: Swift.String?) -> iFCCCore.NetworkData
+  public func toXml(scrubbing: Swift.Bool) -> iFCCCore.ParentXMLElementData
+  public func masked() -> iFCCCore.NetworkData
+  public static func == (a: iFCCCore.NetworkData, b: iFCCCore.NetworkData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+@objc public class ICAApplicationIdentifier : ObjectiveC.NSObject {
+  @objc final public let aid: Swift.String
+  @objc final public let tag8A: Swift.String
+  @objc final public let allowPINBypass: iFCCCore.PINBypass
+  @objc final public let aidBrand: iFCCCore.AIDBrand
+  @objc final public let debitType: iFCCCore.DebitType
+  @objc final public let forceCashBack: iFCCCore.ForceCashback
+  @objc final public let enablePANConsistencyCheck: Swift.Bool
+  @objc final public let clessPINBypass: iFCCCore.PINBypass
+  @objc final public let allowPINBypassCashback: Swift.Bool
+  @objc final public let allowOfflinePINCashback: Swift.Bool
+  @objc final public let allowOnlinePINCashback: Swift.Bool
+  @objc final public let allowSignatureCashback: Swift.Bool
+  @objc final public let allowNoCVMCashback: Swift.Bool
+  @objc final public let emvRefundVoidReturnOption: iFCCCore.ReturnOption
+  @objc final public let allowOptimizedQuickChip: Swift.Bool
+  @objc final public let onlinePINKeyIndex: Swift.String
+  @objc public init?(string: Swift.String)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class VoidReply : iFCCCore.CCServiceReply {
+  override public init(reconciliationId: Swift.String = super, processorResponseMessage: Swift.String = super, requestDateTime: Swift.String = super, processorResponseCode: Swift.String = super, amount: Swift.String = super, processorTransactionId: Swift.String = super, partialAmount: Swift.String = super, reasonCode: Swift.String = super)
+  required public init(from decoder: any Swift.Decoder) throws
+  @objc deinit
+}
+public enum FreeWayRequestType : Swift.Int16, Swift.Codable {
+  case unknown
+  case authorization
+  case authorizationUpdate
+  case capture
+  case followOnRefund
+  case refund
+  case sale
+  case void
+  case activate
+  case cashout
+  case deactivate
+  case inquiry
+  case issue
+  case reload
+  case admin
+  case followup
+  case dccRates
+  public init?(rawValue: Swift.Int16)
+  public typealias RawValue = Swift.Int16
+  public var rawValue: Swift.Int16 {
+    get
+  }
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class GiftCardIssueRequest : iFCCCore.GiftCardCreditServiceRequest {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  required public init(from decoder: any Swift.Decoder) throws
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class CCCreditReply : iFCCCore.CardBasedCCServiceReply {
+  override public init(accountBalance: Swift.String = super, accountBalanceCurrency: Swift.String = super, authorizationCode: Swift.String = super, chipData: Swift.String? = nil, reconciliationId: Swift.String = super, processorResponseMessage: Swift.String = super, requestDateTime: Swift.String = super, processorResponseCode: Swift.String = super, amount: Swift.String = super, processorTransactionId: Swift.String = super, partialAmount: Swift.String = super, reasonCode: Swift.String = super, cardType: Swift.String? = nil)
+  @objc deinit
+}
+public struct CCCaptureReplyXmlConstants {
+  public static let authorizationCode: Swift.String
+}
+@_hasMissingDesignatedInitializers public class CCCaptureReply : iFCCCore.CCServiceReply {
+  public var authorizationCode: Swift.String {
+    get
+  }
+  public init(reconciliationId: Swift.String = "", processorResponseMessage: Swift.String = "", requestDateTime: Swift.String = "", processorResponseCode: Swift.String = "", amount: Swift.String = "", processorTransactionId: Swift.String = "", partialAmount: Swift.String = "", reasonCode: Swift.String = "", authorizationCode: Swift.String = "")
+  override public func encode(to encoder: any Swift.Encoder) throws
+  override public var debugDescription: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public protocol ContactInformation : iFCCCore.AddressVerificationData, iFCCCore.IdentityInformation {
+  var company: Swift.String? { get }
+  var title: Swift.String? { get }
+  var street2: Swift.String? { get }
+  var street3: Swift.String? { get }
+  var street4: Swift.String? { get }
+  var city: Swift.String? { get }
+  var state: Swift.String? { get }
+  var country: Swift.String? { get }
+  var phoneNumber: Swift.String? { get }
+  var faxNumber: Swift.String? { get }
+  var email: Swift.String? { get }
+}
+public typealias RepeaterTask = (() -> Swift.Void)
+public protocol CoreRepeaterCreating {
+  func createRepeater(dispatchQueue: (any iFCCCore.QueueDispatching)?, dispatchQueueFactory: any iFCCCore.QueueDispatchingCreating, initialDelay: Swift.Double, repeatSeconds: Swift.Int, task: @escaping iFCCCore.RepeaterTask) -> any iFCCCore.CoreRepeater
+}
+extension iFCCCore.CoreRepeaterCreating {
+  public func create(dispatchQueue: (any iFCCCore.QueueDispatching)? = nil, dispatchQueueFactory: any iFCCCore.QueueDispatchingCreating = QueueDispatchingFactory(), initialDelay: Swift.Double = 0.0, repeatSeconds: Swift.Int = 0, task: @escaping iFCCCore.RepeaterTask) -> any iFCCCore.CoreRepeater
+}
+public class FollowupServiceData : iFCCCore.ServiceData {
+  public static let rootElementName: Swift.String
+  public static let BASIC: iFCCCore.FollowupServiceData
+  public init()
+  final public let run: Swift.Bool
+  public init(run: Swift.Bool)
+  public func shouldRun() -> Swift.Bool
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+extension iFCCCore.FollowupServiceData : Swift.Equatable {
+  public static func == (lhs: iFCCCore.FollowupServiceData, rhs: iFCCCore.FollowupServiceData) -> Swift.Bool
+}
+extension iFCCCore.FollowupServiceData {
+  public func serializeToXml() -> Swift.String
+}
+public struct TaskRepeaterFactory : iFCCCore.CoreRepeaterCreating {
+  public init()
+  public func createRepeater(dispatchQueue: (any iFCCCore.QueueDispatching)?, dispatchQueueFactory: any iFCCCore.QueueDispatchingCreating, initialDelay: Swift.Double, repeatSeconds: Swift.Int, task: @escaping iFCCCore.RepeaterTask) -> any iFCCCore.CoreRepeater
+}
+public protocol CreditService : iFCCCore.FreeWayService {
+  var creditServiceData: iFCCCore.CreditServiceData { get }
+}
+public struct CCServiceReplyXmlConstants {
+  public static let reconciliationId: Swift.String
+  public static let processorResponseMessage: Swift.String
+  public static let requestDateTime: Swift.String
+  public static let processorResponseCode: Swift.String
+  public static let amount: Swift.String
+  public static let processorTransactionId: Swift.String
+  public static let partialAmount: Swift.String
+  public static let reasonCode: Swift.String
+}
+@_hasMissingDesignatedInitializers public class CCServiceReply : Swift.Equatable, Swift.Codable, Swift.CustomDebugStringConvertible {
+  public var reconciliationId: Swift.String {
+    get
+  }
+  public var processorResponseMessage: Swift.String {
+    get
+  }
+  public var requestDateTime: Swift.String {
+    get
+  }
+  public var processorResponseCode: Swift.String {
+    get
+  }
+  public var amount: Swift.String {
+    get
+  }
+  public var processorTransactionId: Swift.String {
+    get
+  }
+  public var partialAmount: Swift.String {
+    get
+  }
+  public var reasonCode: Swift.String {
+    get
+  }
+  public init(reconciliationId: Swift.String = "", processorResponseMessage: Swift.String = "", requestDateTime: Swift.String = "", processorResponseCode: Swift.String = "", amount: Swift.String = "", processorTransactionId: Swift.String = "", partialAmount: Swift.String = "", reasonCode: Swift.String = "")
+  public var debugDescription: Swift.String {
+    get
+  }
+  public static func == (lhs: iFCCCore.CCServiceReply, rhs: iFCCCore.CCServiceReply) -> Swift.Bool
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers public class GiftCardActivateRequest : iFCCCore.GiftCardCreditServiceRequest {
+  override public var requestType: iFCCCore.FreeWayRequestType {
+    get
+  }
+  required public init(from decoder: any Swift.Decoder) throws
+  @objc deinit
+}
+public struct FreeWayDecisionConstants {
+  public static let acceptDecision: Swift.String
+  public static let acceptDecisionCode: Swift.String
+  public static let rejectDecision: Swift.String
+  public static let errorDecision: Swift.String
+  public static let errorDecisionCode: Swift.String
+  public static let failureDecision: Swift.String
+  public static let failureDecisionCode: Swift.String
+}
+public struct FreeWayReasonCodeConstants {
+  public static let approved: Swift.String
+  public static let callIssuingBank: Swift.String
+  public static let processorDecline: Swift.String
+  public static let requestNotVoidable: Swift.String
+  public static let alreadyVoided: Swift.String
+  public static let offlineAccept: Swift.String
+  public static let offlineDecline: Swift.String
+}
+public struct FreeWayChipDataConstants {
+  public static let approval: Swift.String
+  public static let onlineDecline: Swift.String
+  public static let offlineDecline: Swift.String
+}
+public struct SubmitResultXmlConstants {
+}
+public class FreeWayResponsePayload : Swift.Equatable, Swift.Codable, Swift.CustomDebugStringConvertible {
+  public var requestId: Swift.String {
+    get
+  }
+  public var decision: Swift.String {
+    get
+  }
+  public var reasonCode: Swift.String {
+    get
+  }
+  public var merchantReferenceCode: Swift.String {
+    get
+  }
+  public var invalidFields: [Swift.String]? {
+    get
+  }
+  public var ccAuthReply: iFCCCore.CCAuthReply? {
+    get
+  }
+  public var ccCaptureReply: iFCCCore.CCCaptureReply? {
+    get
+  }
+  public var voidReply: iFCCCore.VoidReply? {
+    get
+  }
+  public var ccCreditReply: iFCCCore.CCCreditReply? {
+    get
+  }
+  public var ccFollowupReply: iFCCCore.CCFollowupReply? {
+    get
+  }
+  public var networkData: iFCCCore.NetworkData? {
+    get
+  }
+  public var tokenCreateReply: iFCCCore.TokenCreateReply? {
+    get
+  }
+  public var tokenInformation: iFCCCore.TokenInformation? {
+    get
+  }
+  public var receiptInformation: iFCCCore.ReceiptInformation? {
+    get
+  }
+  public var dccReply: iFCCCore.DccReply? {
+    get
+  }
+  public var authorizationCode: Swift.String {
+    get
+  }
+  public var amount: Swift.String {
+    get
+  }
+  public var base64EncodedTLVChipData: Swift.String? {
+    get
+  }
+  public var message: Swift.String {
+    get
+  }
+  public init(parsedXml: Swift.Dictionary<Swift.String, Any>)
+  public func replaceNetworkData(_ networkData: iFCCCore.NetworkData?)
+  public init(parsedData: iFCCCore.ParentXMLElementData)
+  public init(requestId: Swift.String = "", decision: Swift.String = "", reasonCode: Swift.String = "", merchantReferenceCode: Swift.String = "", ccAuthReply: iFCCCore.CCAuthReply? = nil, ccCaptureReply: iFCCCore.CCCaptureReply? = nil, voidReply: iFCCCore.VoidReply? = nil, ccCreditReply: iFCCCore.CCCreditReply? = nil, ccFollowupReply: iFCCCore.CCFollowupReply? = nil, networkData: iFCCCore.NetworkData? = nil, tokenCreateReply: iFCCCore.TokenCreateReply? = nil, tokenInformation: iFCCCore.TokenInformation? = nil, receiptInformation: iFCCCore.ReceiptInformation? = nil, invalidFields: [Swift.String]? = nil, dccReply: iFCCCore.DccReply? = nil)
+  public var debugDescription: Swift.String {
+    get
+  }
+  public var isApproval: Swift.Bool {
+    get
+  }
+  public var isError: Swift.Bool {
+    get
+  }
+  public var isFailure: Swift.Bool {
+    get
+  }
+  public var hasValidToken: Swift.Bool {
+    get
+  }
+  public static func == (lhs: iFCCCore.FreeWayResponsePayload, rhs: iFCCCore.FreeWayResponsePayload) -> Swift.Bool
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+public class ContactInfoData : Swift.Codable, Swift.Equatable {
+  final public let company: Swift.String?
+  final public let title: Swift.String?
+  final public let firstName: Swift.String?
+  final public let middleName: Swift.String?
+  final public let lastName: Swift.String?
+  final public let suffix: Swift.String?
+  final public let street1: Swift.String?
+  final public let street2: Swift.String?
+  final public let street3: Swift.String?
+  final public let street4: Swift.String?
+  final public let city: Swift.String?
+  final public let state: Swift.String?
+  final public let postalCode: Swift.String?
+  final public let country: Swift.String?
+  final public let phoneNumber: Swift.String?
+  final public let faxNumber: Swift.String?
+  final public let email: Swift.String?
+  public init(contactInformation: any iFCCCore.ContactInformation)
+  public init(company: Swift.String? = nil, title: Swift.String? = nil, firstName: Swift.String? = nil, middleName: Swift.String? = nil, lastName: Swift.String? = nil, suffix: Swift.String? = nil, street1: Swift.String? = nil, street2: Swift.String? = nil, street3: Swift.String? = nil, street4: Swift.String? = nil, city: Swift.String? = nil, state: Swift.String? = nil, postalCode: Swift.String? = nil, country: Swift.String? = nil, phoneNumber: Swift.String? = nil, faxNumber: Swift.String? = nil, email: Swift.String? = nil)
+  public static func == (lhs: iFCCCore.ContactInfoData, rhs: iFCCCore.ContactInfoData) -> Swift.Bool
+  public var debugDescription: Swift.String {
+    get
+  }
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+public protocol LineItemsRequest : Swift.Decodable, Swift.Encodable {
+  var lineItemsData: iFCCCore.LineItemsData? { get }
+}
+public struct CardBasedCCServiceReplyXmlConstants {
+  public static let cardType: Swift.String
+  public static let chipData: Swift.String
+  public static let authorizationCode: Swift.String
+  public static let accountBalance: Swift.String
+  public static let accountBalanceCurrency: Swift.String
+}
+@_hasMissingDesignatedInitializers public class CardBasedCCServiceReply : iFCCCore.CCServiceReply {
+  final public let cardType: Swift.String?
+  final public let chipData: Swift.String?
+  final public let authorizationCode: Swift.String
+  final public let accountBalance: Swift.String?
+  final public let accountBalanceCurrency: Swift.String?
+  public init(accountBalance: Swift.String = "", accountBalanceCurrency: Swift.String = "", authorizationCode: Swift.String = "", chipData: Swift.String? = nil, reconciliationId: Swift.String = "", processorResponseMessage: Swift.String = "", requestDateTime: Swift.String = "", processorResponseCode: Swift.String = "", amount: Swift.String = "", processorTransactionId: Swift.String = "", partialAmount: Swift.String = "", reasonCode: Swift.String = "", cardType: Swift.String? = nil)
+  override public func encode(to encoder: any Swift.Encoder) throws
+  override public var debugDescription: Swift.String {
+    get
+  }
+  @objc deinit
+}
+public protocol PurchaseTotalRequest {
+  var purchaseTotal: Foundation.Decimal { get }
+  var purchaseTotalInCents: Swift.Int { get }
+  var formattedPurchaseTotal: Swift.String { get }
+  var hasInitialAmount: Swift.Bool { get }
+}
+public class AdminServiceData : iFCCCore.ServiceData {
+  public static let BASIC: iFCCCore.AdminServiceData
+  public init()
+  final public let run: Swift.Bool
+  final public let serviceType: Swift.StringLiteralType
+  public init(run: Swift.Bool, serviceType: Swift.String)
+  public func shouldRun() -> Swift.Bool
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+extension iFCCCore.AdminServiceData : Swift.Equatable {
+  public static func == (lhs: iFCCCore.AdminServiceData, rhs: iFCCCore.AdminServiceData) -> Swift.Bool
+}
+public struct TokenCreateReplyXmlConstants {
+  public static let reasonCode: Swift.String
+  public static let requestDateTime: Swift.String
+}
+@_hasMissingDesignatedInitializers public class TokenCreateReply : Swift.Equatable, Swift.Codable {
+  public var reasonCode: Swift.String {
+    get
+  }
+  public var requestDateTime: Swift.String {
+    get
+  }
+  public var debugDescription: Swift.String {
+    get
+  }
+  public static func == (lhs: iFCCCore.TokenCreateReply, rhs: iFCCCore.TokenCreateReply) -> Swift.Bool
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+extension iFCCCore.TransactionType : Swift.Equatable {}
+extension iFCCCore.TransactionType : Swift.Hashable {}
+extension iFCCCore.TransactionType : Swift.RawRepresentable {}
+extension iFCCCore.FollowOnResultType : Swift.Equatable {}
+extension iFCCCore.FollowOnResultType : Swift.Hashable {}
+extension iFCCCore.POSEntryMode : Swift.Equatable {}
+extension iFCCCore.POSEntryMode : Swift.Hashable {}
+extension iFCCCore.POSEntryMode : Swift.RawRepresentable {}
+extension iFCCCore.POSFallbackReason : Swift.Equatable {}
+extension iFCCCore.POSFallbackReason : Swift.Hashable {}
+extension iFCCCore.POSFallbackReason : Swift.RawRepresentable {}
+extension iFCCCore.MSRType : Swift.Equatable {}
+extension iFCCCore.MSRType : Swift.Hashable {}
+extension iFCCCore.MSRType : Swift.RawRepresentable {}
+extension iFCCCore.AuthorizationType : Swift.Equatable {}
+extension iFCCCore.AuthorizationType : Swift.Hashable {}
+extension iFCCCore.AuthorizationType : Swift.RawRepresentable {}
+extension iFCCCore.AuthorizationServiceTransactionType : Swift.Equatable {}
+extension iFCCCore.AuthorizationServiceTransactionType : Swift.Hashable {}
+extension iFCCCore.AuthorizationServiceTransactionType : Swift.RawRepresentable {}
+extension iFCCCore.FPCoreEMVTag : Swift.Equatable {}
+extension iFCCCore.FPCoreEMVTag : Swift.Hashable {}
+extension iFCCCore.FPCoreEMVTag : Swift.RawRepresentable {}
+extension iFCCCore.CreditServiceTransactionType : Swift.Equatable {}
+extension iFCCCore.CreditServiceTransactionType : Swift.Hashable {}
+extension iFCCCore.CreditServiceTransactionType : Swift.RawRepresentable {}
+extension iFCCCore.VoidServiceReason : Swift.Equatable {}
+extension iFCCCore.VoidServiceReason : Swift.Hashable {}
+extension iFCCCore.VoidServiceReason : Swift.RawRepresentable {}
+extension iFCCCore.RequestIdType : Swift.Equatable {}
+extension iFCCCore.RequestIdType : Swift.Hashable {}
+extension iFCCCore.RequestIdType : Swift.RawRepresentable {}
+extension iFCCCore.LoggingModule : Swift.Equatable {}
+extension iFCCCore.LoggingModule : Swift.Hashable {}
+extension iFCCCore.LoggingModule : Swift.RawRepresentable {}
+extension iFCCCore.CardType : Swift.Equatable {}
+extension iFCCCore.CardType : Swift.Hashable {}
+extension iFCCCore.CardType : Swift.RawRepresentable {}
+extension iFCCCore.FreewayErrorType : Swift.Equatable {}
+extension iFCCCore.FreewayErrorType : Swift.Hashable {}
+extension iFCCCore.FreewayErrorType : Swift.RawRepresentable {}
+extension iFCCCore.AIDBrand : Swift.Equatable {}
+extension iFCCCore.AIDBrand : Swift.Hashable {}
+extension iFCCCore.AIDBrand : Swift.RawRepresentable {}
+extension iFCCCore.DebitType : Swift.Equatable {}
+extension iFCCCore.DebitType : Swift.Hashable {}
+extension iFCCCore.DebitType : Swift.RawRepresentable {}
+extension iFCCCore.ForceCashback : Swift.Equatable {}
+extension iFCCCore.ForceCashback : Swift.Hashable {}
+extension iFCCCore.ForceCashback : Swift.RawRepresentable {}
+extension iFCCCore.PINBypass : Swift.Equatable {}
+extension iFCCCore.PINBypass : Swift.Hashable {}
+extension iFCCCore.PINBypass : Swift.RawRepresentable {}
+extension iFCCCore.ReturnOption : Swift.Equatable {}
+extension iFCCCore.ReturnOption : Swift.Hashable {}
+extension iFCCCore.ReturnOption : Swift.RawRepresentable {}
+extension iFCCCore.PaymentType : Swift.Equatable {}
+extension iFCCCore.PaymentType : Swift.Hashable {}
+extension iFCCCore.PaymentType : Swift.RawRepresentable {}
+extension iFCCCore.FreeWayRequestType : Swift.Equatable {}
+extension iFCCCore.FreeWayRequestType : Swift.Hashable {}
+extension iFCCCore.FreeWayRequestType : Swift.RawRepresentable {}

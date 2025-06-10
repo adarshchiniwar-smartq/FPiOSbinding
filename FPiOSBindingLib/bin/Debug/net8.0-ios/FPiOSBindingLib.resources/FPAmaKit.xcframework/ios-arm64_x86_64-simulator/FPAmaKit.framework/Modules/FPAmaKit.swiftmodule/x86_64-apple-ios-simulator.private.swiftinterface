@@ -1,0 +1,454 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target x86_64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name FPAmaKit
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import CoreData
+import CryptoKit
+@_exported import FPAmaKit
+import FPLoggerKit
+import Foundation
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public enum EcosystemEvent : Swift.Int16, Swift.Codable, Swift.CustomStringConvertible, Swift.Equatable {
+  case start
+  case stop
+  case deviceAttached
+  case deviceDetached
+  case palPackageSuccess
+  case palPackageFailure
+  case palPackageValidationFailure
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int16)
+  public typealias RawValue = Swift.Int16
+  public var rawValue: Swift.Int16 {
+    get
+  }
+}
+public struct AmaServiceFactory : FPAmaKit.AmaServiceCreating {
+  public init()
+  public func create(hostName: Swift.String, context: FPAmaKit.AmaApplicationContext, logger: any FPLoggerKit.Logger, urlSession: Foundation.URLSession, amaPALPackageStagedNotificationName: Foundation.Notification.Name) -> any FPAmaKit.AmaServiceProviding
+}
+public struct ReportCommandEventData : Swift.Codable, Swift.Equatable {
+  public init(aggregateName: Swift.String?, applicationName: Swift.String, eventTypeId: FPAmaKit.CommandEvent, generateDateUtc: Swift.String, registrationId: Swift.String, responseText: Swift.String?)
+  public static func == (a: FPAmaKit.ReportCommandEventData, b: FPAmaKit.ReportCommandEventData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public protocol HashStrategyCreating {
+  func create() -> any FPAmaKit.HashStrategy
+}
+public struct SyncAmaCommandsResult {
+  public let foregroundCommands: [any FPAmaKit.AmaPendingForegroundCommand]
+  public let commandResults: [any FPAmaKit.AmaCommandExecutionResult]
+  public init(foregroundCommands: [any FPAmaKit.AmaPendingForegroundCommand], commandResults: [any FPAmaKit.AmaCommandExecutionResult])
+}
+public protocol HashStrategy {
+  func generateHash(for url: Foundation.URL) throws -> Swift.String
+}
+public enum CommandStatus {
+}
+public protocol AmaServiceProviding {
+  func serviceActivated() -> Swift.Bool
+  func serviceStarted() -> Swift.Bool
+  func deviceAttached() -> Swift.Bool
+  func deviceAttachPending() -> Swift.Bool
+  func deviceDetachPending() -> Swift.Bool
+  #if compiler(>=5.3) && $AsyncAwait
+  func processTask() async -> FPAmaKit.SyncAmaCommandsResult
+  #endif
+  func clearCredentials() -> Swift.Bool
+  #if compiler(>=5.3) && $AsyncAwait
+  func activate() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  func checkCommands() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  func getCommands() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  func startService() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  func stopService() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  func attachDevice(deviceIdentifier: Swift.String, machineData: [FPAmaKit.MachineDataElement]?) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  func retryAttachDevice() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  func retryDetachDevice() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  func detachDevice(deviceIdentifier: Swift.String) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  func palEvent(deviceIdentifier: Swift.String, eventData: FPAmaKit.PalEventData, eventType: FPAmaKit.EcosystemEvent) async throws
+  #endif
+}
+public struct EcosystemEventMessage : Swift.Codable, Swift.Equatable {
+  public init(aggregateName: Swift.String, applicationData: [FPAmaKit.MachineDataElement]?, applicationName: Swift.String, deviceIdentifier: Swift.String, eventTypeId: FPAmaKit.EcosystemEvent, generateDateUtc: Swift.String, machineData: [FPAmaKit.MachineDataElement]?, registrationId: Swift.String, responseText: Swift.String?, eventData: FPAmaKit.PalEventData?)
+  public static func == (a: FPAmaKit.EcosystemEventMessage, b: FPAmaKit.EcosystemEventMessage) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public enum AMAError : Swift.Error, Swift.Equatable {
+  case unexpectedResponseTypeReturnedError
+  case unableToCreateFreeWayUrlError(message: Swift.String)
+  case freeWayResponseFailedError(statusCode: Swift.Int)
+  case expectedResponsePayloadNotFoundError
+  case responseBodyEmpty
+  case unexpectedJSONParsingError
+  case unexpextedRequestDataError
+  case activationInProcess
+  case emptyMachineKey
+  case noCredentials
+  case emptyCommandIdentifier
+  case emptyCommandType
+  case emptyDownloadLocation
+  case emptyHashValue
+  case emptyFileSize
+  case invalidLocationUrl
+  case invalidHashValue
+  case nullDeviceIdentifier
+  case httpInvokeError(error: Swift.String)
+  case httpResponseError(error: Swift.String)
+  case moveFileError(error: Swift.String)
+  case invalidManagedContext
+  case executeCommandFailed
+  case unsupportedCommand(commandType: Swift.Int64)
+  case emptyEventIdentifier
+  case emptyEventData
+  case eventNotFound
+  case unableToLoadDataFromURL(url: Foundation.URL, message: Swift.String)
+  case unableToCreateFileHandleForURL(url: Foundation.URL, message: Swift.String)
+  case unableToReadContentInURL(url: Foundation.URL, message: Swift.String)
+  public var localizedDescription: Swift.String {
+    get
+  }
+  public static func == (a: FPAmaKit.AMAError, b: FPAmaKit.AMAError) -> Swift.Bool
+}
+public protocol KeyValueStoring {
+  func string(forKey defaultName: Swift.String) -> Swift.String?
+  func set(_ value: Swift.String, forKey defaultName: Swift.String)
+  func removeObject(forKey defaultName: Swift.String) -> Swift.Bool
+}
+public struct SHA256OnDiskHashStrategy : FPAmaKit.HashStrategy {
+  public func generateHash(for url: Foundation.URL) throws -> Swift.String
+}
+public protocol AmaServiceCreating {
+  func create(hostName: Swift.String, context: FPAmaKit.AmaApplicationContext, logger: any FPLoggerKit.Logger, urlSession: Foundation.URLSession, amaPALPackageStagedNotificationName: Foundation.Notification.Name) -> any FPAmaKit.AmaServiceProviding
+}
+extension FPAmaKit.AmaServiceCreating {
+  public func create(hostName: Swift.String, context: FPAmaKit.AmaApplicationContext, logger: any FPLoggerKit.Logger, amaPALPackageStagedNotificationName: Foundation.Notification.Name) -> any FPAmaKit.AmaServiceProviding
+}
+public enum CommandEvent : Swift.Int, Swift.Codable {
+  case unknown
+  case unsupported
+  case downloadFailed
+  case payloadValidationFailed
+  case payloadExecutionStarted
+  case payloadExecutionFailed
+  case payloadExecutionSucceeded
+  case acknowledged
+  case notNow
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension FPAmaKit.CommandEvent : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+public struct AmaLibLogModuleIdentifier {
+  public static let uuid: Foundation.UUID
+}
+public class AmaLibLoggerModuleIdentity : FPLoggerKit.LoggerModuleIdentity {
+  public func loggingModules(levels: [Swift.String : FPLoggerKit.LogLevel], defaultLevel: FPLoggerKit.LogLevel) -> [any FPLoggerKit.LoggerModule]
+  public init()
+  @objc deinit
+}
+public protocol AmaResultData : Swift.CustomStringConvertible {
+  var description: Swift.String { get }
+}
+public struct PalResultData : FPAmaKit.AmaResultData {
+  public let fileName: Swift.String
+  public var description: Swift.String {
+    get
+  }
+}
+@objc public class AmaApplicationContext : ObjectiveC.NSObject {
+  final public let processCommandInterval: Swift.UInt
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  public init(applicationName: Swift.String, version: Swift.String, terminalId: Swift.String, storeId: Swift.String, activationKey: Swift.String, amaProcessTimeInterval: Swift.UInt)
+  @objc deinit
+}
+public struct AmaConstants {
+  public static let defaultNetworkConnectionTimeOutInSeconds: Swift.Int
+  public static let minProcessTimeInterval: Swift.UInt
+}
+@_hasMissingDesignatedInitializers public class AmaService : FPAmaKit.AmaServiceProviding {
+  public func serviceActivated() -> Swift.Bool
+  public func serviceStarted() -> Swift.Bool
+  public func deviceAttached() -> Swift.Bool
+  public func deviceAttachPending() -> Swift.Bool
+  public func deviceDetachPending() -> Swift.Bool
+  #if compiler(>=5.3) && $AsyncAwait
+  public func processTask() async -> FPAmaKit.SyncAmaCommandsResult
+  #endif
+  public func clearCredentials() -> Swift.Bool
+  #if compiler(>=5.3) && $AsyncAwait
+  public func activate() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func checkCommands() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func getCommands() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func startService() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func stopService() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func attachDevice(deviceIdentifier: Swift.String, machineData: [FPAmaKit.MachineDataElement]?) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func retryAttachDevice() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func retryDetachDevice() async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func detachDevice(deviceIdentifier: Swift.String) async throws
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public func palEvent(deviceIdentifier: Swift.String, eventData: FPAmaKit.PalEventData, eventType: FPAmaKit.EcosystemEvent) async throws
+  #endif
+  @objc deinit
+}
+public enum AmaCommandType : Swift.Int64, Swift.Codable, Swift.CustomStringConvertible, Swift.CaseIterable {
+  case unknown
+  case getMiddlewareLogFiles
+  case updateRUS
+  case stagePALPackage
+  case updateMiddleware
+  case getDeviceConfiguration
+  case middlewareConfigUpdate
+  case updateFirmware
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int64)
+  public typealias AllCases = [FPAmaKit.AmaCommandType]
+  public typealias RawValue = Swift.Int64
+  public static var allCases: [FPAmaKit.AmaCommandType] {
+    get
+  }
+  public var rawValue: Swift.Int64 {
+    get
+  }
+}
+@objc @_hasMissingDesignatedInitializers public class AmaFileInfo : ObjectiveC.NSObject, Swift.Codable, Foundation.NSSecureCoding {
+  @objc public static var supportsSecureCoding: Swift.Bool
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc public func encode(with coder: Foundation.NSCoder)
+  @objc required public init?(coder: Foundation.NSCoder)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+@objc @_hasMissingDesignatedInitializers public class AmaCommandRequest : ObjectiveC.NSObject, Swift.Codable, Foundation.NSSecureCoding {
+  @objc override dynamic public var description: Swift.String {
+    @objc get
+  }
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc public static var supportsSecureCoding: Swift.Bool
+  @objc public func encode(with coder: Foundation.NSCoder)
+  @objc required public init?(coder: Foundation.NSCoder)
+  required public init(from decoder: any Swift.Decoder) throws
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+@objc @_hasMissingDesignatedInitializers public class AmaCommandResponse : ObjectiveC.NSObject, Swift.Codable, Foundation.NSSecureCoding {
+  @objc override dynamic public func isEqual(_ object: Any?) -> Swift.Bool
+  @objc public static var supportsSecureCoding: Swift.Bool
+  @objc public func encode(with coder: Foundation.NSCoder)
+  @objc required public init?(coder: Foundation.NSCoder)
+  @objc deinit
+  public func encode(to encoder: any Swift.Encoder) throws
+  required public init(from decoder: any Swift.Decoder) throws
+}
+public struct MachineDataElement : Swift.Codable, Swift.CustomStringConvertible, Swift.Equatable {
+  public init(key: Swift.String, value: Swift.String)
+  public var description: Swift.String {
+    get
+  }
+  public static func == (a: FPAmaKit.MachineDataElement, b: FPAmaKit.MachineDataElement) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public protocol AmaPendingForegroundCommand : Swift.CustomStringConvertible {
+  var commandId: Swift.String { get }
+  var commandType: FPAmaKit.AmaCommandType { get }
+}
+extension FPAmaKit.AmaPendingForegroundCommand {
+  public var description: Swift.String {
+    get
+  }
+}
+public protocol AmaCommandExecutionResult : Swift.CustomStringConvertible {
+  var commandId: Swift.String { get }
+  var commandType: FPAmaKit.AmaCommandType { get }
+  var isSuccess: Swift.Bool { get }
+  var error: (any Swift.Error)? { get }
+  var resultData: (any FPAmaKit.AmaResultData)? { get }
+  var description: Swift.String { get }
+}
+extension FPAmaKit.AmaCommandExecutionResult {
+  public var description: Swift.String {
+    get
+  }
+}
+public struct CommandExecutionResult : FPAmaKit.AmaCommandExecutionResult {
+  public let commandId: Swift.String
+  public let commandType: FPAmaKit.AmaCommandType
+  public let isSuccess: Swift.Bool
+  public let error: (any Swift.Error)?
+  public let resultData: (any FPAmaKit.AmaResultData)?
+}
+public struct PalEventData : Swift.Codable, Swift.Equatable {
+  public init(filename: Swift.String, hash: Swift.String, packageName: Swift.String, variant: Swift.String, version: Swift.String, eventDataType: Swift.Int = 1)
+  public static func == (a: FPAmaKit.PalEventData, b: FPAmaKit.PalEventData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+public struct HashStrategyFactory : FPAmaKit.HashStrategyCreating {
+  public init()
+  public func create() -> any FPAmaKit.HashStrategy
+}
+@objc @_inheritsConvenienceInitializers public class Event : CoreData.NSManagedObject {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+  @objc deinit
+}
+extension FPAmaKit.Event {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<FPAmaKit.Event>
+  @objc @NSManaged dynamic public var attemptCount: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var dateAdded: Foundation.Date? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var dateUpdated: Foundation.Date? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var deviceIdentifier: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var ecosystemEventId: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var eventData: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var eventIdentifier: Foundation.UUID? {
+    @objc get
+    @objc set
+  }
+}
+extension FPAmaKit.Event : Swift.Identifiable {
+  public typealias ID = Swift.ObjectIdentifier
+}
+@objc @_inheritsConvenienceInitializers public class PreparedCommand : CoreData.NSManagedObject {
+  @objc override dynamic public init(entity: CoreData.NSEntityDescription, insertInto context: CoreData.NSManagedObjectContext?)
+  @objc deinit
+}
+extension FPAmaKit.PreparedCommand {
+  @nonobjc public class func fetchRequest() -> CoreData.NSFetchRequest<FPAmaKit.PreparedCommand>
+  @objc @NSManaged dynamic public var commandIdentifier: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var commandReportingEvent: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var commandStatus: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var commandType: Swift.Int64 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var dateAdded: Foundation.Date? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var executionAttempts: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var lastExecutionEndTime: Foundation.Date? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var lastExecutionStartTime: Foundation.Date? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var localDownloadPath: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var request: FPAmaKit.AmaCommandRequest? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var response: FPAmaKit.AmaCommandResponse? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var terminalStatus: Swift.String? {
+    @objc get
+    @objc set
+  }
+  @objc @NSManaged dynamic public var terminalStatusReportingAttempts: Swift.Int16 {
+    @objc get
+    @objc set
+  }
+}
+extension FPAmaKit.PreparedCommand : Swift.Identifiable {
+  public typealias ID = Swift.ObjectIdentifier
+}
+extension FPAmaKit.EcosystemEvent : Swift.Hashable {}
+extension FPAmaKit.EcosystemEvent : Swift.RawRepresentable {}
+extension FPAmaKit.CommandEvent : Swift.Equatable {}
+extension FPAmaKit.CommandEvent : Swift.Hashable {}
+extension FPAmaKit.CommandEvent : Swift.RawRepresentable {}
+extension FPAmaKit.AmaCommandType : Swift.Equatable {}
+extension FPAmaKit.AmaCommandType : Swift.Hashable {}
+extension FPAmaKit.AmaCommandType : Swift.RawRepresentable {}
